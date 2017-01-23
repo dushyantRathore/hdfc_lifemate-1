@@ -6,8 +6,8 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "call_to_actions":[
     {
       "type":"postback",
-      "title":"Search",
-      "payload":"search"
+      "title":"View Plans",
+      "payload":"view_insurance"
     },
     {
       "type":"postback",
