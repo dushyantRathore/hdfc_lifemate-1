@@ -37,7 +37,7 @@ def webhook():
             for messaging_event in entry["messaging"]:
 
                 sender_id = messaging_event["sender"]["id"]
-                
+
                 if messaging_event.get("message"):  # someone sent us a message
 
                     # the facebook ID of the person sending you the message
@@ -60,7 +60,7 @@ def webhook():
                     payload_received = messaging_event[
                         "postback"].get("payload")
                     if payload_received == "view_insurance":
-                        create_view_insurance_button_template()
+                        create_view_insurance_button_template(sender_id)
                     if payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(INSURANCE_IMAGES_DIRECTORY, insurance_name, "features.png")
@@ -165,7 +165,7 @@ def create_generic_template(sender_id, name, subtitle, image_url, phone, navigat
         log(r.status_code)
         log(r.text)
 
-def create_view_insurance_button_template():
+def create_view_insurance_button_template(sender_id):
     log("inside create button template method")
     response_msg = json.dumps(
         {"recipient": {"id": sender_id},
