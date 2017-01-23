@@ -202,46 +202,24 @@ def create_view_insurance_list(sender_id):
             "elements": [
                 {
                     "title": "Classic T-Shirt Collection",
-                    "image_url": "",
                     "subtitle": "See all our colors",
-                    "default_action": {
-                        "type": "web_url",
-                        "url": "",
-                        "messenger_extensions": True,
-                        "webview_height_ratio": "tall",
-                        "fallback_url": ""
-                    },
                     "buttons": [
                         {
-                            "title": "View",
-                            "type": "web_url",
-                            "url": "",
-                            "messenger_extensions": True,
-                            "webview_height_ratio": "tall",
-                            "fallback_url": ""                        
-                        }
+                            "type":"postback",
+                            "title":"Yes",
+                            "payload":"_yes"
+                          }
                     ]
                 },
                 {
                     "title": "Classic White T-Shirt",
-                    "image_url": "",
                     "subtitle": "100% Cotton, 200% Comfortable",
-                    "default_action": {
-                        "type": "web_url",
-                        "url": "",
-                        "messenger_extensions": True,
-                        "webview_height_ratio": "tall",
-                        "fallback_url": ""
-                    },
                     "buttons": [
                         {
-                            "title": "Shop Now",
-                            "type": "web_url",
-                            "url": "",
-                            "messenger_extensions": True,
-                            "webview_height_ratio": "tall",
-                            "fallback_url": ""                        
-                        }
+                            "type":"postback",
+                            "title":"No",
+                            "payload":"_no"
+                          }
                     ]                
                 },
                 
