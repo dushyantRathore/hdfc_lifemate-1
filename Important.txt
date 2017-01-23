@@ -31,3 +31,15 @@ curl -X POST -H "Content-Type: application/json" -d '{
     }
   ]
 }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAYf4U7ZAqz8BANdVulSRIesdt7o3XUAKpHaHxebFUOo4ZBWJFCLfeD8SDrCACS8jV9j66O7WhUQWUrSJpwtAT1FlFSOEipRJG0DQhuXJVzZBLhoemfuryoZBUhFqAVXfemQoJJLANFIseLbm6ZALbPcyXOcRAp35I7xgMSSOjwZDZD"
+
+
+# ------------------- Getting Started ----------------- #
+curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type":"call_to_actions",
+  "thread_state":"new_thread",
+  "call_to_actions":[
+    {
+      "payload":"getstarted"
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAYf4U7ZAqz8BANdVulSRIesdt7o3XUAKpHaHxebFUOo4ZBWJFCLfeD8SDrCACS8jV9j66O7WhUQWUrSJpwtAT1FlFSOEipRJG0DQhuXJVzZBLhoemfuryoZBUhFqAVXfemQoJJLANFIseLbm6ZALbPcyXOcRAp35I7xgMSSOjwZDZD"
