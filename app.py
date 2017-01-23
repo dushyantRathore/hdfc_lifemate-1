@@ -60,7 +60,7 @@ def webhook():
                     payload_received = messaging_event[
                         "postback"].get("payload")
                     if payload_received == "view_insurance":
-                        create_view_insurance_button(sender_id)
+                        create_view_insurance_button_message(sender_id)
                     if payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(INSURANCE_IMAGES_DIRECTORY, insurance_name, "features.png")
