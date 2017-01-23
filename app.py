@@ -60,7 +60,7 @@ def webhook():
                     payload_received = messaging_event[
                         "postback"].get("payload")
                     if payload_received == "view_insurance":
-                        create_view_insurance_button_message(sender_id)
+                        create_view_insurance_list(sender_id)
                     if payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(INSURANCE_IMAGES_DIRECTORY, insurance_name, "features.png")
@@ -151,21 +151,9 @@ def create_generic_template(sender_id, name, subtitle, image_url, phone, navigat
              }
          }
          })
+    post_request(response_msg)
 
-    params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers,
-                      data=response_msg)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
-
-def create_view_insurance_button_message(sender_id):
+def create_yes_no_button_message(sender_id, context, question_text):
     button_message = json.dumps({
     "recipient":{
                     "id": sender_id
@@ -179,19 +167,64 @@ def create_view_insurance_button_message(sender_id):
                 "buttons": [
                           {
                             "type":"postback",
-                            "title":"Click2Protect Life Insurance",
-                            "payload":"view_insurance_click2protect"
+                            "title":"Yes",
+                            "payload":context+"_yes"
                           },
                           {
                             "type":"postback",
-                            "title":"Click2Invest Savings Plan",
-                            "payload":"view_insurance_click2invest"
+                            "title":"No",
+                            "payload":context+"_no"
                           }
                     ]
                 }
             }
         }
     })
+
+    post_request(button_message)
+
+def create_view_insurance_list(sender_id):
+    insurance_list_template = {
+      "recipient":{
+        "id":sender_id,
+        }, 
+        "message": {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "list",
+                "elements": [
+                    {
+                        "title": "<b>HDFC Insurance Plans<b>",
+                        "subtitle": "Choose the plan you are interested in",
+                    },
+                    {
+                        "title": "Click2Protect",
+                        "subtitle": "HDFC Life Insurance Plan",         
+                    },
+                    {
+                        "title": "Click2Invest",
+                        "subtitle": "HDFC Savings and Investment Plan",         
+                    },
+                    {
+                        "title": "Easy Health",
+                        "subtitle": "HDFC Health Insurance Plan",         
+                    },
+                    {
+                        "title": "Cancer Care",
+                        "subtitle": "HDFC Cancer Care Plan",         
+                    }
+                ]
+                
+            }
+        }
+    }
+    }
+
+    post_request(insurance_list_template)
+
+
+def post_request(body):
 
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
@@ -201,10 +234,11 @@ def create_view_insurance_button_message(sender_id):
     }
 
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers,
-                      data=button_message)
+                      data=body)
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
 def create_image_message(sender_id, image_url):
 
     image_message = json.dumps({
