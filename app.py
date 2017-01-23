@@ -63,7 +63,11 @@ def webhook():
                         sender_id = messaging_event["sender"]["id"]
                         print(sender_id)
                         create_view_insurance_list(sender_id)
-                    if payload_received.startswith('view_insurance_'):
+                    elif payload_received == "apply":
+                        create_yes_no_button_message(sender_id)
+                    elif payload_received == "history":
+                        create_image_message(sender_id, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png')
+                    elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(INSURANCE_IMAGES_DIRECTORY, insurance_name, "features.png")
                         create_image_message(sender_id, features_path)
@@ -189,7 +193,7 @@ def create_view_insurance_list(sender_id):
     print(sender_id)
     insurance_list_template = {
       "recipient":{
-        "id":sender_id,
+        "id":sender_id
         }, 
         "message": {
         "attachment": {
