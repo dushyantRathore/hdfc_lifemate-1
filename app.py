@@ -202,6 +202,7 @@ def create_view_insurance_list(sender_id):
             "elements": [
                 {
                     "title": "Classic T-Shirt Collection",
+                    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png"
                     "subtitle": "See all our colors",
                     "buttons": [
                         {
