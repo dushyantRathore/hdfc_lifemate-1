@@ -60,6 +60,8 @@ def webhook():
                     payload_received = messaging_event[
                         "postback"].get("payload")
                     if payload_received == "view_insurance":
+                        sender_id = messaging_event["sender"]["id"]
+                        print(sender_id)
                         create_view_insurance_list(sender_id)
                     if payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
@@ -184,6 +186,7 @@ def create_yes_no_button_message(sender_id, context, question_text):
     post_request(button_message)
 
 def create_view_insurance_list(sender_id):
+    print(sender_id)
     insurance_list_template = {
       "recipient":{
         "id":sender_id,
