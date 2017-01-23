@@ -64,7 +64,7 @@ def webhook():
                         print(sender_id)
                         create_view_insurance_list(sender_id)
                     elif payload_received == "apply":
-                        create_yes_no_button_message(sender_id)
+                        create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
                     elif payload_received == "history":
                         create_image_message(sender_id, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png')
                     elif payload_received.startswith('view_insurance_'):
@@ -228,6 +228,116 @@ def create_view_insurance_list(sender_id):
     }
     }
 
+    insurance_list_template2 = {
+  "recipient":{
+    "id": sender_id
+  }, "message": {
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "list",
+            "elements": [
+                {
+                    "title": "Classic T-Shirt Collection",
+                    "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",
+                    "subtitle": "See all our colors",
+                    "default_action": {
+                        "type": "web_url",
+                        "url": "https://peterssendreceiveapp.ngrok.io/shop_collection",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "tall",
+                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                    },
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "web_url",
+                            "url": "https://peterssendreceiveapp.ngrok.io/collection",
+                            "messenger_extensions": true,
+                            "webview_height_ratio": "tall",
+                            "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
+                        }
+                    ]
+                },
+                {
+                    "title": "Classic White T-Shirt",
+                    "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
+                    "subtitle": "100% Cotton, 200% Comfortable",
+                    "default_action": {
+                        "type": "web_url",
+                        "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "tall",
+                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                    },
+                    "buttons": [
+                        {
+                            "title": "Shop Now",
+                            "type": "web_url",
+                            "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
+                            "messenger_extensions": true,
+                            "webview_height_ratio": "tall",
+                            "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
+                        }
+                    ]                
+                },
+                {
+                    "title": "Classic Blue T-Shirt",
+                    "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+                    "subtitle": "100% Cotton, 200% Comfortable",
+                    "default_action": {
+                        "type": "web_url",
+                        "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "tall",
+                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                    },
+                    "buttons": [
+                        {
+                            "title": "Shop Now",
+                            "type": "web_url",
+                            "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+                            "messenger_extensions": true,
+                            "webview_height_ratio": "tall",
+                            "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
+                        }
+                    ]                
+                },
+                {
+                    "title": "Classic Black T-Shirt",
+                    "image_url": "https://peterssendreceiveapp.ngrok.io/img/black-t-shirt.png",
+                    "subtitle": "100% Cotton, 200% Comfortable",
+                    "default_action": {
+                        "type": "web_url",
+                        "url": "https://peterssendreceiveapp.ngrok.io/view?item=102",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "tall",
+                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                    },
+                    "buttons": [
+                        {
+                            "title": "Shop Now",
+                            "type": "web_url",
+                            "url": "https://peterssendreceiveapp.ngrok.io/shop?item=102",
+                            "messenger_extensions": true,
+                            "webview_height_ratio": "tall",
+                            "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
+                        }
+                    ]                
+                }
+            ],
+             "buttons": [
+                {
+                    "title": "View More",
+                    "type": "postback",
+                    "payload": "payload"                        
+                }
+            ]  
+        }
+    }
+}
+    
+}
     post_request(insurance_list_template)
 
 
