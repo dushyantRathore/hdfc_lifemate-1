@@ -1,0 +1,33 @@
+# -------------------- Persistent Menu ---------------------- #
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type" : "call_to_actions",
+  "thread_state" : "existing_thread",
+  "call_to_actions":[
+    {
+      "type":"postback",
+      "title":"Search",
+      "payload":"search"
+    },
+    {
+      "type":"postback",
+      "title":"Apply",
+      "payload":"apply"
+    },
+    {
+      "type":"postback",
+      "title":"Initiate a Claim",
+      "payload":"claim"
+    },
+    {
+      "type":"postback",
+      "title":"History",
+      "payload":"history"
+    },
+    {
+      "type":"postback",
+      "title":"Help",
+      "payload":"help"
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAYf4U7ZAqz8BANdVulSRIesdt7o3XUAKpHaHxebFUOo4ZBWJFCLfeD8SDrCACS8jV9j66O7WhUQWUrSJpwtAT1FlFSOEipRJG0DQhuXJVzZBLhoemfuryoZBUhFqAVXfemQoJJLANFIseLbm6ZALbPcyXOcRAp35I7xgMSSOjwZDZD"
