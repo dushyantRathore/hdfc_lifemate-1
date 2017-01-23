@@ -194,7 +194,7 @@ def create_view_insurance_list(sender_id):
     insurance_list_template = 
 {
   "recipient":{
-    "id":"RECIPIENT_ID"
+    "id":sender_id
   }, "message": {
     "attachment": {
         "type": "template",
@@ -208,7 +208,7 @@ def create_view_insurance_list(sender_id):
                     "default_action": {
                         "type": "web_url",
                         "url": "https://peterssendreceiveapp.ngrok.io/shop_collection",
-                        "messenger_extensions": true,
+                        "messenger_extensions": True,
                         "webview_height_ratio": "tall",
                         "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
                     },
@@ -217,7 +217,7 @@ def create_view_insurance_list(sender_id):
                             "title": "View",
                             "type": "web_url",
                             "url": "https://peterssendreceiveapp.ngrok.io/collection",
-                            "messenger_extensions": true,
+                            "messenger_extensions": True,
                             "webview_height_ratio": "tall",
                             "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
                         }
@@ -230,7 +230,7 @@ def create_view_insurance_list(sender_id):
                     "default_action": {
                         "type": "web_url",
                         "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
-                        "messenger_extensions": true,
+                        "messenger_extensions": True,
                         "webview_height_ratio": "tall",
                         "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
                     },
@@ -239,7 +239,7 @@ def create_view_insurance_list(sender_id):
                             "title": "Shop Now",
                             "type": "web_url",
                             "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
-                            "messenger_extensions": true,
+                            "messenger_extensions": True,
                             "webview_height_ratio": "tall",
                             "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
                         }
@@ -252,7 +252,7 @@ def create_view_insurance_list(sender_id):
                     "default_action": {
                         "type": "web_url",
                         "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
-                        "messenger_extensions": true,
+                        "messenger_extensions": True,
                         "webview_height_ratio": "tall",
                         "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
                     },
@@ -261,7 +261,7 @@ def create_view_insurance_list(sender_id):
                             "title": "Shop Now",
                             "type": "web_url",
                             "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
-                            "messenger_extensions": true,
+                            "messenger_extensions": True,
                             "webview_height_ratio": "tall",
                             "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
                         }
@@ -274,7 +274,7 @@ def create_view_insurance_list(sender_id):
                     "default_action": {
                         "type": "web_url",
                         "url": "https://peterssendreceiveapp.ngrok.io/view?item=102",
-                        "messenger_extensions": true,
+                        "messenger_extensions": True,
                         "webview_height_ratio": "tall",
                         "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
                     },
@@ -283,7 +283,7 @@ def create_view_insurance_list(sender_id):
                             "title": "Shop Now",
                             "type": "web_url",
                             "url": "https://peterssendreceiveapp.ngrok.io/shop?item=102",
-                            "messenger_extensions": true,
+                            "messenger_extensions": True,
                             "webview_height_ratio": "tall",
                             "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
                         }
