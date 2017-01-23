@@ -338,7 +338,7 @@ def create_view_insurance_list(sender_id):
 }
     
 }
-    post_request(insurance_list_template)
+    post_request(insurance_list_template2)
 
 
 def post_request(body):
