@@ -60,7 +60,7 @@ def webhook():
                     payload_received = messaging_event[
                         "postback"].get("payload")
                     if payload_received == "view_insurance":
-                        create_view_insurance_button_template(sender_id)
+                        create_view_insurance_button(sender_id)
                     if payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(INSURANCE_IMAGES_DIRECTORY, insurance_name, "features.png")
@@ -165,18 +165,19 @@ def create_generic_template(sender_id, name, subtitle, image_url, phone, navigat
         log(r.status_code)
         log(r.text)
 
-def create_view_insurance_button_template(sender_id):
-    log("inside create button template method")
-    response_msg = json.dumps(
-        {"recipient": {"id": sender_id},
-         "message": {
-             "attachment": {
-                 "type": "template",
-                 "payload": {
-                     "template_type": "button",
-                     "text":"HDFC Life currently offers following products, please select one of them :)",
-                     "buttons": [
-                        {
+def create_view_insurance_button_message(sender_id):
+    button_message = json.dumps({
+    "recipient":{
+                    "id": sender_id
+                },
+    "message":{
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "button",
+                "text": "HDFC Life currently offers following products, please select one of them",
+                "buttons": [
+                          {
                             "type":"postback",
                             "title":"Click2Protect Life Insurance",
                             "payload":"view_insurance_click2protect"
@@ -196,11 +197,11 @@ def create_view_insurance_button_template(sender_id):
                             "title":"Cancer care Plan",
                             "payload":"view_insurance_cancercare"
                           }
-                     ]
-                 }
-             }
-         }
-         })
+                    ]
+                }
+            }
+        }
+    })
 
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
@@ -210,11 +211,10 @@ def create_view_insurance_button_template(sender_id):
     }
 
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers,
-                      data=response_msg)
+                      data=button_message)
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
-
 def create_image_message(sender_id, image_url):
 
     image_message = json.dumps({
