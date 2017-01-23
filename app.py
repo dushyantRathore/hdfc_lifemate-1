@@ -206,7 +206,9 @@ def create_view_insurance_list(sender_id):
                     "subtitle": "100% Cotton, 200% Comfortable",
                     "buttons": [
                         {
-                            "title": "Buy"                     
+                            "title": "Sell", 
+                            "type": "postback",
+                            "payload": "sell_payload"                     
                         }
                     ]                
                 },
@@ -215,7 +217,9 @@ def create_view_insurance_list(sender_id):
                     "subtitle": "100% Cotton, 200% Comfortable",
                     "buttons": [
                         {
-                            "title": "Buy",                    
+                            "title": "Buy", 
+                            "type": "postback",
+                            "payload": "buy_payload"                   
                         }
                     ]                
                 },
