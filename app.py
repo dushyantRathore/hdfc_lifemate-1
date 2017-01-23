@@ -191,7 +191,7 @@ def create_yes_no_button_message(sender_id, context, question_text):
 
 def create_view_insurance_list(sender_id):
     print(sender_id)
-    insurance_list_template = {
+    insurance_list_template = json.dumps({
   "recipient":{
     "id":"RECIPIENT_ID"
   }, "message": {
@@ -299,13 +299,12 @@ def create_view_insurance_list(sender_id):
         }
     }
 }
-}    
+})
 
     post_request(insurance_list_template)
 
 
 def post_request(body):
-    body = json.dumps(body)
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
