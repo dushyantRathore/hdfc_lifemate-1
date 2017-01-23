@@ -193,7 +193,7 @@ def create_view_insurance_list(sender_id):
     print(sender_id)
     insurance_list_template = json.dumps({
   "recipient":{
-    "id":"RECIPIENT_ID"
+    "id":sender_id
   }, "message": {
     "attachment": {
         "type": "template",
