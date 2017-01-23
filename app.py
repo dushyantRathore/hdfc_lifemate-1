@@ -175,27 +175,17 @@ def create_view_insurance_button_message(sender_id):
             "type": "template",
             "payload": {
                 "template_type": "button",
-                "text": "Please select one of them",
+                "text": "HDFC Life currently offers following products, please select one of them",
                 "buttons": [
                           {
                             "type":"postback",
-                            "title":"Click2Protect",
+                            "title":"Click2Protect Life Insurance",
                             "payload":"view_insurance_click2protect"
                           },
                           {
                             "type":"postback",
-                            "title":"Click2Invest",
+                            "title":"Click2Invest Savings Plan",
                             "payload":"view_insurance_click2invest"
-                          },
-                          {
-                            "type":"postback",
-                            "title":"EasyHealth",
-                            "payload":"view_insurance_easyhealth"
-                          },
-                          {
-                            "type":"postback",
-                            "title":"Cancer care",
-                            "payload":"view_insurance_cancercare"
                           }
                     ]
                 }
