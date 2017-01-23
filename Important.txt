@@ -39,8 +39,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "thread_state":"new_thread",
   "call_to_actions":[
     {
-      "payload":"getstarted",
-      "title" : "Personal HDFC Insurance Bot"
+      "payload":"getstarted"
     }
   ]
 }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAYf4U7ZAqz8BANdVulSRIesdt7o3XUAKpHaHxebFUOo4ZBWJFCLfeD8SDrCACS8jV9j66O7WhUQWUrSJpwtAT1FlFSOEipRJG0DQhuXJVzZBLhoemfuryoZBUhFqAVXfemQoJJLANFIseLbm6ZALbPcyXOcRAp35I7xgMSSOjwZDZD"
