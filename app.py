@@ -193,48 +193,37 @@ def create_view_insurance_list(sender_id):
     print(sender_id)
     insurance_list_template = json.dumps({
   "recipient":{
-    "id":sender_id
+    "id":"RECIPIENT_ID"
   }, "message": {
     "attachment": {
         "type": "template",
         "payload": {
             "template_type": "list",
+            "top_element_style": "compact",
             "elements": [
-                {
-                    "title": "Classic T-Shirt Collection",
-                    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png"
-                    "subtitle": "See all our colors",
-                    "buttons": [
-                        {
-                            "type":"postback",
-                            "title":"Yes",
-                            "payload":"_yes"
-                          }
-                    ]
-                },
                 {
                     "title": "Classic White T-Shirt",
                     "subtitle": "100% Cotton, 200% Comfortable",
                     "buttons": [
                         {
-                            "type":"postback",
-                            "title":"No",
-                            "payload":"_no"
-                          }
+                            "title": "Buy"                     
+                        }
                     ]                
                 },
-                
-            ],
-             "buttons": [
                 {
-                    "title": "View More",
-                    "type": "postback",
-                    "payload": "payload"                        
-                }
-            ]  
-        }   
+                    "title": "Classic Blue T-Shirt",
+                    "subtitle": "100% Cotton, 200% Comfortable",
+                    "buttons": [
+                        {
+                            "title": "Buy",                    
+                        }
+                    ]                
+                },
+            ],
+        }
     }
 }
+    
 })
 
     post_request(insurance_list_template)
