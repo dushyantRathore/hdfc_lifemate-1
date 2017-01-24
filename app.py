@@ -217,7 +217,7 @@ def create_account_list(sender_id):
                     "top_element_style": "compact",
                     "elements": [
                         {
-                            "title": "<b>Account Details</b>",
+                            "title": "Account Details",
                             "subtitle": "Get your Account Details",
                         },
                         {
