@@ -287,7 +287,7 @@ def create_account_policies_list(sender_id):
                         {
                             "title": "Click2Protect",
                             "subtitle": "Premium - 40,000"
-                                        "Due Date - 29/01/2017 ",
+                                        "\nDue Date - 29/01/2017 ",
                             "buttons": [
                                 {
                                     "title": "Pay/Remind",
@@ -299,7 +299,7 @@ def create_account_policies_list(sender_id):
                         {
                             "title": "Click2Invest",
                             "subtitle": "Premium - 20,000"
-                                        "Due Date - 05/03/2017 ",
+                                        "\nDue Date - 05/03/2017 ",
                             "buttons": [
                                 {
                                     "title": "Pay/Remind",
@@ -311,7 +311,7 @@ def create_account_policies_list(sender_id):
                         {
                             "title": "Cancer Care",
                             "subtitle": "Premium - 80,000"
-                                        "Due Date - 06/05/2017 ",
+                                        "\nDue Date - 06/05/2017 ",
                             "buttons": [
                                 {
                                     "title": "Pay/Remind",
