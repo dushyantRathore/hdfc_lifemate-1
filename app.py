@@ -64,15 +64,12 @@ def webhook():
                             if "eligibl" in message_text:
                                 elgibility_path = os.path.join(insurance_name, 'eligibility.png')
                                 create_image_message(sender_id, elgibility_path, True)
-                                reset_flag()
                             elif "premium" in message_text:
                                 premium_path = os.path.join(insurance_name, 'premium.png')
                                 create_image_message(sender_id, premium_path, True)
-                                reset_flag()
                             elif "option" in message_text:
                                 options_path = os.path.join(insurance_name, 'options.png')
                                 create_image_message(sender_id, options_path, True)
-                                reset_flag()
                             else:
                                 send_message(sender_id, constants.brochure_links.get(insurance_name))
                     else:
