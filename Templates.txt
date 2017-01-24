@@ -1,0 +1,66 @@
+# -------------------- View Insurance Plans ---------------------- #
+
+    insurance_list_template = json.dumps({
+  "recipient":{
+    "id":sender_id
+  }, "message": {
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "list",
+            "top_element_style": "compact",
+            "elements": [
+                {
+                    "title": "HDFC Life Insurance Plans",
+                    "subtitle": "Please choose a plan of your interest",
+                },
+                {
+                    "title": "Click2Protect",
+                    "subtitle": "HDFC Life Insurance Plan",
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "postback",
+                            "payload": "view_insurance_life"
+                        }
+                    ]
+                },
+                {
+                    "title": "Click2Invest",
+                    "subtitle": "HDFC Life Investment Plan",
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "postback",
+                            "payload": "view_insurance_invest"
+                        }
+                    ]
+                },
+                {
+                    "title": "Easy Health",
+                    "subtitle": "HDFC Health Insurance Plan",
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "postback",
+                            "payload": "view_insurance_health"
+                        }
+                    ]
+                }
+                {
+                    "title": "Cancer Care",
+                    "subtitle": "HDFC Cancer Care Plan",
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "postback",
+                            "payload": "view_insurance_cancer"
+                        }
+                    ]
+                }
+            ],
+        }
+    }
+}
+
+})

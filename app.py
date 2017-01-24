@@ -57,8 +57,7 @@ def webhook():
 
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
-                    payload_received = messaging_event[
-                        "postback"].get("payload")
+                    payload_received = messaging_event["postback"].get("payload")
                     if payload_received == "view_insurance":
                         sender_id = messaging_event["sender"]["id"]
                         print(sender_id)
@@ -202,27 +201,53 @@ def create_view_insurance_list(sender_id):
             "top_element_style": "compact",
             "elements": [
                 {
-                    "title": "Classic White T-Shirt",
-                    "subtitle": "100% Cotton, 200% Comfortable",
+                    "title": "HDFC Life Insurance Plans",
+                    "subtitle": "Please choose a plan of your interest",
+                },
+                {
+                    "title": "Click2Protect",
+                    "subtitle": "HDFC Life Insurance Plan",
                     "buttons": [
                         {
-                            "title": "Sell", 
+                            "title": "View",
                             "type": "postback",
-                            "payload": "sell_payload"                     
+                            "payload": "view_insurance_life"
                         }
                     ]                
                 },
                 {
-                    "title": "Classic Blue T-Shirt",
-                    "subtitle": "100% Cotton, 200% Comfortable",
+                    "title": "Click2Invest",
+                    "subtitle": "HDFC Life Investment Plan",
                     "buttons": [
                         {
-                            "title": "Buy", 
+                            "title": "View",
                             "type": "postback",
-                            "payload": "buy_payload"                   
+                            "payload": "view_insurance_invest"
                         }
-                    ]                
+                    ]
                 },
+                {
+                    "title": "Easy Health",
+                    "subtitle": "HDFC Health Insurance Plan",
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "postback",
+                            "payload": "view_insurance_health"
+                        }
+                    ]
+                }
+                {
+                    "title": "Cancer Care",
+                    "subtitle": "HDFC Cancer Care Plan",
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "postback",
+                            "payload": "view_insurance_cancer"
+                        }
+                    ]
+                }
             ],
         }
     }
