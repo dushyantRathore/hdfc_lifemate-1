@@ -4,7 +4,7 @@ import pickle
 import sys
 
 import requests
-from flask import Flask, request
+from flask import Flask, request, send_file
 
 app = Flask(__name__)
 
@@ -69,6 +69,7 @@ def webhook():
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),INSURANCE_IMAGES_DIRECTORY, insurance_name, 'features.png')
+                        send_file(features_path, mimetype='image/png')
                         create_image_message(sender_id, features_path)
                         log_to_messenger(sender_id, features_path, "image_path")
 
