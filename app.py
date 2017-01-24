@@ -273,7 +273,6 @@ def post_request(body):
         log(r.status_code)
         log(r.text)
 
-def create_image_message(sender_id, image_url):
 
 def create_image_message(sender_id, image_url, from_system=False):
     if from_system:
