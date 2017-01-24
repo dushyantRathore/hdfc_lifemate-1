@@ -7,6 +7,9 @@ import requests
 
 from flask import Flask, request, send_file, send_from_directory
 
+import constants
+import templates
+
 app = Flask(__name__)
 
 INSURANCE_IMAGES_DIRECTORY = "images"
@@ -47,8 +50,27 @@ def webhook():
 
                 # someone sent us a message
                 if messaging_event.get("message"):
-                    if messaging_event.get("message").get("text"):
-                        message_text = messaging_event["message"]["text"]
+                    
+                    message_text = messaging_event["message"].get("text")
+
+                    #code to handle insurance product queries of the users
+                    if get_flag().get("insurance_help"):
+                        insurance_name = get_flag().get("insurance_help")
+                        if "eligibl" in message_text:
+                            elgibility_path = os.path.join(insurance_name, 'eligibility.png')
+                            create_image_message(sender_id, elgibility_path, True)
+                            reset_flag()
+                        elif "premium" in message_text:
+                            premium_path = os.path.join(insurance_name, 'premium.png')
+                            create_image_message(sender_id, premium_path, True)
+                            reset_flag()
+                        elif "option" in message_text:
+                            options_path = os.path.join(insurance_name, 'options.png')
+                            create_image_message(sender_id, options_path, True)
+                            reset_flag()
+                        else:
+                            send_message(constants.brochure_links.get(insurance_name))
+                    else:
                         print message_text
                         send_message(sender_id, "Heyy!!")
 
@@ -86,6 +108,7 @@ def webhook():
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(insurance_name, 'features.png')
                         create_image_message(sender_id, features_path, True)
+                        send_message(sender_id, "Anything else I can help you with?",flag={"insurance_help":insurance_name})
                         log_to_messenger(sender_id, features_path, "image_path")
 
     return "ok", 200
@@ -94,11 +117,26 @@ def webhook():
 def update_flag(val):
     fname = "flag.p"
     fileObj = open(fname,'wb')
-    pickle.dump(loc,fileObj)
+    pickle.dump(val,fileObj)
     fileObj.close()
 
 
-def get_location():
+def get_flag():
+    try:
+        fname = "flag.p"
+        fileObj = open(fname, 'r')
+        return pickle.load(fileObj)
+    except:
+        return None
+
+def reset_flag():
+    fname = "flag.p"
+    fileObj = open(fname,'wb')
+    pickle.dump(None,fileObj)
+    fileObj.close()
+
+
+def get_flag():
     try:
         fname = "flag.p"
         fileObj = open(fname, 'r')
