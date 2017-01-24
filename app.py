@@ -77,7 +77,7 @@ def webhook():
                     elif payload_received == "view_account_policies":
                         create_account_policies_list(sender_id)
                     elif payload_received == "view_account_funds":
-                        image_url1 = "funds/pie.jpg"
+                        image_url1 = "funds/pie.jpeg"
                         create_image_message(sender_id, image_url1, True)
                         image_url2 = "funds/database.png"
                         create_image_message(sender_id, image_url2, True)
