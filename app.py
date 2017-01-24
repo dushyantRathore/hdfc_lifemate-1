@@ -70,7 +70,7 @@ def webhook():
                         create_view_insurance_list(sender_id)
                     elif payload_received == "apply":
                         create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
-                    elif payload_received == "history":
+                    elif payload_received == "account":
                         create_image_message(sender_id, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png')
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
