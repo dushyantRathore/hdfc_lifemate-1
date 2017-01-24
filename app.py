@@ -44,8 +44,7 @@ def webhook():
                     # the recipient's ID, which should be your page's facebook
                     # ID
                     recipient_id = messaging_event["recipient"]["id"]
-                    message_text = messaging_event["message"][
-                        "text"]  # the message's text
+                    message_text = messaging_event["message"]["text"]  # the message's text
 
                     send_message(sender_id, "Hii bitches!")
 
@@ -223,6 +222,17 @@ def create_view_insurance_list(sender_id):
                             "title": "View",
                             "type": "postback",
                             "payload": "view_insurance_invest"
+                        }
+                    ]
+                },
+                {
+                    "title": "Easy Health",
+                    "subtitle": "HDFC Health Insurance Plan",
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "postback",
+                            "payload": "view_insurance_health"
                         }
                     ]
                 }
