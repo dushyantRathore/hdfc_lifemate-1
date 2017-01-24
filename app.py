@@ -67,7 +67,7 @@ def webhook():
                         create_image_message(sender_id, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png')
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
-                        features_path = "/home/dushyant/Desktop/Lifemate/hdfc_lifemate/images/health/features.png"
+                        features_path = "https://github.com/satwikkansal/hdfc_lifemate/blob/master/images/life/features.png"
                         log(features_path)
                         create_image_message(sender_id, features_path)
                         send_message(sender_id, features_path)
