@@ -218,9 +218,11 @@ def create_account_list(sender_id):
                     "elements": [
                         {
                             "title": "<b>Account Details</b>",
+                            "subtitle": "Get your Account Details",
                         },
                         {
                             "title": "My Policies",
+                            "subtitle": "Check the policies associated with your account",
                             "buttons": [
                                 {
                                     "title": "View",
@@ -231,6 +233,7 @@ def create_account_list(sender_id):
                         },
                         {
                             "title": "My Funds",
+                            "subtitle": "Check the funds associated with your account",
                             "buttons": [
                                 {
                                     "title": "View",
@@ -241,6 +244,7 @@ def create_account_list(sender_id):
                         },
                         {
                             "title": "Premium History",
+                            "subtitle": "Check your Premium History",
                             "buttons": [
                                 {
                                     "title": "View",
