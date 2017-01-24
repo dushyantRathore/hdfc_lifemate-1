@@ -5,6 +5,9 @@ import sys
 
 import requests
 from flask import Flask, request
+import plotly
+import plotly.plotly as py
+import plotly.graph_objs as go
 
 app = Flask(__name__)
 
@@ -73,6 +76,7 @@ def webhook():
 
     return "ok", 200
 
+
 def update_flag(val):
     fname = "flag.p"
     fileObj = open(fname,'wb')
@@ -115,6 +119,7 @@ def send_message(recipient_id, message_text, flag=''):
 
     if flag:
         update_flag(flag)
+
 
 def log_to_messenger(sender_id, data):
     send_message(sender_id, str(data))
