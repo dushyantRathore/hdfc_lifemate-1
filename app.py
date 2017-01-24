@@ -51,7 +51,9 @@ def webhook():
                 # someone sent us a message
                 if messaging_event.get("message"):
                     
-                    message_text = messaging_event["message"].get("text").lower()
+                    message_text = messaging_event["message"].get("text")
+                    if message_text:
+                        message_text = message_text.lower()
 
                     #code to handle insurance product queries of the users
                     if get_flag().get("insurance_help"):
