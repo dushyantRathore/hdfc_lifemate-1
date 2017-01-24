@@ -73,7 +73,7 @@ def webhook():
                     elif payload_received == "claim":
                         create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
                     elif payload_received == "account":
-                        create_view_insurance_list(sender_id)
+                        create_account_list(sender_id)
                     elif payload_received == "help":
                         create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
                     elif payload_received.startswith('view_insurance_'):
@@ -249,7 +249,7 @@ def create_account_list(sender_id):
                                 }
                             ]
                         }
-                    ],
+                    ]
                 }
             }
         }
