@@ -51,11 +51,12 @@ def webhook():
                 # someone sent us a message
                 if messaging_event.get("message"):
                     
-                    message_text = messaging_event["message"].get("text")
+                    message_text = messaging_event["message"].get("text").lower()
 
                     #code to handle insurance product queries of the users
                     if get_flag().get("insurance_help"):
                         insurance_name = get_flag().get("insurance_help")
+                        log_to_messenger(sender_id, insurance_name, "Query for")
                         if "eligibl" in message_text:
                             elgibility_path = os.path.join(insurance_name, 'eligibility.png')
                             create_image_message(sender_id, elgibility_path, True)
@@ -69,7 +70,7 @@ def webhook():
                             create_image_message(sender_id, options_path, True)
                             reset_flag()
                         else:
-                            send_message(constants.brochure_links.get(insurance_name))
+                            send_message(sender_id, constants.brochure_links.get(insurance_name))
                     else:
                         print message_text
                         send_message(sender_id, "Heyy!!")
