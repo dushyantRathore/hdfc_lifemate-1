@@ -72,7 +72,6 @@ def webhook():
                                 create_image_message(sender_id, options_path, True)
                             else:
                                 send_message(sender_id, "For more details, please refer : \n" + constants.brochure_links.get(insurance_name))
-                                reset_flag()
                     else:
                         print message_text
                         send_message(sender_id, "Heyy!!")
