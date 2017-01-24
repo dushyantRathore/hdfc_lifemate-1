@@ -143,71 +143,6 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 
-def create_generic_template(sender_id, name, subtitle, image_url, phone, navigation_url):
-    log("inside create generic template method")
-    response_msg = json.dumps(
-        {"recipient": {"id": sender_id},
-         "message": {
-             "attachment": {
-                 "type": "template",
-                 "payload": {
-                     "template_type": "generic",
-                     "elements": [
-                         {
-                             "title": name,
-                             "subtitle": subtitle,
-                             "image_url": image_url,
-                             "buttons": [
-                                 {
-                                     "type": "postback",
-                                     "payload": "Call",
-                                     "title": "Call"
-                                 },
-                                 {
-                                     "type": "web_url",
-                                     "title": "Navigate",
-                                     "url": navigation_url
-                                 }
-                             ]
-                         }
-                     ]
-                 }
-             }
-         }
-         })
-    post_request(response_msg)
-
-
-def create_yes_no_button_message(sender_id, context, question_text):
-    button_message = json.dumps({
-    "recipient":{
-                    "id": sender_id
-                },
-    "message":{
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "button",
-                "text": "HDFC Life currently offers following products, please select one of them",
-                "buttons": [
-                          {
-                            "type":"postback",
-                            "title":"Yes",
-                            "payload":context+"_yes"
-                          },
-                          {
-                            "type":"postback",
-                            "title":"No",
-                            "payload":context+"_no"
-                          }
-                    ]
-                }
-            }
-        }
-    })
-
-    post_request(button_message)
-
 # ------------------------ Insurance Plans List ------------------------- #
 
 
@@ -322,6 +257,73 @@ def create_account_list(sender_id):
     })
 
     post_request(account_list_template)
+
+
+def create_generic_template(sender_id, name, subtitle, image_url, phone, navigation_url):
+    log("inside create generic template method")
+    response_msg = json.dumps(
+        {"recipient": {"id": sender_id},
+         "message": {
+             "attachment": {
+                 "type": "template",
+                 "payload": {
+                     "template_type": "generic",
+                     "elements": [
+                         {
+                             "title": name,
+                             "subtitle": subtitle,
+                             "image_url": image_url,
+                             "buttons": [
+                                 {
+                                     "type": "postback",
+                                     "payload": "Call",
+                                     "title": "Call"
+                                 },
+                                 {
+                                     "type": "web_url",
+                                     "title": "Navigate",
+                                     "url": navigation_url
+                                 }
+                             ]
+                         }
+                     ]
+                 }
+             }
+         }
+         })
+    post_request(response_msg)
+
+
+def create_yes_no_button_message(sender_id, context, question_text):
+    button_message = json.dumps({
+    "recipient":{
+                    "id": sender_id
+                },
+    "message":{
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "button",
+                "text": "HDFC Life currently offers following products, please select one of them",
+                "buttons": [
+                          {
+                            "type":"postback",
+                            "title":"Yes",
+                            "payload":context+"_yes"
+                          },
+                          {
+                            "type":"postback",
+                            "title":"No",
+                            "payload":context+"_no"
+                          }
+                    ]
+                }
+            }
+        }
+    })
+
+    post_request(button_message)
+
 
 # ------------------------ Post Request -------------------- #
 
