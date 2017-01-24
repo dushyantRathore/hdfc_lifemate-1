@@ -37,16 +37,13 @@ def webhook():
             for messaging_event in entry["messaging"]:
 
                 sender_id = messaging_event["sender"]["id"]
+                recipient_id = messaging_event["recipient"]["id"]
 
-                if messaging_event.get("message"):  # someone sent us a message
-
-                    # the facebook ID of the person sending you the message
-                    # the recipient's ID, which should be your page's facebook
-                    # ID
+                if messaging_event.get("message").get('text'):
                     recipient_id = messaging_event["recipient"]["id"]
-                    message_text = messaging_event["message"]["text"]  # the message's text
-
-                    send_message(sender_id, "Hii bitches!")
+                    message_text = messaging_event("message").get("text")
+                    print message_text
+                    send_message(sender_id, "Hey!")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -117,7 +114,6 @@ def send_message(recipient_id, message_text, flag=''):
         update_flag(flag)
 
 
-
 def log(message):  # simple wrapper for logging to stdout on heroku
     print (str(message))
     sys.stdout.flush()
@@ -157,6 +153,7 @@ def create_generic_template(sender_id, name, subtitle, image_url, phone, navigat
          })
     post_request(response_msg)
 
+
 def create_yes_no_button_message(sender_id, context, question_text):
     button_message = json.dumps({
     "recipient":{
@@ -186,6 +183,7 @@ def create_yes_no_button_message(sender_id, context, question_text):
     })
 
     post_request(button_message)
+
 
 def create_view_insurance_list(sender_id):
     print(sender_id)
@@ -235,6 +233,17 @@ def create_view_insurance_list(sender_id):
                             "payload": "view_insurance_health"
                         }
                     ]
+                },
+                {
+                    "title": "Cancer Care",
+                    "subtitle": "HDFC Cancer Care Plan",
+                    "buttons": [
+                        {
+                            "title": "View",
+                            "type": "postback",
+                            "payload": "view_insurance_cancer"
+                        }
+                    ]
                 }
             ],
         }
@@ -259,6 +268,7 @@ def post_request(body):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
 
 def create_image_message(sender_id, image_url):
 
