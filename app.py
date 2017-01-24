@@ -39,9 +39,8 @@ def webhook():
                 sender_id = messaging_event["sender"]["id"]
                 recipient_id = messaging_event["recipient"]["id"]
 
-                if messaging_event.get("message").get('text'):
-                    recipient_id = messaging_event["recipient"]["id"]
-                    message_text = messaging_event("message").get("text")
+                if messaging_event.get("message"):
+                    message_text = messaging_event["message"]["text"]
                     print message_text
                     send_message(sender_id, "Hey!")
 
@@ -231,17 +230,6 @@ def create_view_insurance_list(sender_id):
                             "title": "View",
                             "type": "postback",
                             "payload": "view_insurance_health"
-                        }
-                    ]
-                },
-                {
-                    "title": "Cancer Care",
-                    "subtitle": "HDFC Cancer Care Plan",
-                    "buttons": [
-                        {
-                            "title": "View",
-                            "type": "postback",
-                            "payload": "view_insurance_cancer"
                         }
                     ]
                 }
