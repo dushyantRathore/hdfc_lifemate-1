@@ -4,14 +4,12 @@ import pickle
 import sys
 
 import requests
-from flask import Flask, request
-import plotly
-import plotly.plotly as py
-import plotly.graph_objs as go
+
+from flask import Flask, request, send_file, send_from_directory
 
 app = Flask(__name__)
 
-INSURANCE_IMAGES_DIRECTORY = "images/"
+INSURANCE_IMAGES_DIRECTORY = "images"
 
 
 @app.route('/', methods=['GET'])
@@ -24,6 +22,11 @@ def verify():
         return request.args["hub.challenge"], 200
 
     return "Hello world", 200
+
+@app.route('/images/<path:filename>', methods=['GET'])
+def return_image(filename):
+    print(filename)
+    return send_from_directory(INSURANCE_IMAGES_DIRECTORY, filename, mimetype='image/png')
 
 
 @app.route('/', methods=['POST'])
@@ -60,6 +63,7 @@ def webhook():
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
+                    log_to_messenger(sender_id, payload_received, "payload")
                     if payload_received == "view_insurance":
                         sender_id = messaging_event["sender"]["id"]
                         print(sender_id)
@@ -70,9 +74,9 @@ def webhook():
                         create_image_message(sender_id, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png')
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
-                        features_path = os.path.join(os.path.abspath(__file__),INSURANCE_IMAGES_DIRECTORY, insurance_name, 'features.png')
-                        log_to_messenger(features_path)
-                        create_image_message(sender_id, features_path)
+                        features_path = os.path.join(insurance_name, 'features.png')
+                        create_image_message(sender_id, features_path, True)
+                        log_to_messenger(sender_id, features_path, "image_path")
 
     return "ok", 200
 
@@ -120,10 +124,11 @@ def send_message(recipient_id, message_text, flag=''):
     if flag:
         update_flag(flag)
 
-
 def log_to_messenger(sender_id, data):
     send_message(sender_id, str(data))
 
+def log_to_messenger(sender_id, data, context=""):
+    send_message(sender_id, context + ": " + str(data))
 
 def log(message):  # simple wrapper for logging to stdout on heroku
     print (str(message))
@@ -197,7 +202,6 @@ def create_yes_no_button_message(sender_id, context, question_text):
 
 
 def create_view_insurance_list(sender_id):
-    print(sender_id)
     insurance_list_template = json.dumps({
   "recipient":{
     "id":sender_id
@@ -269,8 +273,12 @@ def post_request(body):
         log(r.status_code)
         log(r.text)
 
-
 def create_image_message(sender_id, image_url):
+
+def create_image_message(sender_id, image_url, from_system=False):
+    if from_system:
+        image_url = "https://sheltered-falls-53215.herokuapp.com/images/" + image_url
+
     image_message = json.dumps({
         "recipient": {
             "id": sender_id
