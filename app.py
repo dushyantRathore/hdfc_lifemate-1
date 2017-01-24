@@ -69,13 +69,19 @@ def webhook():
                         print(sender_id)
                         create_view_insurance_list(sender_id)
                     elif payload_received == "apply":
-                        create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
+                        send_message(sender_id, "Woohoo")
                     elif payload_received == "claim":
-                        create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
+                        send_message(sender_id, "Woohoo")
                     elif payload_received == "account":
                         create_account_list(sender_id)
+                    elif payload_received == "view_account_policies":
+                        create_account_policies_list(sender_id)
+                    elif payload_received == "view_account_funds":
+                        send_message(sender_id, "Woohoo")
+                    elif payload_received == "view_account_history":
+                        send_message(sender_id, "Woohoo")
                     elif payload_received == "help":
-                        create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
+                        send_message(sender_id, "Woohoo")
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(insurance_name, 'features.png')
@@ -263,71 +269,80 @@ def create_account_list(sender_id):
     post_request(account_list_template)
 
 
-def create_generic_template(sender_id, name, subtitle, image_url, phone, navigation_url):
-    log("inside create generic template method")
-    response_msg = json.dumps(
-        {"recipient": {"id": sender_id},
-         "message": {
-             "attachment": {
-                 "type": "template",
-                 "payload": {
-                     "template_type": "generic",
-                     "elements": [
-                         {
-                             "title": name,
-                             "subtitle": subtitle,
-                             "image_url": image_url,
-                             "buttons": [
-                                 {
-                                     "type": "postback",
-                                     "payload": "Call",
-                                     "title": "Call"
-                                 },
-                                 {
-                                     "type": "web_url",
-                                     "title": "Navigate",
-                                     "url": navigation_url
-                                 }
-                             ]
-                         }
-                     ]
-                 }
-             }
-         }
-         })
-    post_request(response_msg)
-
-
-def create_yes_no_button_message(sender_id, context, question_text):
-    button_message = json.dumps({
-    "recipient":{
-                    "id": sender_id
-                },
-    "message":{
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "button",
-                "text": "HDFC Life currently offers following products, please select one of them",
-                "buttons": [
-                          {
-                            "type":"postback",
-                            "title":"Yes",
-                            "payload":context+"_yes"
-                          },
-                          {
-                            "type":"postback",
-                            "title":"No",
-                            "payload":context+"_no"
-                          }
-                    ]
+# ----------------------- Account Policies List -------------------------- #
+def create_account_policies_list(sender_id):
+    policies_list_template = json.dumps({
+        "recipient": {"id": sender_id
+                      }, "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": [
+                        {
+                            "title": "Account Policies",
+                            "subtitle": "Details of the policies associated with your account",
+                        },
+                        {
+                            "title": "Click2Protect",
+                            "subtitle": "Premium - 40,000"
+                                        "Due Date - 29/01/2017 ",
+                            "buttons": [
+                                {
+                                    "title": "Pay",
+                                    "type": "postback",
+                                    "payload": "pay_insurance_premium"
+                                },
+                                {
+                                    "title": "Remind",
+                                    "type": "postback",
+                                    "payload": "insurance_reminder"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Click2Invest",
+                            "subtitle": "Premium - 20,000"
+                                        "Due Date - 05/03/2017 ",
+                            "buttons": [
+                                {
+                                    "title": "Pay",
+                                    "type": "postback",
+                                    "payload": "pay_insurance_premium"
+                                },
+                                {
+                                    "title": "Remind",
+                                    "type": "postback",
+                                    "payload": "insurance_reminder"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Cancer Care",
+                            "subtitle": "Premium - 80,000"
+                                        "Due Date - 06/05/2017 ",
+                            "buttons": [
+                                {
+                                    "title": "Pay",
+                                    "type": "postback",
+                                    "payload": "pay_insurance_premium"
+                                },
+                                {
+                                    "title": "Remind",
+                                    "type": "postback",
+                                    "payload": "insurance_reminder"
+                                }
+                            ]
+                        },
+                    ],
                 }
             }
         }
+
     })
 
-    post_request(button_message)
-
+    post_request(policies_list_template)
 
 # ------------------------ Post Request -------------------- #
 
@@ -368,6 +383,8 @@ def create_image_message(sender_id, image_url, from_system=False):
         }
 })
     post_request(image_message)
+
+# ------------------- Run App ---------------------- #
 
 if __name__ == '__main__':
     app.run(debug=True)
