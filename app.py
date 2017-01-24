@@ -57,6 +57,7 @@ def webhook():
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
+                    log_to_messenger(payload_received)
                     if payload_received == "view_insurance":
                         sender_id = messaging_event["sender"]["id"]
                         print(sender_id)
@@ -68,8 +69,8 @@ def webhook():
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(os.path.abspath(__file__),INSURANCE_IMAGES_DIRECTORY, insurance_name, 'features.png')
-                        log_to_messenger(features_path)
                         create_image_message(sender_id, features_path)
+                        log_to_messenger(features_path)
 
     return "ok", 200
 
@@ -116,8 +117,8 @@ def send_message(recipient_id, message_text, flag=''):
     if flag:
         update_flag(flag)
 
-def log_to_messenger(sender_id, data):
-    send_message(sender_id, str(data))
+def log_to_messenger(sender_id, data, context):
+    send_message(sender_id, context + ": " + str(data))
 
 
 def log(message):  # simple wrapper for logging to stdout on heroku
