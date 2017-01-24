@@ -1,4 +1,4 @@
-# -------------------- View Insurance Plans ---------------------- #
+# -------------------- View Insurance Plans Template ---------------------- #
 
     insurance_list_template = json.dumps({
   "recipient":{
