@@ -288,54 +288,39 @@ def create_account_policies_list(sender_id):
                             "title": "Click2Protect",
                             "subtitle": "Premium - 40,000"
                                         "Due Date - 29/01/2017 ",
-                            "quick_replies":[
-      {
-        "content_type":"text",
-        "title":"Pay",
-        "payload":"pay_insurance_premium"
-      },
-      {
-        "content_type":"text",
-        "title":"Remind",
-        "payload":"insurance_reminder"
-      }
-    ]
+                            "buttons": [
+                                {
+                                    "title": "Pay/Remind",
+                                    "type": "postback",
+                                    "payload": "pay_remind"
+                                }
+                            ]
                         },
                         {
                             "title": "Click2Invest",
                             "subtitle": "Premium - 20,000"
                                         "Due Date - 05/03/2017 ",
-                            "quick_replies":[
-      {
-        "content_type":"text",
-        "title":"Pay",
-        "payload":"pay_insurance_premium"
-      },
-      {
-        "content_type":"text",
-        "title":"Remind",
-        "payload":"insurance_reminder"
-      }
-    ]
+                            "buttons": [
+                                {
+                                    "title": "Pay/Remind",
+                                    "type": "postback",
+                                    "payload": "pay_remind"
+                                }
+                            ]
                         },
                         {
                             "title": "Cancer Care",
                             "subtitle": "Premium - 80,000"
                                         "Due Date - 06/05/2017 ",
-                            "quick_replies":[
-      {
-        "content_type":"text",
-        "title":"Pay",
-        "payload":"pay_insurance_premium"
-      },
-      {
-        "content_type":"text",
-        "title":"Remind",
-        "payload":"insurance_reminder"
-      }
-    ]
-                        },
-                    ],
+                            "buttons": [
+                                {
+                                    "title": "Pay/Remind",
+                                    "type": "postback",
+                                    "payload": "pay_remind"
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
         }
