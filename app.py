@@ -68,6 +68,7 @@ def webhook():
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(INSURANCE_IMAGES_DIRECTORY, insurance_name, "features.png")
+                        print features_path
                         create_image_message(sender_id, features_path)
                         send_message(sender_id, "Any further queries?", flag={"view":insurance_name})
 
