@@ -213,7 +213,7 @@ def create_yes_no_button_message(sender_id, context, question_text):
 
 def create_view_insurance_list(sender_id):
     insurance_list_template = json.dumps({
-  "recipient":{
+    "recipient":{
     "id":sender_id
   }, "message": {
     "attachment": {
@@ -272,7 +272,7 @@ def create_view_insurance_list(sender_id):
 
 
 def create_account_list(sender_id):
-    insurance_list_template = json.dumps({
+    account_list_template = json.dumps({
         "recipient": {
             "id": sender_id
         }, "message": {
@@ -322,7 +322,7 @@ def create_account_list(sender_id):
 
     })
 
-    post_request(insurance_list_template)
+    post_request(account_list_template)
 
 # ------------------------ Post Request -------------------- #
 
