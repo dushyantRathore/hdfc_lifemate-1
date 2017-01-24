@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e711046a40e1562d85854ee09cd0a05254cb6463">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.0.1_53726b499b10a2b6e28d1b34b35fe540c651e9cc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_178b0501746ee1f942eaaa47e75ae5006e8af395/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.6.0_24bbb4ff66bdc8198097f0fa5e27c73bd2bf1b25/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-24.2.1_df5fe0d422ca0eb87ca186d5275cc243baabe856/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_03e9c80daa7a2a46fef6d6b3b48a01168a0aec4a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_fcb130cab8f8a76e81b54b7a615e844eb96f6cd6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_f9175dc60184944ef44c76c5e218cfce961d2bf9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_a4e203f42fdb1635312cb0a9db827789a3c935af/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_b761684174163fc6df63069682d6926d86fa43c4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/9.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="bc38f0704a08802ebc398ecf13a0c9b2072dc1e5">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gcm-9.0.1_3086118680a77980fb7256874768dfce5943a06d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_3904ec75009248a3eb7bb138bae5e95cc11c4f73/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_fdeb5328c7b8f94562222a871959163cb4636e96/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a3ebac72ca6befe2e900427505dbb3dd58a5ebbf">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.0.1_2f413980c67221e4b1d4a021006b95ada90566ec/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_c5ebac3b6da960ab8fb505dbc37b15d800ef401e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.7.4/f2c0782541a970b3c15f5e742999ca264b34d0bd/okhttp-2.7.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f2c0782541a970b3c15f5e742999ca264b34d0bd">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-2.7.4_8a7dfc6b5e08e31a6ae13725431e2de9922d9355/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="12bed1390c9066294f19794d9b69378384743381">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_cf58b27b0e43329b4d4ac0589ddc718cb0271c95/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_c4f7e1a7f9bbe99aa030440504df3ae385bf907b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.ibm.mobilefirstplatform.clientsdk.android/push/2.0.9/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6966b97c40745642c8e9005827866bc9fbc0d8f8">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.ibm.mobilefirstplatform.clientsdk.android-push-2.0.9_2c1390b29710f09343bc380cd1ebe7feb1608e70/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_68f71bc067b648b085abaee58d627337bab336cc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_fef825f31f08bf23793cebad3e388d6182495034/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_435e83a0ce2b1fb51f67bb2590d9961883c14b4e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ffc3c6fc861f04d45835c9eac5cec10acc180d55">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.0.1_09e68f754230e1fbc028e566a8d5565439f722cf/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="7a12d32ae1a88408d0390fe071cb64997c56252d">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_a4a5cfe85b386e395a1adce1d1f64d9d2d1ba9c8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/9.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="babde6b32d7ab7c069a98f008b2bc795c8777fae">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-9.0.1_34431416530f51b8e04cee08da4234c78187e189/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-24.2.1_e81c8d3aeed97dffa21faf88fc22b44d479dd3e4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/.gradle/caches/modules-2/files-2.1/com.ibm.mobilefirstplatform.clientsdk.android/analyticsapi/1.1.1/4dea113abdde297a40c472987b4d03886c9228a8/analyticsapi-1.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="4dea113abdde297a40c472987b4d03886c9228a8">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/analyticsapi-1.1.1_9e2da8f0eb9df1f6f7d741bf1cdfdefdaf301429/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="13270ae22369a0d50cb6c560aeca4056f025cae6">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.0.1_254b62b52c83c3652a204a9d73e84fd51a2d9f64/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_d349ebc6031de3636cff70a3109d272c9afccebc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/.gradle/caches/modules-2/files-2.1/com.ibm.mobilefirstplatform.clientsdk.android/core/2.2.7/19dea1e04540a09362da2572d09f8b4dffaad61e/core-2.2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="19dea1e04540a09362da2572d09f8b4dffaad61e">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/core-2.2.7_a8b8ba9a522af641f78d46fdd5f22e04b2294e80/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/home/brainbreaker/AndroidStudioProjects/HybridBanking-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_dbbea3ca6cde221a77ed6c9792de13a0869aa06b/classes.dex" />
+    </item>
+
+</items>
