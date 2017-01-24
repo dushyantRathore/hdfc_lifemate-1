@@ -4,11 +4,12 @@ import pickle
 import sys
 
 import requests
-from flask import Flask, request
+
+from flask import Flask, request, send_file, send_from_directory
 
 app = Flask(__name__)
 
-INSURANCE_IMAGES_DIRECTORY = "images/"
+INSURANCE_IMAGES_DIRECTORY = "images"
 
 
 @app.route('/', methods=['GET'])
@@ -21,6 +22,11 @@ def verify():
         return request.args["hub.challenge"], 200
 
     return "Hello world", 200
+
+@app.route('/images/<path:filename>', methods=['GET'])
+def return_image(filename):
+    print(filename)
+    return send_from_directory(INSURANCE_IMAGES_DIRECTORY, filename, mimetype='image/png')
 
 
 @app.route('/', methods=['POST'])
@@ -57,28 +63,40 @@ def webhook():
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
+                    log_to_messenger(sender_id, payload_received, "payload")
                     if payload_received == "view_insurance":
                         sender_id = messaging_event["sender"]["id"]
                         print(sender_id)
                         create_view_insurance_list(sender_id)
                     elif payload_received == "apply":
-                        create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
-                    elif payload_received == "history":
-                        create_image_message(sender_id, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png')
+                        send_message(sender_id, "Woohoo")
+                    elif payload_received == "claim":
+                        send_message(sender_id, "Woohoo")
+                    elif payload_received == "account":
+                        create_account_list(sender_id)
+                    elif payload_received == "view_account_policies":
+                        create_account_policies_list(sender_id)
+                    elif payload_received == "view_account_funds":
+                        send_message(sender_id, "Woohoo")
+                    elif payload_received == "view_account_history":
+                        send_message(sender_id, "Woohoo")
+                    elif payload_received == "help":
+                        send_message(sender_id, "Woohoo")
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
-                        features_path = "/home/dushyant/Desktop/Lifemate/hdfc_lifemate/images/health/features.png"
-                        log(features_path)
-                        create_image_message(sender_id, features_path)
-                        send_message(sender_id, features_path)
+                        features_path = os.path.join(insurance_name, 'features.png')
+                        create_image_message(sender_id, features_path, True)
+                        log_to_messenger(sender_id, features_path, "image_path")
 
     return "ok", 200
+
 
 def update_flag(val):
     fname = "flag.p"
     fileObj = open(fname,'wb')
     pickle.dump(loc,fileObj)
     fileObj.close()
+
 
 def get_location():
     try:
@@ -118,83 +136,26 @@ def send_message(recipient_id, message_text, flag=''):
         update_flag(flag)
 
 
+def log_to_messenger(sender_id, data):
+    send_message(sender_id, str(data))
+
+
+def log_to_messenger(sender_id, data, context=""):
+    send_message(sender_id, context + ": " + str(data))
+
+
 def log(message):  # simple wrapper for logging to stdout on heroku
     print (str(message))
     sys.stdout.flush()
 
 
-def create_generic_template(sender_id, name, subtitle, image_url, phone, navigation_url):
-    log("inside create generic template method")
-    response_msg = json.dumps(
-        {"recipient": {"id": sender_id},
-         "message": {
-             "attachment": {
-                 "type": "template",
-                 "payload": {
-                     "template_type": "generic",
-                     "elements": [
-                         {
-                             "title": name,
-                             "subtitle": subtitle,
-                             "image_url": image_url,
-                             "buttons": [
-                                 {
-                                     "type": "postback",
-                                     "payload": "Call",
-                                     "title": "Call"
-                                 },
-                                 {
-                                     "type": "web_url",
-                                     "title": "Navigate",
-                                     "url": navigation_url
-                                 }
-                             ]
-                         }
-                     ]
-                 }
-             }
-         }
-         })
-    post_request(response_msg)
-
-
-def create_yes_no_button_message(sender_id, context, question_text):
-    button_message = json.dumps({
-    "recipient":{
-                    "id": sender_id
-                },
-    "message":{
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "button",
-                "text": "HDFC Life currently offers following products, please select one of them",
-                "buttons": [
-                          {
-                            "type":"postback",
-                            "title":"Yes",
-                            "payload":context+"_yes"
-                          },
-                          {
-                            "type":"postback",
-                            "title":"No",
-                            "payload":context+"_no"
-                          }
-                    ]
-                }
-            }
-        }
-    })
-
-    post_request(button_message)
+# ------------------------ Insurance Plans List ------------------------- #
 
 
 def create_view_insurance_list(sender_id):
-    print(sender_id)
     insurance_list_template = json.dumps({
-  "recipient":{
-    "id":sender_id
-  }, "message": {
+    "recipient":{"id":sender_id
+}, "message": {
     "attachment": {
         "type": "template",
         "payload": {
@@ -247,6 +208,129 @@ def create_view_insurance_list(sender_id):
 
     post_request(insurance_list_template)
 
+# ---------------------- My account List --------------------- #
+
+
+def create_account_list(sender_id):
+    account_list_template = json.dumps({
+        "recipient": {
+            "id": sender_id
+        }, "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": [
+                        {
+                            "title": "Account Details",
+                            "subtitle": "Get your Account Details",
+                        },
+                        {
+                            "title": "My Policies",
+                            "subtitle": "Check the policies associated with your account",
+                            "buttons": [
+                                {
+                                    "title": "View",
+                                    "type": "postback",
+                                    "payload": "view_account_policies"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "My Funds",
+                            "subtitle": "Check the funds associated with your account",
+                            "buttons": [
+                                {
+                                    "title": "View",
+                                    "type": "postback",
+                                    "payload": "view_account_funds"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Premium History",
+                            "subtitle": "Check your Premium History",
+                            "buttons": [
+                                {
+                                    "title": "View",
+                                    "type": "postback",
+                                    "payload": "view_account_history"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+
+    })
+
+    post_request(account_list_template)
+
+
+# ----------------------- Account Policies List -------------------------- #
+def create_account_policies_list(sender_id):
+    policies_list_template = json.dumps({
+        "recipient": {"id": sender_id
+                      }, "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": [
+                        {
+                            "title": "Account Policies",
+                            "subtitle": "Details of the policies associated with your account",
+                        },
+                        {
+                            "title": "Click2Protect",
+                            "subtitle": "Premium - 40,000"
+                                        "\nDue Date - 29/01/2017 ",
+                            "buttons": [
+                                {
+                                    "title": "Pay/Remind",
+                                    "type": "postback",
+                                    "payload": "pay_remind"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Click2Invest",
+                            "subtitle": "Premium - 20,000"
+                                        "\nDue Date - 05/03/2017 ",
+                            "buttons": [
+                                {
+                                    "title": "Pay/Remind",
+                                    "type": "postback",
+                                    "payload": "pay_remind"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Cancer Care",
+                            "subtitle": "Premium - 80,000"
+                                        "\nDue Date - 06/05/2017 ",
+                            "buttons": [
+                                {
+                                    "title": "Pay/Remind",
+                                    "type": "postback",
+                                    "payload": "pay_remind"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+
+    })
+
+    post_request(policies_list_template)
+
+# ------------------------ Post Request -------------------- #
+
 
 def post_request(body):
     params = {
@@ -262,8 +346,13 @@ def post_request(body):
         log(r.status_code)
         log(r.text)
 
+# -------------------- Image Creation ----------------------- #
 
-def create_image_message(sender_id, image_url):
+
+def create_image_message(sender_id, image_url, from_system=False):
+
+    if from_system:
+        image_url = "https://sheltered-falls-53215.herokuapp.com/images/" + image_url
 
     image_message = json.dumps({
         "recipient": {
@@ -279,6 +368,8 @@ def create_image_message(sender_id, image_url):
         }
 })
     post_request(image_message)
+
+# ------------------- Run App ---------------------- #
 
 if __name__ == '__main__':
     app.run(debug=True)
