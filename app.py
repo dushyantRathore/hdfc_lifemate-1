@@ -278,6 +278,7 @@ def create_image_message(sender_id, image_url):
             }
         }
 })
+    post_request(image_message)
 
 if __name__ == '__main__':
     app.run(debug=True)
