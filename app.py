@@ -236,17 +236,6 @@ def create_view_insurance_list(sender_id):
                             "payload": "view_insurance_health"
                         }
                     ]
-                },
-                {
-                    "title": "Cancer Care",
-                    "subtitle": "HDFC Cancer Care Plan",
-                    "buttons": [
-                        {
-                            "title": "View",
-                            "type": "postback",
-                            "payload": "view_insurance_cancer"
-                        }
-                    ]
                 }
             ],
         }
