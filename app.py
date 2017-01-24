@@ -39,15 +39,19 @@ def webhook():
                 sender_id = messaging_event["sender"]["id"]
                 recipient_id = messaging_event["recipient"]["id"]
 
+                # someone sent us a message
                 if messaging_event.get("message"):
-                    message_text = messaging_event["message"]["text"]
-                    print message_text
-                    send_message(sender_id, "Hey!")
+                    if messaging_event.get("message").get("text"):
+                        message_text = messaging_event["message"]["text"]
+                        print message_text
+                        send_message(sender_id, "Heyy!!")
 
-                if messaging_event.get("delivery"):  # delivery confirmation
+                # delivery confirmation
+                if messaging_event.get("delivery"):
                     pass
 
-                if messaging_event.get("optin"):  # optin confirmation
+                # optin confirmation
+                if messaging_event.get("optin"):
                     pass
 
                 # user clicked/tapped "postback" button in earlier message
