@@ -264,7 +264,6 @@ def post_request(body):
 
 
 def create_image_message(sender_id, image_url):
-
     image_message = json.dumps({
         "recipient": {
             "id": sender_id
