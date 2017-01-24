@@ -56,23 +56,25 @@ def webhook():
                         message_text = message_text.lower()
 
                     #code to handle insurance product queries of the users
-                    if get_flag().get("insurance_help"):
-                        insurance_name = get_flag().get("insurance_help")
-                        log_to_messenger(sender_id, insurance_name, "Query for")
-                        if "eligibl" in message_text:
-                            elgibility_path = os.path.join(insurance_name, 'eligibility.png')
-                            create_image_message(sender_id, elgibility_path, True)
-                            reset_flag()
-                        elif "premium" in message_text:
-                            premium_path = os.path.join(insurance_name, 'premium.png')
-                            create_image_message(sender_id, premium_path, True)
-                            reset_flag()
-                        elif "option" in message_text:
-                            options_path = os.path.join(insurance_name, 'options.png')
-                            create_image_message(sender_id, options_path, True)
-                            reset_flag()
-                        else:
-                            send_message(sender_id, constants.brochure_links.get(insurance_name))
+                    if get_flag():
+                        flag = get_flag()
+                        if flag.get("insurance_help"):
+                            insurance_name = get_flag().get("insurance_help")
+                            log_to_messenger(sender_id, insurance_name, "Query for")
+                            if "eligibl" in message_text:
+                                elgibility_path = os.path.join(insurance_name, 'eligibility.png')
+                                create_image_message(sender_id, elgibility_path, True)
+                                reset_flag()
+                            elif "premium" in message_text:
+                                premium_path = os.path.join(insurance_name, 'premium.png')
+                                create_image_message(sender_id, premium_path, True)
+                                reset_flag()
+                            elif "option" in message_text:
+                                options_path = os.path.join(insurance_name, 'options.png')
+                                create_image_message(sender_id, options_path, True)
+                                reset_flag()
+                            else:
+                                send_message(sender_id, constants.brochure_links.get(insurance_name))
                     else:
                         print message_text
                         send_message(sender_id, "Heyy!!")
