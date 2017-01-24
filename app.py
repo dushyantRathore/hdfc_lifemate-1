@@ -108,7 +108,7 @@ def webhook():
                         send_message(sender_id, "Your account history is as follows : ")
                         image_url = "history.png"
                         create_image_message(sender_id, image_url, True)
-                    elif payload_received == "help":
+                    elif payload_received == "support":
                         send_message(sender_id, "Woohoo")
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]

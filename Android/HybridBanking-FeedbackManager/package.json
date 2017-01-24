@@ -1,0 +1,21 @@
+{
+  "name": "HybridBanking",
+  "version": "1.0.0",
+  "description": "Bluemix Hybrid Banking demo",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ram Vennam",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "cors": "*",
+    "express": "^4.13.3",
+    "node-env-file": "*",
+    "node-rest-client": "*",
+    "socket.io": "^1.3.7",
+    "watson-developer-cloud": "2.4.5"
+  }
+}

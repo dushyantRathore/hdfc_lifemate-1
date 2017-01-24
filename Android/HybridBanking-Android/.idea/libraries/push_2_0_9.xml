@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="push-2.0.9">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.ibm.mobilefirstplatform.clientsdk.android/push/2.0.9/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.ibm.mobilefirstplatform.clientsdk.android/push/2.0.9/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ibm.mobilefirstplatform.clientsdk.android/push/2.0.9/51036c33b0355943d311cbb36ff1d0ae6e78ba0d/push-2.0.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
