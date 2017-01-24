@@ -99,9 +99,15 @@ def webhook():
                     elif payload_received == "view_account_policies":
                         create_account_policies_list(sender_id)
                     elif payload_received == "view_account_funds":
-                        send_message(sender_id, "Woohoo")
+                        send_message(sender_id, "Your account funds are as follows : ")
+                        image_url1 = "funds/pie.jpeg"
+                        create_image_message(sender_id, image_url1, True)
+                        image_url2 = "funds/database.png"
+                        create_image_message(sender_id, image_url2, True)
                     elif payload_received == "view_account_history":
-                        send_message(sender_id, "Woohoo")
+                        send_message(sender_id, "Your account history is as follows : ")
+                        image_url = "history.png"
+                        create_image_message(sender_id, image_url, True)
                     elif payload_received == "help":
                         send_message(sender_id, "Woohoo")
                     elif payload_received.startswith('view_insurance_'):
