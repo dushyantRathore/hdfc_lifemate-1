@@ -213,9 +213,8 @@ def create_yes_no_button_message(sender_id, context, question_text):
 
 def create_view_insurance_list(sender_id):
     insurance_list_template = json.dumps({
-    "recipient":{
-    "id":sender_id
-  }, "message": {
+    "recipient":{"id":sender_id
+}, "message": {
     "attachment": {
         "type": "template",
         "payload": {
