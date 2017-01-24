@@ -70,8 +70,12 @@ def webhook():
                         create_view_insurance_list(sender_id)
                     elif payload_received == "apply":
                         create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
+                    elif payload_received == "claim":
+                        create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
                     elif payload_received == "account":
-                        create_image_message(sender_id, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thats_all_folks.svg/2000px-Thats_all_folks.svg.png')
+                        create_account_list(sender_id)
+                    elif payload_received == "help":
+                        create_yes_no_button_message(sender_id, "hell_yeah", "YES or NO")
                     elif payload_received.startswith('view_insurance_'):
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(insurance_name, 'features.png')
@@ -86,6 +90,7 @@ def update_flag(val):
     fileObj = open(fname,'wb')
     pickle.dump(loc,fileObj)
     fileObj.close()
+
 
 def get_location():
     try:
@@ -124,11 +129,14 @@ def send_message(recipient_id, message_text, flag=''):
     if flag:
         update_flag(flag)
 
+
 def log_to_messenger(sender_id, data):
     send_message(sender_id, str(data))
 
+
 def log_to_messenger(sender_id, data, context=""):
     send_message(sender_id, context + ": " + str(data))
+
 
 def log(message):  # simple wrapper for logging to stdout on heroku
     print (str(message))
@@ -200,6 +208,8 @@ def create_yes_no_button_message(sender_id, context, question_text):
 
     post_request(button_message)
 
+# ------------------------ Insurance Plans List ------------------------- #
+
 
 def create_view_insurance_list(sender_id):
     insurance_list_template = json.dumps({
@@ -258,6 +268,64 @@ def create_view_insurance_list(sender_id):
 
     post_request(insurance_list_template)
 
+# ---------------------- My account List --------------------- #
+
+
+def create_account_list(sender_id):
+    insurance_list_template = json.dumps({
+        "recipient": {
+            "id": sender_id
+        }, "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": [
+                        {
+                            "title": "<b>Account Details</b>",
+                        },
+                        {
+                            "title": "My Policies",
+                            "buttons": [
+                                {
+                                    "title": "View",
+                                    "type": "postback",
+                                    "payload": "view_account_policies"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "My Funds",
+                            "buttons": [
+                                {
+                                    "title": "View",
+                                    "type": "postback",
+                                    "payload": "view_account_funds"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Premium History",
+                            "buttons": [
+                                {
+                                    "title": "View",
+                                    "type": "postback",
+                                    "payload": "view_account_history"
+                                }
+                            ]
+                        }
+                    ],
+                }
+            }
+        }
+
+    })
+
+    post_request(insurance_list_template)
+
+# ------------------------ Post Request -------------------- #
+
 
 def post_request(body):
     params = {
@@ -272,6 +340,8 @@ def post_request(body):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
+# -------------------- Image Creation ----------------------- #
 
 
 def create_image_message(sender_id, image_url, from_system=False):
