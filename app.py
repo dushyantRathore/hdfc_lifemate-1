@@ -70,7 +70,7 @@ def webhook():
                         features_path = os.path.join(INSURANCE_IMAGES_DIRECTORY, insurance_name, "/features.png")
                         log(features_path)
                         create_image_message(sender_id, features_path)
-                        send_message(sender_id, "Any further queries?", flag={"view":insurance_name})
+                        send_message(sender_id, features_path)
 
     return "ok", 200
 
