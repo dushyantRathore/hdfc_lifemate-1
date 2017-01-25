@@ -102,10 +102,6 @@ def webhook():
                         create_account_policies_list(sender_id)
                     elif payload_received == "pay_remind":
                         create_quickreply_list(sender_id)
-                    elif payload_received == "pay_premium":
-                        send_message(sender_id, "Complete your payment at the following url : ")
-                    elif payload_received == "remind_premium":
-                        send_message(sender_id, "A reminder has been set")
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
                         image_url1 = "funds/User1.jpeg"
@@ -394,12 +390,12 @@ def create_quickreply_list(sender_id):
                 {
                     "content_type": "text",
                     "title": "Pay",
-                    "payload": "pay_premium"
+                    "payload": "pay"
                 },
                 {
                     "content_type": "text",
                     "title": "Remind",
-                    "payload": "remind_premium"
+                    "payload": "remind"
                 }
             ]
         }
