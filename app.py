@@ -171,15 +171,6 @@ def reset_flag():
     pickle.dump(None,fileObj)
     fileObj.close()
 
-
-def get_flag():
-    try:
-        fname = "flag.p"
-        fileObj = open(fname, 'r')
-        return pickle.load(fileObj)
-    except:
-        return None
-
 def update_image_url(image_url):
     fname = "image_url.p"
     fileObj = open(fname,'wb')
