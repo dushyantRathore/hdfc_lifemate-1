@@ -78,13 +78,13 @@ def webhook():
                         create_account_policies_list(sender_id)
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
-                        image_url1 = "funds/pie.jpeg"
+                        image_url1 = "funds/User1.jpeg"
                         create_image_message(sender_id, image_url1, True)
-                        image_url2 = "funds/database.png"
+                        image_url2 = "funds/User1.png"
                         create_image_message(sender_id, image_url2, True)
                     elif payload_received == "view_account_history":
                         send_message(sender_id, "Your account history is as follows : ")
-                        image_url = "history.png"
+                        image_url = "history/User1.png"
                         create_image_message(sender_id, image_url, True)
                     elif payload_received == "support":
                         send_message(sender_id, "Woohoo")
