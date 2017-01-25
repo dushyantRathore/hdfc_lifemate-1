@@ -8,8 +8,10 @@ import requests
 from flask import Flask, request, send_file, send_from_directory
 
 import constants
+import templates as tp
+
 #import qr_utils
-import templates
+
 
 app = Flask(__name__)
 
@@ -62,7 +64,8 @@ def webhook():
 
                     if message_text == "get started":
                         send_message("started!")
-                    #code to handle insurance product queries of the users
+
+                    # code to handle insurance product queries of the users
                     elif get_flag() and message_text:
                         flag = get_flag()
                         if flag.get("insurance_help"):
@@ -106,17 +109,17 @@ def webhook():
                     if payload_received == "view_insurance":
                         sender_id = messaging_event["sender"]["id"]
                         print(sender_id)
-                        create_view_insurance_list(sender_id)
+                        tp.create_view_insurance_list(sender_id)
                     elif payload_received == "apply":
                         send_message(sender_id, "Woohoo")
                     elif payload_received == "claim":
                         send_message(sender_id, "Woohoo")
                     elif payload_received == "account":
-                        create_account_list(sender_id)
+                        tp.create_account_list(sender_id)
                     elif payload_received == "view_account_policies":
-                        create_account_policies_list(sender_id)
+                        tp.create_account_policies_list(sender_id)
                     elif payload_received == "pay_remind":
-                        create_pay_remind_list(sender_id)
+                        tp.create_pay_remind_list(sender_id)
                     elif payload_received == "remind":
                         send_message(sender_id, "Your Reminder has been set")
                     elif payload_received == "view_account_funds":
@@ -185,6 +188,7 @@ def get_image_url():
     except:
         return None
 
+
 def send_message(recipient_id, message_text, flag=''):
 
     log("sending message to {recipient}: {text}".format(
@@ -227,234 +231,6 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 
-# ------------------------ Insurance Plans List ------------------------- #
-
-
-def create_view_insurance_list(sender_id):
-    insurance_list_template = json.dumps({
-    "recipient":{"id":sender_id
-}, "message": {
-    "attachment": {
-        "type": "template",
-        "payload": {
-            "template_type": "list",
-            "top_element_style": "compact",
-            "elements": [
-                {
-                    "title": "HDFC Life Insurance Plans",
-                    "subtitle": "Please choose a plan of your interest",
-                },
-                {
-                    "title": "Click2Protect",
-                    "subtitle": "HDFC Life Insurance Plan",
-                    "buttons": [
-                        {
-                            "title": "View",
-                            "type": "postback",
-                            "payload": "view_insurance_life"
-                        }
-                    ]                
-                },
-                {
-                    "title": "Click2Invest",
-                    "subtitle": "HDFC Life Investment Plan",
-                    "buttons": [
-                        {
-                            "title": "View",
-                            "type": "postback",
-                            "payload": "view_insurance_invest"
-                        }
-                    ]
-                },
-                {
-                    "title": "Easy Health",
-                    "subtitle": "HDFC Health Insurance Plan",
-                    "buttons": [
-                        {
-                            "title": "View",
-                            "type": "postback",
-                            "payload": "view_insurance_health"
-                        }
-                    ]
-                }
-            ],
-        }
-    }
-}
-    
-})
-
-    post_request(insurance_list_template)
-
-# ---------------------- My account List --------------------- #
-
-
-def create_account_list(sender_id):
-    account_list_template = json.dumps({
-        "recipient": {
-            "id": sender_id
-        }, "message": {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "list",
-                    "top_element_style": "compact",
-                    "elements": [
-                        {
-                            "title": "Account Details",
-                            "subtitle": "Get your Account Details",
-                        },
-                        {
-                            "title": "My Policies",
-                            "subtitle": "Check the policies associated with your account",
-                            "buttons": [
-                                {
-                                    "title": "View",
-                                    "type": "postback",
-                                    "payload": "view_account_policies"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "My Funds",
-                            "subtitle": "Check the funds associated with your account",
-                            "buttons": [
-                                {
-                                    "title": "View",
-                                    "type": "postback",
-                                    "payload": "view_account_funds"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "Premium History",
-                            "subtitle": "Check your Premium History",
-                            "buttons": [
-                                {
-                                    "title": "View",
-                                    "type": "postback",
-                                    "payload": "view_account_history"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
-
-    })
-
-    post_request(account_list_template)
-
-
-# ----------------------- Account Policies List -------------------------- #
-def create_account_policies_list(sender_id):
-    policies_list_template = json.dumps({
-        "recipient": {"id": sender_id
-                      }, "message": {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "list",
-                    "top_element_style": "compact",
-                    "elements": [
-                        {
-                            "title": "Account Policies",
-                            "subtitle": "Details of the policies associated with your account",
-                        },
-                        {
-                            "title": "Click2Protect",
-                            "subtitle": "Premium - 40,000"
-                                        "\nDue Date - 29/01/2017 ",
-                            "buttons": [
-                                {
-                                    "title": "Pay/Remind",
-                                    "type": "postback",
-                                    "payload": "pay_remind"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "Click2Invest",
-                            "subtitle": "Premium - 20,000"
-                                        "\nDue Date - 05/03/2017 ",
-                            "buttons": [
-                                {
-                                    "title": "Pay/Remind",
-                                    "type": "postback",
-                                    "payload": "pay_remind"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "Cancer Care",
-                            "subtitle": "Premium - 80,000"
-                                        "\nDue Date - 06/05/2017 ",
-                            "buttons": [
-                                {
-                                    "title": "Pay/Remind",
-                                    "type": "postback",
-                                    "payload": "pay_remind"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
-
-    })
-
-    post_request(policies_list_template)
-
-
-# # ------------------------ Pay Button ---------------- #
-
-def create_pay_remind_list(sender_id):
-    pay_remind_list = json.dumps({
-    "recipient":{
-                    "id": sender_id
-                },
-    "message":{
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "button",
-                "text": "Please choose your option",
-                "buttons": [
-                    {
-                        "type": "web_url",
-                        "url": "http://www.hdfclife.com/customer-service/pay-premium",
-                        "title": "Pay"
-                    },
-                    {
-                        "type": "postback",
-                        "title": "Set Reminder",
-                        "payload": "remind"
-                    }
-                ]
-            }
-        }
-    }
-    })
-
-    post_request(pay_remind_list)
-
-
-def post_request(body):
-    params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers,
-                      data=body)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
-
 # -------------------- Image Creation ----------------------- #
 
 
@@ -476,7 +252,8 @@ def create_image_message(sender_id, image_url, from_system=False):
             }
         }
 })
-    post_request(image_message)
+    tp.post_request(image_message)
+
 
 # ------------------- Run App ---------------------- #
 
