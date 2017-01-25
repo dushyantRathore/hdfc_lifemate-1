@@ -124,6 +124,8 @@ def webhook():
                         create_account_policies_list(sender_id)
                     elif payload_received == "pay_remind":
                         create_pay_remind_list(sender_id)
+                    elif payload_received == "remind":
+                        send_message(sender_id, "Your Reminder has been set")
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
                         image_url1 = "funds/User1.jpeg"
