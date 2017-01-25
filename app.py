@@ -52,16 +52,25 @@ def webhook():
                 if messaging_event.get("message"):
                     
                     message_text = messaging_event["message"].get("text")
+                    message_payload = messaging_event["message"].get("payload")
+
+
                     if message_text:
                         message_text = message_text.lower()
 
-                    #code to handle insurance product queries of the users
+                    # Code to handle Pay/Remind Query
+                    if message_payload == "pay":
+                        send_message(sender_id, "Yaahoooo")
+                    elif message_payload == "remind":
+                        send_message(sender_id, "Hahahaha")
+
+                    # Code to handle insurance product queries of the users
                     if get_flag() and message_text:
                         flag = get_flag()
                         if flag.get("insurance_help"):
                             insurance_name = get_flag().get("insurance_help")
                             log_to_messenger(sender_id, insurance_name, "Query for")
-                            if "eligibl" in message_text:
+                            if "eligibi" in message_text:
                                 elgibility_path = os.path.join(insurance_name, 'eligibility.png')
                                 create_image_message(sender_id, elgibility_path, True)
                             elif "premium" in message_text:
