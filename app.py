@@ -57,9 +57,9 @@ def webhook():
                         message_text = message_text.lower()
 
                     # Code to handle Pay/Remind Query
-                    if "pay" in message_text:
+                    if message_text == "pay":
                         send_message(sender_id, "Yaahooo")
-                    elif "remind" in message_text:
+                    elif message_text == "remind":
                         send_message(sender_id, "Hahahah")
 
                     # Code to handle insurance product queries of the users
