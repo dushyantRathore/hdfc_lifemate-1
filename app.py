@@ -2,13 +2,15 @@ import os
 import json
 import pickle
 import sys
+import md5
+import magic
 
 import requests
 
 from flask import Flask, request, send_file, send_from_directory
 
 import constants
-#import qr_utils
+import qr_utils
 import templates
 
 app = Flask(__name__)
@@ -89,10 +91,16 @@ def webhook():
                 # optin confirmation
                 if messaging_event.get("attachments"):
                     if messaging_event["message"]["attachments"][0]["type"] == "image":
-                                log("Image received from user.")
-                                image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
-                                log(image_url)
-                                update_image_url(image_url)
+                        log("Image received from user.")
+                        image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
+                        log(image_url)
+                        update_image_url(image_url)
+                        filename = save_image_from_url()
+                        user_data = qr_utils.decode_aadhar_from_qr(filename, True)
+                        send_message(sender_id, user_data)
+
+
+
 
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
@@ -217,7 +225,31 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     print (str(message))
     sys.stdout.flush()
 
-
+def save_image_from_url(image_url='', image_name=''):
+    if not image_url:
+        image_url = get_image_url()
+    session = requests.session()
+    response = session.get(image_url)
+    filename = image_name
+    if not image_name:
+        filename = 'image_%s.jpeg' % md5.new(image_url).hexdigest()
+    with open(filename, 'wb') as handle:
+        for block in response.iter_content(1048576):
+            if not block:
+                break
+            handle.write(block)
+        handle.close()
+    mimetype = magic.from_file(filename, mime=True)
+    if not mimetype.startswith('image/'):
+        raise Exception('Not an image: ' + mimetype)
+    if os.stat(filename).st_size > 3072 * 1024:  # 3MB? unsure
+        raise Exception('Bigger than 3MB')
+    else:
+        # filename = sys.argv[1]
+        log("Shouldn't be here.")
+    result = ic.find_type(filename)
+    return filename
+    
 # ------------------------ Insurance Plans List ------------------------- #
 
 

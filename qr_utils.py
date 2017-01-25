@@ -34,6 +34,7 @@ def parse_aadhar(xml_data, json_reqd=False):
 		return json.dumps
 	return obj
 
-out_xml = decode_qr("images/vinay.jpg")
-out = parse_aadhar(out_xml)
-print(out)
+def decode_aadhar_from_qr(imagepath, is_json=False):
+	out_xml = decode_qr(image_path)
+	out = parse_aadhar(out_xml, is_json)
+	return out
