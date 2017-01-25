@@ -119,7 +119,16 @@ def webhook():
                     elif payload_received == "apply":
                         send_message(sender_id, "Woohoo")
                     elif payload_received == "claim":
-                        send_message(sender_id, "Woohoo")
+                        tp.create_claim_type_list(sender_id)
+                    elif payload_received == "natural_death":
+                        send_message(sender_id, "Please upload the following documents (PDF/Scan) : "
+                                                "\n1. Death Certificate"
+                                                "\n2. Original Policy Documents"
+                                                "\n3. Medical Records")
+                    elif payload_received == "critical_illness":
+                        send_message(sender_id, "Please upload the following documents (PDF/Scan) : "
+                                                "\n1. Medical Records"
+                                                "\n2. Original Policy Documents")
                     elif payload_received == "account":
                         tp.create_account_list(sender_id)
                     elif payload_received == "view_account_policies":
@@ -165,17 +174,20 @@ def get_flag():
     except:
         return None
 
+
 def reset_flag():
     fname = "flag.p"
     fileObj = open(fname,'wb')
     pickle.dump(None,fileObj)
     fileObj.close()
 
+
 def update_image_url(image_url):
     fname = "image_url.p"
     fileObj = open(fname,'wb')
     pickle.dump(image_url,fileObj)
     fileObj.close()
+
 
 def get_image_url():
     try:

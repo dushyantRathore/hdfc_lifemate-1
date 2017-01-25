@@ -63,6 +63,38 @@ def create_view_insurance_list(sender_id):
     post_request(insurance_list_template)
 
 
+# ------------------------ Claim Options List ---------------- #
+
+def create_claim_type_list(sender_id):
+    claim_list = json.dumps({
+    "recipient":{
+                    "id": sender_id
+                },
+    "message":{
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "button",
+                "text": "Please choose your option",
+                "buttons": [
+                    {
+                        "type": "postback",
+                        "title" : "Natural Death",
+                        "payload" : "natural_death"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "Critical Illness",
+                        "payload": "critical_illness"
+                    }
+                ]
+            }
+        }
+    }
+    })
+
+    post_request(claim_list)
+
 # ---------------------- My Account List --------------------- #
 
 
