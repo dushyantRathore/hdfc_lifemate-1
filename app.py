@@ -116,7 +116,7 @@ def webhook():
                     elif payload_received == "view_account_policies":
                         create_account_policies_list(sender_id)
                     elif payload_received == "pay_remind":
-                        send_message(sender_id, "LOL")
+                        create_pay_button(sender_id)
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
                         image_url1 = "funds/User1.jpeg"
@@ -407,24 +407,30 @@ def create_account_policies_list(sender_id):
 
 
 # # ------------------------ Pay Button ---------------- #
-#
-# def create_pay_button(sender_id):
-#     pay_button = json.dumps({
-#         "recipient": {"id": sender_id
-#                       },
-#         "buttons": [
-#             {
-#                 "type": "web_url",
-#                 "url": "http://www.hdfclife.com/customer-service/pay-premium",
-#                 "title": "Pay",
-#                 "webview_height_ratio": "compact"
-#             }
-#         ]
-#     })
-#
-#     post_request(pay_button)
 
-# ------------------------ Post Request -------------------- #
+def create_pay_button(sender_id):
+    button_message = json.dumps({
+    "recipient":{
+                    "id": sender_id
+                },
+    "message":{
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "button",
+                "buttons": [
+                    {
+                        "type":"web_url",
+                        "url":"http://www.hdfclife.com/customer-service/pay-premium",
+                        "title":"Pay"
+                    },
+                    ]
+                }
+            }
+        }
+    })
+
+    post_request(button_message)
 
 
 def post_request(body):
