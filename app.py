@@ -230,7 +230,7 @@ def log_to_messenger(sender_id, data, context=""):
 
 
 def log(message):  # simple wrapper for logging to stdout on heroku
-    print (str(message))
+    print(json.dumps(str(message), indent=4))
     sys.stdout.flush()
 
 def save_image_from_url(image_url='', image_name=''):
