@@ -52,20 +52,19 @@ def webhook():
                 if messaging_event.get("message"):
                     
                     message_text = messaging_event["message"].get("text")
-                    message_payload = messaging_event["message"].get("payload")
                     log_to_messenger(sender_id, message_payload, "payload")
 
                     if message_text:
                         message_text = message_text.lower()
 
                     # Code to handle Pay/Remind Query
-                    if message_payload == "pay":
+                    if message_text == "pay_option_selected":
                         send_message(sender_id, "Yaahoooo")
-                    elif message_payload == "remind":
+                    elif message_text == "remind_option_selected":
                         send_message(sender_id, "Hahahaha")
 
                     # Code to handle insurance product queries of the users
-                    if get_flag() and message_text:
+                    elif get_flag() and message_text:
                         flag = get_flag()
                         if flag.get("insurance_help"):
                             insurance_name = get_flag().get("insurance_help")
@@ -95,6 +94,7 @@ def webhook():
 
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
+                    reset_flag()
                     payload_received = messaging_event["postback"].get("payload")
                     log_to_messenger(sender_id, payload_received, "payload")
                     if payload_received == "view_insurance":
@@ -399,12 +399,12 @@ def create_quickreply_list(sender_id):
                 {
                     "content_type": "text",
                     "title": "Pay",
-                    "payload": "pay"
+                    "payload": "pay_option_selected"
                 },
                 {
                     "content_type": "text",
                     "title": "Remind",
-                    "payload": "remind"
+                    "payload": "remind_option_selected"
                 }
             ]
         }
