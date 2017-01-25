@@ -1,7 +1,7 @@
 import os
 import json
 import pickle
-import sys
+import sys, md5, magic
 
 import requests
 
@@ -55,9 +55,10 @@ def webhook():
                     message_text = messaging_event["message"].get("text")
                     if message_text:
                         message_text = message_text.lower()
-
+                    if message_text == "get started":
+                        send_message("started!")
                     #code to handle insurance product queries of the users
-                    if get_flag() and message_text:
+                    elif get_flag() and message_text:
                         flag = get_flag()
                         if flag.get("insurance_help"):
                             insurance_name = get_flag().get("insurance_help")
@@ -84,6 +85,14 @@ def webhook():
                 # optin confirmation
                 if messaging_event.get("optin"):
                     pass
+
+                # optin confirmation
+                if messaging_event.get("attachments"):
+                    if messaging_event["message"]["attachments"][0]["type"] == "image":
+                                log("Image received from user.")
+                                image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
+                                log(image_url)
+                                update_image_url(image_url)
 
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
@@ -153,6 +162,19 @@ def get_flag():
     except:
         return None
 
+def update_image_url(image_url):
+    fname = "image_url.p"
+    fileObj = open(fname,'wb')
+    pickle.dump(image_url,fileObj)
+    fileObj.close()
+
+def get_image_url():
+    try:
+        fname = "image_url.p"
+        fileObj = open(fname, 'r')
+        return pickle.load(fileObj)
+    except:
+        return None
 
 def send_message(recipient_id, message_text, flag=''):
 
