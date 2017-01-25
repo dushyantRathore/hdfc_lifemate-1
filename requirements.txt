@@ -11,3 +11,5 @@ zbar
 qrtools
 pyqrcode
 beautifulsoup4
+python-magic
+Pillow
