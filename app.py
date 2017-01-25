@@ -29,6 +29,7 @@ def verify():
 
     return "Hello world", 200
 
+
 @app.route('/images/<path:filename>', methods=['GET'])
 def return_image(filename):
     print(filename)
@@ -55,8 +56,12 @@ def webhook():
                 if messaging_event.get("message"):
                     
                     message_text = messaging_event["message"].get("text")
+
                     if message_text:
                         message_text = message_text.lower()
+
+                    # Code to handle insurance product queries of the users
+
                     if message_text == "get started":
                         send_message("started!")
                     #code to handle insurance product queries of the users
@@ -65,7 +70,7 @@ def webhook():
                         if flag.get("insurance_help"):
                             insurance_name = get_flag().get("insurance_help")
                             log_to_messenger(sender_id, insurance_name, "Query for")
-                            if "eligib" in message_text:
+                            if "eligibi" in message_text:
                                 elgibility_path = os.path.join(insurance_name, 'eligibility.png')
                                 create_image_message(sender_id, elgibility_path, True)
                             elif "premium" in message_text:
@@ -118,15 +123,17 @@ def webhook():
                         create_account_list(sender_id)
                     elif payload_received == "view_account_policies":
                         create_account_policies_list(sender_id)
+                    elif payload_received == "pay_remind":
+                        create_pay_remind_list(sender_id)
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
-                        image_url1 = "funds/pie.jpeg"
+                        image_url1 = "funds/User1.jpeg"
                         create_image_message(sender_id, image_url1, True)
-                        image_url2 = "funds/database.png"
+                        image_url2 = "funds/User1.png"
                         create_image_message(sender_id, image_url2, True)
                     elif payload_received == "view_account_history":
                         send_message(sender_id, "Your account history is as follows : ")
-                        image_url = "history.png"
+                        image_url = "history/User1.png"
                         create_image_message(sender_id, image_url, True)
                     elif payload_received == "support":
                         send_message(sender_id, "Woohoo")
@@ -430,7 +437,38 @@ def create_account_policies_list(sender_id):
 
     post_request(policies_list_template)
 
-# ------------------------ Post Request -------------------- #
+
+# # ------------------------ Pay Button ---------------- #
+
+def create_pay_remind_list(sender_id):
+    pay_remind_list = json.dumps({
+    "recipient":{
+                    "id": sender_id
+                },
+    "message":{
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "button",
+                "text": "Please choose your option",
+                "buttons": [
+                    {
+                        "type": "web_url",
+                        "url": "http://www.hdfclife.com/customer-service/pay-premium",
+                        "title": "Pay"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "Set Reminder",
+                        "payload": "remind"
+                    }
+                ]
+            }
+        }
+    }
+    })
+
+    post_request(pay_remind_list)
 
 
 def post_request(body):
