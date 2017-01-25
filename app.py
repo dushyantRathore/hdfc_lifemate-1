@@ -45,7 +45,7 @@ def webhook():
     # endpoint for processing incoming messaging events
 
     data = request.get_json()
-    print(json.dumps(data, indent=4))  # you may not want to log every incoming message in production, but it's good for testing
+    print(json.dumps(data, indent=2))  # you may not want to log every incoming message in production, but it's good for testing
 
     if data["object"] == "page":
 
