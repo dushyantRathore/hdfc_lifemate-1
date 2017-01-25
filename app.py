@@ -100,6 +100,8 @@ def webhook():
                         create_account_list(sender_id)
                     elif payload_received == "view_account_policies":
                         create_account_policies_list(sender_id)
+                    elif payload_received == "pay_remind":
+                        create_quickreply_list(sender_id)
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
                         image_url1 = "funds/User1.jpeg"
@@ -374,6 +376,32 @@ def create_account_policies_list(sender_id):
     })
 
     post_request(policies_list_template)
+
+
+# ------------------------ Pay/Remind Option ---------------- #
+
+
+def create_quickreply_list(sender_id):
+    list_template = json.dumps({
+        "recipient": {"id": sender_id
+                      }, "message": {
+            "text": "Choose your Option : ",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Pay",
+                    "payload": "pay_premium"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Remind",
+                    "payload": "remind_premium"
+                }
+            ]
+        }
+    })
+
+    post_request(list_template)
 
 # ------------------------ Post Request -------------------- #
 
