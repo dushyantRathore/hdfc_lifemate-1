@@ -8,7 +8,7 @@ import requests
 from flask import Flask, request, send_file, send_from_directory
 
 import constants
-import qr_utils
+#import qr_utils
 import templates
 
 app = Flask(__name__)
