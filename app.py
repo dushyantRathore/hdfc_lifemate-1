@@ -116,7 +116,7 @@ def webhook():
                     elif payload_received == "view_account_policies":
                         create_account_policies_list(sender_id)
                     elif payload_received == "pay_remind":
-                        create_pay_button(sender_id)
+                        create_pay_remind_list(sender_id)
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
                         image_url1 = "funds/User1.jpeg"
@@ -408,8 +408,8 @@ def create_account_policies_list(sender_id):
 
 # # ------------------------ Pay Button ---------------- #
 
-def create_pay_button(sender_id):
-    button_message = json.dumps({
+def create_pay_remind_list(sender_id):
+    pay_remind_list = json.dumps({
     "recipient":{
                     "id": sender_id
                 },
@@ -418,19 +418,25 @@ def create_pay_button(sender_id):
             "type": "template",
             "payload": {
                 "template_type": "button",
+                "text": "Please choose your option",
                 "buttons": [
                     {
-                        "type":"web_url",
-                        "url":"http://www.hdfclife.com/customer-service/pay-premium",
-                        "title":"Pay"
+                        "type": "web_url",
+                        "url": "http://www.hdfclife.com/customer-service/pay-premium",
+                        "title": "Pay"
                     },
-                    ]
-                }
+                    {
+                        "type": "postback",
+                        "title": "Set Reminder",
+                        "payload": "remind"
+                    }
+                ]
             }
         }
+    }
     })
 
-    post_request(button_message)
+    post_request(pay_remind_list)
 
 
 def post_request(body):
