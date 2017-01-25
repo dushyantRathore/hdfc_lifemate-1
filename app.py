@@ -62,10 +62,8 @@ def webhook():
 
                     # Code to handle insurance product queries of the users
 
-                    if message_text == "get started":
-                        send_message("started!")
                     #code to handle insurance product queries of the users
-                    elif get_flag() and message_text:
+                    if get_flag() and message_text:
                         flag = get_flag()
                         if flag.get("insurance_help"):
                             insurance_name = get_flag().get("insurance_help")
@@ -95,6 +93,7 @@ def webhook():
 
                 # optin confirmation
                 if messaging_event.get("attachments"):
+                    log_to_messenger(sender_id, "attachment received!")
                     if messaging_event["message"]["attachments"][0]["type"] == "image":
                         log("Image received from user.")
                         image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
