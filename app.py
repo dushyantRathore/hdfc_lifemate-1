@@ -10,6 +10,9 @@ import requests
 from flask import Flask, request, send_file, send_from_directory
 
 import constants
+
+import templates as tp
+
 import qr_utils
 import templates
 
@@ -60,7 +63,6 @@ def webhook():
                     if message_text:
                         message_text = message_text.lower()
 
-                    # Code to handle insurance product queries of the users
 
                     #code to handle insurance product queries of the users
                     if get_flag() and message_text:
@@ -113,17 +115,17 @@ def webhook():
                     if payload_received == "view_insurance":
                         sender_id = messaging_event["sender"]["id"]
                         print(sender_id)
-                        create_view_insurance_list(sender_id)
+                        tp.create_view_insurance_list(sender_id)
                     elif payload_received == "apply":
                         send_message(sender_id, "Woohoo")
                     elif payload_received == "claim":
                         send_message(sender_id, "Woohoo")
                     elif payload_received == "account":
-                        create_account_list(sender_id)
+                        tp.create_account_list(sender_id)
                     elif payload_received == "view_account_policies":
-                        create_account_policies_list(sender_id)
+                        tp.create_account_policies_list(sender_id)
                     elif payload_received == "pay_remind":
-                        create_pay_remind_list(sender_id)
+                        tp.create_pay_remind_list(sender_id)
                     elif payload_received == "remind":
                         send_message(sender_id, "Your Reminder has been set")
                     elif payload_received == "view_account_funds":
@@ -192,6 +194,7 @@ def get_image_url():
     except:
         return None
 
+
 def send_message(recipient_id, message_text, flag=''):
 
     log("sending message to {recipient}: {text}".format(
@@ -232,6 +235,7 @@ def log_to_messenger(sender_id, data, context=""):
 def log(message):  # simple wrapper for logging to stdout on heroku
     print(json.dumps(str(message), indent=4))
     sys.stdout.flush()
+
 
 def save_image_from_url(image_url='', image_name=''):
     if not image_url:
@@ -486,6 +490,7 @@ def post_request(body):
         log(r.status_code)
         log(r.text)
 
+
 # -------------------- Image Creation ----------------------- #
 
 
@@ -507,7 +512,8 @@ def create_image_message(sender_id, image_url, from_system=False):
             }
         }
 })
-    post_request(image_message)
+    tp.post_request(image_message)
+
 
 # ------------------- Run App ---------------------- #
 
