@@ -53,7 +53,7 @@ def webhook():
                     
                     message_text = messaging_event["message"].get("text")
                     message_payload = messaging_event["message"].get("payload")
-
+                    log_to_messenger(sender_id, message_payload, "payload")
 
                     if message_text:
                         message_text = message_text.lower()
