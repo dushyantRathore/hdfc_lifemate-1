@@ -56,12 +56,6 @@ def webhook():
                     if message_text:
                         message_text = message_text.lower()
 
-                    # Code to handle Pay/Remind Query
-                    if message_text == "pay":
-                        send_message(sender_id, "Yaahooo")
-                    elif message_text == "remind":
-                        send_message(sender_id, "Hahahah")
-
                     # Code to handle insurance product queries of the users
                     elif get_flag() and message_text:
                         flag = get_flag()
@@ -109,7 +103,7 @@ def webhook():
                     elif payload_received == "view_account_policies":
                         create_account_policies_list(sender_id)
                     elif payload_received == "pay_remind":
-                        create_quickreply_list(sender_id)
+                        create_pay_button(sender_id)
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
                         image_url1 = "funds/User1.jpeg"
@@ -386,30 +380,23 @@ def create_account_policies_list(sender_id):
     post_request(policies_list_template)
 
 
-# ------------------------ Pay/Remind Option ---------------- #
+# ------------------------ Pay Button ---------------- #
 
-
-def create_quickreply_list(sender_id):
-    list_template = json.dumps({
+def create_pay_button(sender_id):
+    pay_button = json.dumps({
         "recipient": {"id": sender_id
-                      }, "message": {
-            "text": "Choose your Option : ",
-            "quick_replies": [
-                {
-                    "content_type": "text",
-                    "title": "Pay",
-                    "payload": "pay_option_selected"
-                },
-                {
-                    "content_type": "text",
-                    "title": "Remind",
-                    "payload": "remind_option_selected"
-                }
-            ]
-        }
+                      },
+        "buttons": [
+            {
+                "type": "web_url",
+                "url": "http://www.hdfclife.com/customer-service/pay-premium",
+                "title": "Pay",
+                "webview_height_ratio": "compact"
+            }
+        ]
     })
 
-    post_request(list_template)
+    post_request(pay_button)
 
 # ------------------------ Post Request -------------------- #
 
