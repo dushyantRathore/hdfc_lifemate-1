@@ -11,4 +11,3 @@ zbar
 qrtools
 pyqrcode
 beautifulsoup4
-magic

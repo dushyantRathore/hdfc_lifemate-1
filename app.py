@@ -1,7 +1,7 @@
 import os
 import json
 import pickle
-import sys, md5, magic
+import sys
 
 import requests
 
