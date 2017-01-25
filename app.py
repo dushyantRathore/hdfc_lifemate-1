@@ -87,7 +87,6 @@ def webhook():
 
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
-                    reset_flag()
                     payload_received = messaging_event["postback"].get("payload")
                     log_to_messenger(sender_id, payload_received, "payload")
                     if payload_received == "view_insurance":
