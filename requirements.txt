@@ -10,3 +10,4 @@ wsgiref==0.1.2
 zbar
 qrtools
 pyqrcode
+beautifulsoup4

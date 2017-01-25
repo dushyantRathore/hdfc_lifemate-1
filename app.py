@@ -8,6 +8,7 @@ import requests
 from flask import Flask, request, send_file, send_from_directory
 
 import constants
+import qr_utils
 import templates
 
 app = Flask(__name__)
@@ -25,6 +26,7 @@ def verify():
         return request.args["hub.challenge"], 200
 
     return "Hello world", 200
+
 
 @app.route('/images/<path:filename>', methods=['GET'])
 def return_image(filename):
@@ -102,7 +104,7 @@ def webhook():
                     elif payload_received == "view_account_policies":
                         create_account_policies_list(sender_id)
                     elif payload_received == "pay_remind":
-                        create_pay_button(sender_id)
+                        send_message(sender_id, "LOL")
                     elif payload_received == "view_account_funds":
                         send_message(sender_id, "Your account funds are as follows : ")
                         image_url1 = "funds/User1.jpeg"
@@ -379,23 +381,23 @@ def create_account_policies_list(sender_id):
     post_request(policies_list_template)
 
 
-# ------------------------ Pay Button ---------------- #
-
-def create_pay_button(sender_id):
-    pay_button = json.dumps({
-        "recipient": {"id": sender_id
-                      },
-        "buttons": [
-            {
-                "type": "web_url",
-                "url": "http://www.hdfclife.com/customer-service/pay-premium",
-                "title": "Pay",
-                "webview_height_ratio": "compact"
-            }
-        ]
-    })
-
-    post_request(pay_button)
+# # ------------------------ Pay Button ---------------- #
+#
+# def create_pay_button(sender_id):
+#     pay_button = json.dumps({
+#         "recipient": {"id": sender_id
+#                       },
+#         "buttons": [
+#             {
+#                 "type": "web_url",
+#                 "url": "http://www.hdfclife.com/customer-service/pay-premium",
+#                 "title": "Pay",
+#                 "webview_height_ratio": "compact"
+#             }
+#         ]
+#     })
+#
+#     post_request(pay_button)
 
 # ------------------------ Post Request -------------------- #
 
