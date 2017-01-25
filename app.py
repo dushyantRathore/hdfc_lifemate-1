@@ -8,6 +8,7 @@ import requests
 from flask import Flask, request, send_file, send_from_directory
 
 import constants
+import qr_utils
 import templates
 
 app = Flask(__name__)
@@ -61,7 +62,7 @@ def webhook():
                         if flag.get("insurance_help"):
                             insurance_name = get_flag().get("insurance_help")
                             log_to_messenger(sender_id, insurance_name, "Query for")
-                            if "eligibl" in message_text:
+                            if "eligib" in message_text:
                                 elgibility_path = os.path.join(insurance_name, 'eligibility.png')
                                 create_image_message(sender_id, elgibility_path, True)
                             elif "premium" in message_text:
