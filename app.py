@@ -76,7 +76,7 @@ def webhook():
                         update_flag(flag_received)
                         log_to_messenger(sender_id, get_flag(), "flag2")
 
-                    if flag_received.get('sub-section') == "username":
+                    elif flag_received.get('sub-section') == "username":
                         send_message(sender_id, "Enter your Password : ")
                         flag_received = {
                             'section' : 'main',
@@ -84,7 +84,7 @@ def webhook():
                         }
                         update_flag(flag_received)
 
-                    if flag_received.get('sub-section') == "password":
+                    elif flag_received.get('sub-section') == "password":
                         send_message(sender_id, "You have successfully Logged In", flag = {'section' : 'main', 'sub-section' : ''})
 
 
