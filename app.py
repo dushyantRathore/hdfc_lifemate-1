@@ -68,7 +68,7 @@ def webhook():
                         message_text = message_text.lower()
 
                     if message_text == "login":
-                        send_message(sender_id, "Enter your Login ID : ")
+                        send_message(sender_id, "Yay")
                         flag_received = {
                             'section' : 'main',
                             'sub-section' : 'username'
