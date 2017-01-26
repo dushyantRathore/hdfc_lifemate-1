@@ -8,7 +8,7 @@ import sys
 
 
 def getstarted_registration(sender_id):
-    button_message = json.dumps({
+    getstarted_option = json.dumps({
         "recipient":{
                         "id": sender_id
                     },
@@ -34,6 +34,8 @@ def getstarted_registration(sender_id):
                 }
             }
         })
+
+    post_request(getstarted_option)
 
 
 # ------------------------ Insurance Plans List ------------------------- #
@@ -127,6 +129,7 @@ def create_claim_type_list(sender_id):
     })
 
     post_request(claim_list)
+
 
 # ---------------------- My Account List --------------------- #
 
@@ -336,6 +339,8 @@ def create_generic_template(sender_id, name, subtitle, image_url, phone, navigat
              }
          }
          })
+
+
 # ------------------------- Yes/No Button ------------------------ #
 
 def create_yes_no_button(sender_id):
