@@ -55,20 +55,40 @@ def webhook():
                 sender_id = messaging_event["sender"]["id"]
                 recipient_id = messaging_event["recipient"]["id"]
 
-                # someone sent us a message
+                # Someone sent us a message
                 if messaging_event.get("message"):
                     
                     message_text = messaging_event["message"].get("text")
+                    flag_received = get_flag()
+                    if not flag_received:
+                        flag_received = {}
 
                     if message_text:
                         message_text = message_text.lower()
 
+                    if message_text == "login":
+                        send_message(sender_id, "Enter your Login ID : ")
+                        flag = {
+                            'section' : 'main',
+                            'sub-section' : 'username'
+                        }
+                        update_flag(flag)
 
-                    #code to handle insurance product queries of the users
-                    if get_flag() and message_text:
-                        flag = get_flag()
-                        if flag.get("insurance_help"):
-                            insurance_name = get_flag().get("insurance_help")
+                    if flag_received.get('sub-section') == "username":
+                        send_message(sender_id, "Enter your Password : ")
+                        flag = {
+                            'section' : 'main',
+                            'sub-section' : 'password'
+                        }
+                        update_flag(flag)
+
+                    if flag_received.get('sub-section') == "password":
+                        send_message(sender_id, "You have successfully Logged In", flag = {'section' : 'main', 'sub-section' : ''})
+
+
+                    # Code to handle insurance product queries of the users
+                    if flag_received.get('section') == 'insurance_help' and message_text:
+                            insurance_name = flag_received.get('sub-section')
                             log_to_messenger(sender_id, insurance_name, "Query for")
                             if "eligibi" in message_text:
                                 elgibility_path = os.path.join(insurance_name, 'eligibility.png')
@@ -115,6 +135,11 @@ def webhook():
 
                     if payload_received == "getstarted":  # Get Started
                         tp.quickreplies_getstarted(sender_id)
+                        flag = {
+                            'section':'main',
+                            'sub-section': ''
+                        }
+                        update_flag(flag)
 
                     elif payload_received == "member_yes":  # A Registered Member
                         send_message(sender_id, "Kindly enter your userID : ")
@@ -131,7 +156,7 @@ def webhook():
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(insurance_name, 'features.png')
                         create_image_message(sender_id, features_path, True)
-                        send_message(sender_id, "Anything else I can help you with?",flag={"insurance_help":insurance_name})
+                        send_message(sender_id, "Anything else I can help you with?",flag={"section" : "insurance_help", "sub-section" : insurance_name})
                         log_to_messenger(sender_id, features_path, "image_path")
 
                     elif payload_received == "apply":  # Best for me / Apply Option
@@ -221,7 +246,7 @@ def get_image_url():
         return None
 
 
-def send_message(recipient_id, message_text, flag=''):
+def send_message(recipient_id, message_text, flag={}):
 
     log("sending message to {recipient}: {text}".format(
         recipient=recipient_id, text=message_text))
