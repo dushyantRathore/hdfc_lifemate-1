@@ -74,6 +74,7 @@ def webhook():
                             'sub-section' : 'username'
                         }
                         update_flag(flag)
+                        log_to_messenger(sender_id, get_flag(), "flag2")
 
                     elif flag_received.get('sub-section') == "username":
                         send_message(sender_id, "Enter your Password : ")
