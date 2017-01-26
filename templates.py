@@ -7,35 +7,29 @@ import sys
 # ------------------------ Get Started Member List---------------------- #
 
 
-def getstarted_registration(sender_id):
-    getstarted_option = json.dumps({
+def quickreplies_getstarted(sender_id):
+    getstarted = json.dumps({
         "recipient":{
                         "id": sender_id
                     },
-        "message":{
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "button",
-                    "text": "Are you a Member of HDFC Life",
-                    "buttons": [
-                              {
-                                "type":"postback",
-                                "title":"Yes",
-                                "payload":"member_yes"
-                              },
-                              {
-                                "type":"postback",
-                                "title":"No",
-                                "payload":"member_no"
-                              }
-                        ]
-                    }
-                }
+                    "message":{
+        "text": "Choose your Option ",
+        "quick_replies": [
+            {
+                "content_type": "text",
+                "title": "Login",
+                "payload": "member_yes"
+            },
+            {
+                "content_type": "text",
+                "title": "Sign Up",
+                "payload": "member_no"
             }
-        })
+        ]
+       }
+    })
 
-    post_request(getstarted_option)
+    post_request(getstarted)
 
 
 # ------------------------ Insurance Plans List ------------------------- #

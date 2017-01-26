@@ -114,10 +114,10 @@ def webhook():
                     log_to_messenger(sender_id, payload_received, "payload")
 
                     if payload_received == "getstarted":  # Get Started
-                        tp.getstarted_registration(sender_id)
+                        tp.quickreplies_getstarted(sender_id)
 
                     elif payload_received == "member_yes":  # A Registered Member
-                        send_message(sender_id, "Kindly enter your userID")
+                        send_message(sender_id, "Kindly enter your userID : ")
 
                     elif payload_received == "member_no":  # Not a Registered Member
                         send_message(sender_id, "Please send your AADHAAR card Image/Scan")
