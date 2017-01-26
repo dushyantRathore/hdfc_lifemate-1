@@ -112,49 +112,72 @@ def webhook():
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
                     log_to_messenger(sender_id, payload_received, "payload")
-                    if payload_received == "view_insurance":
+
+                    if payload_received == "getstarted":  # Get Started
+                        tp.getstarted_registration(sender_id)
+
+                    elif payload_received == "member_yes":  # A Registered Member
+                        send_message(sender_id, "Kindly enter your userID")
+
+                    elif payload_received == "member_no":  # Not a Registered Member
+                        send_message(sender_id, "Please send your AADHAAR card Image/Scan")
+
+                    elif payload_received == "view_insurance":  # View Insurance Offered
                         sender_id = messaging_event["sender"]["id"]
                         print(sender_id)
                         tp.create_view_insurance_list(sender_id)
-                    elif payload_received == "apply":
-                        send_message(sender_id, "Woohoo")
-                    elif payload_received == "claim":
-                        tp.create_claim_type_list(sender_id)
-                    elif payload_received == "natural_death":
-                        send_message(sender_id, "Please upload the following documents (PDF/Scan) : "
-                                                "\n1. Death Certificate"
-                                                "\n2. Original Policy Documents"
-                                                "\n3. Medical Records")
-                    elif payload_received == "critical_illness":
-                        send_message(sender_id, "Please upload the following documents (PDF/Scan) : "
-                                                "\n1. Medical Records"
-                                                "\n2. Original Policy Documents")
-                    elif payload_received == "account":
-                        tp.create_account_list(sender_id)
-                    elif payload_received == "view_account_policies":
-                        tp.create_account_policies_list(sender_id)
-                    elif payload_received == "pay_remind":
-                        tp.create_pay_remind_list(sender_id)
-                    elif payload_received == "remind":
-                        send_message(sender_id, "Your Reminder has been set")
-                    elif payload_received == "view_account_funds":
-                        send_message(sender_id, "Your account funds are as follows : ")
-                        image_url1 = "funds/User1.jpeg"
-                        create_image_message(sender_id, image_url1, True)
-                        image_url2 = "funds/User1.png"
-                        create_image_message(sender_id, image_url2, True)
-                    elif payload_received == "view_account_history":
-                        send_message(sender_id, "Your account history is as follows : ")
-                        image_url = "history/User1.png"
-                        create_image_message(sender_id, image_url, True)
-                    elif payload_received == "support":
-                        send_message(sender_id, "Woohoo")
-                    elif payload_received.startswith('view_insurance_'):
+
+                    elif payload_received.startswith('view_insurance_'):  # View Insurance Offered - Other Features
                         insurance_name = payload_received.split('_')[-1]
                         features_path = os.path.join(insurance_name, 'features.png')
                         create_image_message(sender_id, features_path, True)
                         send_message(sender_id, "Anything else I can help you with?",flag={"insurance_help":insurance_name})
                         log_to_messenger(sender_id, features_path, "image_path")
+
+                    elif payload_received == "apply":  # Best for me / Apply Option
+                        send_message(sender_id, "Woohoo")
+
+                    elif payload_received == "claim":  # Claim Option
+                        tp.create_claim_type_list(sender_id)
+
+                    elif payload_received == "natural_death":  # Claim -> Natural Death
+                        send_message(sender_id, "Please upload the following documents (PDF/Scan) : "
+                                                "\n1. Death Certificate"
+                                                "\n2. Original Policy Documents"
+                                                "\n3. Medical Records")
+
+                    elif payload_received == "critical_illness":  # Claim -> Critical Illness
+                        send_message(sender_id, "Please upload the following documents (PDF/Scan) : "
+                                                "\n1. Medical Records"
+                                                "\n2. Original Policy Documents")
+
+                    elif payload_received == "account":  # My Account
+                        tp.create_account_list(sender_id)
+
+                    elif payload_received == "view_account_policies":  # My Account -> View Policies
+                        tp.create_account_policies_list(sender_id)
+
+                    elif payload_received == "pay_remind":  # My Account -> View Policies -> Pay Option
+                        tp.create_pay_remind_list(sender_id)
+
+                    elif payload_received == "remind":  # My Account -> View Policies -> Remind Option
+                        send_message(sender_id, "Your Reminder has been set")
+
+                    elif payload_received == "view_account_funds":  # My Account -> View Funds
+                        send_message(sender_id, "Your account funds are as follows : ")
+                        image_url1 = "funds/User1.jpeg"
+                        create_image_message(sender_id, image_url1, True)
+                        image_url2 = "funds/User1.png"
+                        create_image_message(sender_id, image_url2, True)
+
+                    elif payload_received == "view_account_history":  # My Account -> View History
+                        send_message(sender_id, "Your account history is as follows : ")
+                        image_url = "history/User1.png"
+                        create_image_message(sender_id, image_url, True)
+
+                    elif payload_received == "support":  # Support
+                        send_message(sender_id, "Woohoo")
+
 
     return "ok", 200
 

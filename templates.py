@@ -3,6 +3,39 @@ import os
 import requests
 import sys
 
+
+# ------------------------ Get Started Member List---------------------- #
+
+
+def getstarted_registration(sender_id):
+    button_message = json.dumps({
+        "recipient":{
+                        "id": sender_id
+                    },
+        "message":{
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": "Are you a Member of HDFC Life",
+                    "buttons": [
+                              {
+                                "type":"postback",
+                                "title":"Yes",
+                                "payload":"member_yes"
+                              },
+                              {
+                                "type":"postback",
+                                "title":"No",
+                                "payload":"member_no"
+                              }
+                        ]
+                    }
+                }
+            }
+        })
+
+
 # ------------------------ Insurance Plans List ------------------------- #
 
 
