@@ -60,13 +60,14 @@ def webhook():
                     
                     message_text = messaging_event["message"].get("text")
                     flag_received = get_flag()
+                    log_to_messenger(sender_id, flag_received, 'flag')
                     if not flag_received:
                         flag_received = {}
 
                     if message_text:
                         message_text = message_text.lower()
 
-                    if message_text == "login":
+                    elif message_text == "login":
                         send_message(sender_id, "Enter your Login ID : ")
                         flag = {
                             'section' : 'main',
@@ -74,7 +75,7 @@ def webhook():
                         }
                         update_flag(flag)
 
-                    if flag_received.get('sub-section') == "username":
+                    elif flag_received.get('sub-section') == "username":
                         send_message(sender_id, "Enter your Password : ")
                         flag = {
                             'section' : 'main',
@@ -82,12 +83,12 @@ def webhook():
                         }
                         update_flag(flag)
 
-                    if flag_received.get('sub-section') == "password":
+                    elif flag_received.get('sub-section') == "password":
                         send_message(sender_id, "You have successfully Logged In", flag = {'section' : 'main', 'sub-section' : ''})
 
 
                     # Code to handle insurance product queries of the users
-                    if flag_received.get('section') == 'insurance_help' and message_text:
+                    elif flag_received.get('section') == 'insurance_help' and message_text:
                             insurance_name = flag_received.get('sub-section')
                             log_to_messenger(sender_id, insurance_name, "Query for")
                             if "eligibi" in message_text:
