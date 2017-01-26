@@ -14,7 +14,7 @@ def find_similarity(s,li):
     in li.
     '''
     x = np.ones((len(li)+1,len(li)+1))
-    li.append(unicode(s,errors='replace'))
+    li.append(s)
     vect = TfidfVectorizer(min_df=1)
     tfidf = vect.fit_transform(li)
     x = cosine_similarity(tfidf[-1],tfidf)
@@ -34,7 +34,6 @@ def closest_matching_answer(question):
             print(ix)
     return df["Answer"][idx]
 
-print(closest_matching_answer("What else do I need to make a payment?"))
 # def read_content(path):
 #     s= ''
 #     try:

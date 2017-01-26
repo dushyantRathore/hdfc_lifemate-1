@@ -15,6 +15,7 @@ import templates as tp
 
 import qr_utils
 import templates
+import faq
 
 app = Flask(__name__)
 
@@ -53,7 +54,6 @@ def webhook():
             for messaging_event in entry["messaging"]:
 
                 sender_id = messaging_event["sender"]["id"]
-                recipient_id = messaging_event["recipient"]["id"]
 
                 # Someone sent us a message
                 if messaging_event.get("message"):
@@ -67,27 +67,32 @@ def webhook():
                     if message_text:
                         message_text = message_text.lower()
 
-                    if message_text == "login":
-                        send_message(sender_id, "Enter your Login ID : ")
-                        flag_received = {
-                            'section' : 'main',
-                            'sub-section' : 'username'
-                        }
-                        update_flag(flag_received)
-                        log_to_messenger(sender_id, get_flag(), "flag2")
+                    #code for main section (handles login and rest)
+                    if flag_received.get('section') == 'main' and message_text: 
+                        if message_text == "login":
+                            send_message(sender_id, "Enter your Login ID : ")
+                            flag_received = {
+                                'section' : 'main',
+                                'sub-section' : 'username'
+                            }
+                            update_flag(flag_received)
+                        elif message_text == "sign up":
+                            send_message(sender_id, "For quick registartion just send your Aadhar QR")
+                            tp.signup_from_web_button(sender_id)
+                        elif flag_received.get('sub-section') == "username":
+                            send_message(sender_id, "Enter your Password : ")
+                            flag_received = {
+                                'section' : 'main',
+                                'sub-section' : 'password'
+                            }
+                            update_flag(flag_received)
 
-                    elif flag_received.get('sub-section') == "username":
-                        send_message(sender_id, "Enter your Password : ")
-                        flag_received = {
-                            'section' : 'main',
-                            'sub-section' : 'password'
-                        }
-                        update_flag(flag_received)
-
-                    elif flag_received.get('sub-section') == "password":
-                        send_message(sender_id, "You have successfully Logged In", flag = {'section' : 'main', 'sub-section' : ''})
-
-
+                        elif flag_received.get('sub-section') == "password":
+                            send_message(sender_id, "You have successfully Logged In")
+                            flag_received = flag = {
+                            'section' : 'main', 
+                            'sub-section' : ''
+                            }
                     # Code to handle insurance product queries of the users
                     elif flag_received.get('section') == 'insurance_help' and message_text:
                             insurance_name = flag_received.get('sub-section')
@@ -103,6 +108,31 @@ def webhook():
                                 create_image_message(sender_id, options_path, True)
                             else:
                                 send_message(sender_id, "For more details, please refer : \n" + constants.brochure_links.get(insurance_name))
+                    
+                    elif flag_received.get('section') == 'support':
+                        if message_text == "yes":
+                            send_message(sender_id, "I'm glad :)")
+                        if message_text == "no":
+                            tp.create_alternate_support_list(sender_id)
+                            update_flag(
+                                {
+                                    "section": "support",
+                                    "sub-section": "alternate-support"
+                                })
+                        if flag_received.get('sub-section') == "auto-answer":
+                            ans = faq.closest_matching_answer(message_text)
+                            send_message(sender_id, ans)
+                            tp.quickreplies_satisfied(sender_id)
+                        elif flag_received.get('sub-section') == "complaint-received":
+                            ref_no = "1254984"
+                            data = json.dumps({
+                                "description" :message_text,
+                                "complaint_number": ref_no
+                                })
+                            qr_image_path = qr_utils.create_qr(data)
+                            send_message(sender_id, "Here's your reference number"+ref_no)
+                            create_image_message(sender_id, qr_image_path, True)
+
                     else:
                         print message_text
                         send_message(sender_id, "Heyy!!")
@@ -136,13 +166,13 @@ def webhook():
                     log_to_messenger(sender_id, payload_received, "payload")
 
                     if payload_received == "getstarted":  # Get Started
+                        reset_flag()
                         tp.quickreplies_getstarted(sender_id)
-                        flag = {
+                        flag_to_update = {
                             'section':'main',
                             'sub-section': ''
                         }
-                        log_to_messenger(sender_id, "initializing flag")
-                        update_flag(flag)
+                        update_flag(flag_to_update)
 
                     elif payload_received == "member_yes":  # A Registered Member
                         send_message(sender_id, "Kindly enter your userID : ")
@@ -164,6 +194,7 @@ def webhook():
 
                     elif payload_received == "apply":  # Best for me / Apply Option
                         send_message(sender_id, "Woohoo")
+                        tp.create_alternate_support_list(sender_id)
 
                     elif payload_received == "claim":  # Claim Option
                         tp.create_claim_type_list(sender_id)
@@ -203,8 +234,20 @@ def webhook():
                         image_url = "history/User1.png"
                         create_image_message(sender_id, image_url, True)
 
+                    elif payload_received == "complaint_description":
+                        send_message(sender_id, "We're sorry for you :(")
+                        send_message(sender_id, "Can you please describe your issue")
+                        update_flag({
+                            "section":"support",
+                            "sub-section":"complaint-provided"
+                            })
                     elif payload_received == "support":  # Support
-                        send_message(sender_id, "Woohoo")
+                        send_message(sender_id, "Please tell me how can I assist you?")
+                        update_flag({
+                            "section":"support",
+                            "sub-section":"auto-answer"
+                            })
+
 
 
     return "ok", 200
@@ -213,6 +256,7 @@ def webhook():
 def update_flag(val):
     fname = "flag.p"
     fileObj = open(fname,'wb')
+    print("updating flag to ->",val)
     pickle.dump(val,fileObj)
     fileObj.close()
 
@@ -229,7 +273,7 @@ def get_flag():
 def reset_flag():
     fname = "flag.p"
     fileObj = open(fname,'wb')
-    pickle.dump(None,fileObj)
+    pickle.dump({},fileObj)
     fileObj.close()
 
 
