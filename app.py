@@ -69,22 +69,22 @@ def webhook():
 
                     if message_text == "login":
                         send_message(sender_id, "Enter your Login ID : ")
-                        flag = {
+                        flag_received = {
                             'section' : 'main',
                             'sub-section' : 'username'
                         }
-                        update_flag(flag)
+                        update_flag(flag_received)
                         log_to_messenger(sender_id, get_flag(), "flag2")
 
-                    elif flag_received.get('sub-section') == "username":
+                    if flag_received.get('sub-section') == "username":
                         send_message(sender_id, "Enter your Password : ")
-                        flag = {
+                        flag_received = {
                             'section' : 'main',
                             'sub-section' : 'password'
                         }
-                        update_flag(flag)
+                        update_flag(flag_received)
 
-                    elif flag_received.get('sub-section') == "password":
+                    if flag_received.get('sub-section') == "password":
                         send_message(sender_id, "You have successfully Logged In", flag = {'section' : 'main', 'sub-section' : ''})
 
 
