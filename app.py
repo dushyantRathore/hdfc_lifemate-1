@@ -141,6 +141,7 @@ def webhook():
                             'section':'main',
                             'sub-section': ''
                         }
+                        log_to_messenger(sender_id, "initializing flag")
                         update_flag(flag)
 
                     elif payload_received == "member_yes":  # A Registered Member

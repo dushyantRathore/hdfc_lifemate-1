@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-CSV_FILENAME = "faqs.csv"
+CSV_FILENAME = "FAQ.csv"
 
 f = pd.read_csv(CSV_FILENAME)
 df = pd.DataFrame(f)
@@ -14,15 +14,27 @@ def find_similarity(s,li):
     in li.
     '''
     x = np.ones((len(li)+1,len(li)+1))
-    try:
-        li.append(unicode(s,errors='replace'))
-        vect = TfidfVectorizer(min_df=1)
-        tfidf = vect.fit_transform(li)
-        x = cosine_similarity(tfidf[-1],tfidf)
-    except  Exception,e:
-        print str(e)
+    li.append(unicode(s,errors='replace'))
+    vect = TfidfVectorizer(min_df=1)
+    tfidf = vect.fit_transform(li)
+    x = cosine_similarity(tfidf[-1],tfidf)
+    print(x[-1])
     return x[-1]
 
+def closest_matching_answer(question):
+    ques = list(df["Question"])
+    print list(ques)
+    similarities = find_similarity(question, ques)
+    mx = -1
+    idx = -1
+    for ix,v in enumerate(similarities[:-1]):
+        if v>mx:
+            idx = ix
+            mx = v
+            print(ix)
+    return df["Answer"][idx]
+
+print(closest_matching_answer("What else do I need to make a payment?"))
 # def read_content(path):
 #     s= ''
 #     try:
