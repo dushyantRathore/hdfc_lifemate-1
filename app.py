@@ -26,6 +26,7 @@ WEB_URL = 'http://hdfc-support.mybluemix.net/submitFeedback'
 USER_MAP = {
     "satwik": "1150846678361142"
 }
+INVERSE_USER_MAP = {v: k for k, v in USER_MAP.iteritems()}
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -46,7 +47,7 @@ def return_image(filename):
 
 @app.route('/send_message', methods=['POST'])
 def send_message_via_api():
-    data = request.get_json()
+    data = request.form
     username = data.get("username")
     text = data.get("alert")
     try:
@@ -161,6 +162,7 @@ def webhook():
                                     "description" :message_text,
                                     "complaint_number": ref_no
                                     })
+                                send_feedback_to_web(INVERSE_USER_MAP[sender_id], message_text)
                                 qr_image_path = qr_utils.create_qr(data)
                                 send_message(sender_id, "Here's your reference number"+ref_no)
                                 create_image_message(sender_id, qr_image_path, True)

@@ -447,6 +447,11 @@ def create_alternate_support_list(sender_id):
                 "type":"postback",
                 "title":"Nearest HDFC Centre",
                 "payload":"hdfc_location"
+              },
+              {
+                "type":"postback",
+                "title":"Quick complaint",
+                "payload":"complaint_description"
               }
             ]
           }
