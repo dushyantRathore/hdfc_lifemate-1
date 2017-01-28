@@ -320,7 +320,7 @@ def create_pay_remind_list(sender_id):
                 "buttons": [
                     {
                         "type": "web_url",
-                        "url": "http://www.hdfclife.com/customer-service/pay-premium",
+                        "url": "https://cp.hdfclife.com/payment/customerservices/onlinepremium_confirm.aspx",
                         "title": "Pay"
                     },
                     {
