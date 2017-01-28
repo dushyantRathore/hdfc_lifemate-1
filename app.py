@@ -104,14 +104,6 @@ def webhook():
                                 }
                                 update_flag(flag_received)
 
-
-                            # elif flag_received.get('sub-section') == "password":
-                            #     send_message(sender_id, "You have successfully Logged In")
-                            #     flag_received = {
-                            #         'section' : 'main',
-                            #         'sub-section' : ''
-                            #     }
-
                         # Code to handle insurance product queries of the users
                         elif flag_received.get('section') == 'insurance_help' and message_text:
                                 insurance_name = flag_received.get('sub-section')
@@ -221,6 +213,7 @@ def webhook():
                         log_to_messenger(sender_id, features_path, "image_path")
 
                     elif payload_received == "apply":  # Best for me / Apply Option
+                        send_message(sender_id, "Please select the appropriate options")
                         tp.create_apply_age_list(sender_id)
 
                     elif payload_received == "claim":  # Claim Option
