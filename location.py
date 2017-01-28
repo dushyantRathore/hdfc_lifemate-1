@@ -26,7 +26,7 @@ def find_contacts(location, type):
     query_result = google_places.nearby_search(
         lat_lng=location,
         types=loc_type[type],
-        keyword=type,
+        keyword="HDFC",
         rankby="distance")
 
     results = []
@@ -107,4 +107,6 @@ def find_contacts(location, type):
           })
         if len(results) > 2:
             return json.dumps(results)
-return json.dumps(results)
+    return json.dumps(results)
+
+#print find_contacts({"lat":19.1163957, "lng":72.9047135}, "insurance")

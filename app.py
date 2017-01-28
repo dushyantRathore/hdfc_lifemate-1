@@ -159,7 +159,7 @@ def webhook():
                             print message_text
                             send_message(sender_id, "Heyy!!")
 
-                    if messaging_event.get("message").get("attachment"):
+                    if messaging_event.get("message").get("attachments"):
                         sender_id = messaging_event["sender"]["id"]
                         if messaging_event["message"]["attachments"][0]["type"] == "image":
                             log_to_messenger(sender_id, "Image received from user.")
@@ -170,18 +170,20 @@ def webhook():
                             user_data = qr_utils.decode_aadhar_from_qr(filename, True)
                             send_message(sender_id, user_data)
                         if messaging_event["message"]["attachments"][0]["type"] == "location":
-                            log_to_messenger(sender_id, "Location received from user.")
-                            lat = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"])
-                            lng = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["long"])
-                            d = {"lat": lat, "lng": lng}
-                            log_to_messenger(sender_id, str(d), "coordinates")
-                            update_location(d)
-                            hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
-                            log_to_messenger(sender_id, str(hdfc_life_ceneter_results))
-                            for i in range(0, len(data)):
-                                j = hdfc_life_ceneter_results[i]
-                                subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
-                                tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
+                            flag_received = get_flag()
+                            if flag_received == {'section':'support','sub-section':'location-asked'}:
+                                log_to_messenger(sender_id, "Location received from user.")
+                                lat = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"])
+                                lng = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["long"])
+                                d = {"lat": lat, "lng": lng}
+                                log_to_messenger(sender_id, str(d), "coordinates")
+                                update_location(d)
+                                hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
+                                log_to_messenger(sender_id, str(hdfc_life_ceneter_results))
+                                for i in range(0, len(data)):
+                                    j = hdfc_life_ceneter_results[i]
+                                    subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
+                                    tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
 
 
                 # user clicked/tapped "postback" button in earlier message
@@ -263,6 +265,12 @@ def webhook():
                         update_flag({
                             "section":"support",
                             "sub-section":"auto-answer"
+                            })
+                    elif payload_received == "hdfc_location":  # Support
+                        tp.ask_for_location(sender_id)
+                        update_flag({
+                            "section":"support",
+                            "sub-section":"location-asked"
                             })
                     elif payload_received == "complaint_description":
                         send_message(sender_id, "We're sorry for you :(")
