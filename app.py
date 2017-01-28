@@ -220,12 +220,19 @@ def webhook():
 
                     elif payload_received.startswith('view_insurance_'):  # View Insurance Offered - Other Features
                         insurance_name = payload_received.split('_')[-1]
+
+                        # Description
                         send_message(sender_id, "Description"
                                                 "\n1. A simple way to get comprehensive protection at an affordable price"
                                                 "\n2. Protect yourself and your loved ones against the uncertainties that life may throw at you."
                                                 "\n3. Provides a benefit amount in the unfortunate event of death of the Life Assured anytime during the policy term."
                                                 "\n4. Ease out the financial worries of your family")
+
+                        # List Template - Benefits
                         tp.view_insurance_life_benefits(sender_id)
+
+                        # List Templates - Things to Keep in Mind
+
                         send_message(sender_id, "Anything else I can help you with?",flag={"section" : "insurance_help", "sub-section" : insurance_name})
 
                     elif payload_received == "apply":  # Best for me / Apply Option
