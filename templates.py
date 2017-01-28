@@ -152,11 +152,6 @@ def create_alternate_support_list(sender_id):
                             "subtitle": "Find Nearest HDFC Life centers",
                             "message":{
                             "text":"Please share your location:",
-                            "quick_replies":[
-                              {
-                                "content_type":"location",
-                              }
-                            ]
                           }
                         }
                     ],
