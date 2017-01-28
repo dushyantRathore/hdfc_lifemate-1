@@ -116,52 +116,38 @@ def create_view_insurance_list(sender_id):
 
 
 def create_alternate_support_list(sender_id):
-    alternate_support_list= json.dumps({
-        "recipient": {"id": sender_id
-                      }, "message": {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "list",
-                    "top_element_style": "compact",
-                    "elements": [
-                        {
-                            "title": "Call",
-                            "subtitle": "24x7 Customer Support",
-                            "buttons": [
-                                {
-                                    "type":"phone_number",
-                                    "title":"Call",
-                                    "payload":"+19898164061"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "Complaint",
-                            "subtitle": "Our smart customer support system will resolve your complaints asap",
-                            "buttons": [
-                                {
-                                    "title": "Register Complaint",
-                                    "type": "postback",
-                                    "payload": "complaint_description"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "HDFC Life Centers",
-                            "subtitle": "Find Nearest HDFC Life centers",
-                            "message":{
-                            "text":"Please share your location:",
-                          }
-                        }
-                    ],
-                }
-            }
-        }
-
-    })
+    alternate_support_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        }, "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements":[
+           {
+            "title":"What do you want to do ? ",
+            "subtitle":"Select your option",
+            "buttons":[
+              {
+                "type":"phone_number",
+                "title":"Call Helpline",
+                "payload":"+15105551234"
+              },{
+                "type":"postback",
+                "title":"Find nearest HDFC Centre",
+                "payload":"hdfc_location"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+})
 
     post_request(alternate_support_list)
+
 
 # ------------------------ Claim Options List ---------------- #
 
