@@ -55,6 +55,21 @@ def quickreplies_satisfied(sender_id):
 
     post_request(getstarted)
 
+def ask_for_location(sender_id):
+    quick_reply_template = json.dumps({
+                              "recipient":{
+                                "id":sender_id
+                              },
+                              "message":{
+                                "text":"Please share your location:",
+                                "quick_replies":[
+                                  {
+                                    "content_type":"location",
+                                  }
+                                ]
+                              }
+                            })
+    post_request(quick_reply_template)
 # ------------------------ Insurance Plans List ------------------------- #
 
 
