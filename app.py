@@ -242,7 +242,7 @@ def webhook():
                         tp.important(sender_id)
 
                         # Graph
-                        create_image_message(sender_id, "Graph.jpg")
+                        create_image_message(sender_id, "Graph.jpg", True)
 
                         send_message(sender_id, "Anything else I can help you with?",flag={"section" : "insurance_help", "sub-section" : insurance_name})
 
