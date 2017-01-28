@@ -79,19 +79,18 @@ def webhook():
                         elif message_text == "sign up":
                             send_message(sender_id, "For quick registartion just send your Aadhar QR")
                             tp.signup_from_web_button(sender_id)
-                        elif flag_received.get('sub-section') == 'username':
+                        elif message_text and flag_received.get('sub-section') == "username":
                             send_message(sender_id, "Enter your Password : ")
                             flag_received = {
                                 'section' : 'main',
                                 'sub-section' : 'password'
                             }
                             update_flag(flag_received)
-
                         elif flag_received.get('sub-section') == "password":
                             send_message(sender_id, "You have successfully Logged In")
                             flag_received = {
-                            'section' : 'main', 
-                            'sub-section' : ''
+                                'section' : 'main',
+                                'sub-section' : ''
                             }
 
                     # Code to handle insurance product queries of the users
@@ -113,18 +112,23 @@ def webhook():
                     elif flag_received.get('section') == 'support':
                         if message_text == "yes":
                             send_message(sender_id, "I'm glad :)")
-                        if message_text == "no":
+                            update_flag(
+                                {
+                                    "section": "support",
+                                    "sub-section":"satisfied"
+                                })
+                        elif message_text == "no":
                             tp.create_alternate_support_list(sender_id)
                             update_flag(
                                 {
                                     "section": "support",
                                     "sub-section": "alternate-support"
                                 })
-                        if flag_received.get('sub-section') == "auto-answer":
+                        elif flag_received.get('sub-section') == "auto-answer":
                             ans = faq.closest_matching_answer(message_text)
                             send_message(sender_id, ans)
                             tp.quickreplies_satisfied(sender_id)
-                        elif flag_received.get('sub-section') == "complaint-received":
+                        elif flag_received.get('sub-section') == "complaint-provided":
                             ref_no = "1254984"
                             data = json.dumps({
                                 "description" :message_text,
@@ -234,7 +238,12 @@ def webhook():
                         send_message(sender_id, "Your account history is as follows : ")
                         image_url = "history/User1.png"
                         create_image_message(sender_id, image_url, True)
-
+                    elif payload_received == "support":  # Support
+                        send_message(sender_id, "Please tell me how can I assist you?")
+                        update_flag({
+                            "section":"support",
+                            "sub-section":"auto-answer"
+                            })
                     elif payload_received == "complaint_description":
                         send_message(sender_id, "We're sorry for you :(")
                         send_message(sender_id, "Can you please describe your issue")
@@ -242,12 +251,7 @@ def webhook():
                             "section":"support",
                             "sub-section":"complaint-provided"
                             })
-                    elif payload_received == "support":  # Support
-                        send_message(sender_id, "Please tell me how can I assist you?")
-                        update_flag({
-                            "section":"support",
-                            "sub-section":"auto-answer"
-                            })
+
 
 
 

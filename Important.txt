@@ -43,3 +43,6 @@ curl -X POST -H "Content-Type: application/json" -d '{
     }
   ]
 }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAYf4U7ZAqz8BANdVulSRIesdt7o3XUAKpHaHxebFUOo4ZBWJFCLfeD8SDrCACS8jV9j66O7WhUQWUrSJpwtAT1FlFSOEipRJG0DQhuXJVzZBLhoemfuryoZBUhFqAVXfemQoJJLANFIseLbm6ZALbPcyXOcRAp35I7xgMSSOjwZDZD"
+
+export VERIFY_TOKEN=helloworld
+export PAGE_ACCESS_TOKEN=EAAYf4U7ZAqz8BANdVulSRIesdt7o3XUAKpHaHxebFUOo4ZBWJFCLfeD8SDrCACS8jV9j66O7WhUQWUrSJpwtAT1FlFSOEipRJG0DQhuXJVzZBLhoemfuryoZBUhFqAVXfemQoJJLANFIseLbm6ZALbPcyXOcRAp35I7xgMSSOjwZDZD
