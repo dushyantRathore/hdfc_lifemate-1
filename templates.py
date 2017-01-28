@@ -165,7 +165,7 @@ def view_insurance_life_benefits(sender_id):
                                         "\n Income Option"
                         },
                         {
-                            "title": "Load of other Benefits",
+                            "title": "Loads of other Benefits",
                             "subtitle": "Death Benefit"
                                         "\nMaturity Benefit and Life Stage Protection",
                         }
@@ -176,6 +176,51 @@ def view_insurance_life_benefits(sender_id):
     })
 
     post_request(benefits_list)
+
+
+# ------------------------ View Insurance Life - Things to keep in mind ----------- #
+
+def important(sender_id):
+    important_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        }, "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "elements": [
+                        {
+                            "title": "Click2Protect Plan",
+                            "image_url": "http://blogs.studyinsweden.se/wp-content/uploads/2015/09/Screen-shot-2012-09-05-at-2.23.34-PM.png",
+                            "subtitle": "Things to keep in mind",
+                        },
+                        {
+                            "title": "Premiums",
+                            "subtitle": "Minimum Annualized Premium: 3000"
+                                        "\n-> Plan has a grace period of 30 days for yearly, half yearly and quarterly frequencies from the premium due date."
+                                        "\n-> In case you do not pay premiums before the end of grace period, the policy will lapse. "
+                                        "\n-> All risk covers will cease and nobenefits will be payable in case of lapsed policies."
+                        },
+                        {
+                            "title": "Who will get the benefit?",
+                            "subtitle": "The benefit on death will be paid to your nominee. As per Section 39 of the Insurance Act, 1938, "
+                                        "\nyou can nominate aperson to receive the benefit under this policy."
+                        },
+                        {
+                            "title": "What is not covered?",
+                            "subtitle": "-> In case of death due to suicide, within 12 months from the date of inception of the policy, "
+                                        "\nthe nominee of thepolicy holder shall be entitled to 80% of the premiums paid."
+                                        "\n-> In case of death due to suicide within 12 months from the date of revival of the policy, "
+                                        "\nthe nominee of the policyholdershall be entitled to 80% of the premiums paid post revival. ",
+                        }
+                    ]
+                }
+            }
+        }
+    })
+
+    post_request(important_list)
 
 
 # ------------------------ Best for me - Age option ----------- #
