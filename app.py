@@ -44,6 +44,7 @@ def return_image(filename):
     print(filename)
     return send_from_directory(INSURANCE_IMAGES_DIRECTORY, filename, mimetype='image/png')
 
+
 @app.route('/send_message', methods=['POST'])
 def send_message_via_api():
     data = request.get_json()
@@ -54,6 +55,7 @@ def send_message_via_api():
         return "Success"
     except Exception, err:
         return "Failed! Error: "+ str(err)
+
 
 @app.route('/', methods=['POST'])
 def webhook():
@@ -166,7 +168,7 @@ def webhook():
                                 create_image_message(sender_id, qr_image_path, True)
 
                         elif message_text == "< 35 years" or message_text == "35-45 years" or message_text == "> 45 years":
-                            tp.create_gender_list(sender_id)
+                            tp.create_apply_gender_list(sender_id)
 
                         else:
                             print message_text
