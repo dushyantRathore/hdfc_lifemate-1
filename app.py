@@ -421,10 +421,6 @@ def save_image_from_url(image_url='', image_name='', is_qr=False):
     mimetype = magic.from_file(filename, mime=True)
     if not mimetype.startswith('image/'):
         raise Exception('Not an image: ' + mimetype)
-    if os.stat(filename).st_size > 4096 * 1024:  # 3MB? unsure
-        raise Exception('Bigger than 3MB')
-    else:
-        log("Shouldn't be here.")
     return filename
 
 def send_feedback_to_web(username="satwik", text="I love the ux"):
