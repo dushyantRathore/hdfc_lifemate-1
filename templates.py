@@ -130,38 +130,45 @@ def create_view_insurance_list(sender_id):
     post_request(insurance_list_template)
 
 
-def create_alternate_support_list(sender_id):
-    alternate_support_list = json.dumps({
-        "recipient": {
-            "id": sender_id
-        }, "message":{
+# ------------------------ Best for me - Age option ----------- #
+
+
+def create_apply_age_list(sender_id):
+    age_list = json.dumps({
+        "recipient":{
+    "id":"sender_id"
+  },
+  "message":{
     "attachment":{
       "type":"template",
       "payload":{
-        "template_type":"generic",
-        "elements":[
-           {
-            "title":"What do you want to do ? ",
-            "subtitle":"Select your option",
-            "buttons":[
-              {
-                "type":"phone_number",
-                "title":"Call Helpline",
-                "payload":"+15105551234"
-              },{
-                "type":"postback",
-                "title":"Nearest HDFC Centre",
-                "payload":"hdfc_location"
-              }
-            ]
-          }
+        "template_type":"button",
+        "text":"What is your age ? ",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"< 35 years.",
+            "payload":"age_<35"
+          },
+          {
+            "type":"postback",
+            "title":"35-45 years",
+            "payload":"age_35-45"
+          },
+            {
+                "type": "postback",
+                "title": "> 45 years",
+                "payload": "age_>45"
+            }
         ]
       }
     }
   }
-})
+    })
 
-    post_request(alternate_support_list)
+    post_request(age_list)
+
+
 # ------------------------ Claim Options List ---------------- #
 
 def create_claim_type_list(sender_id):
@@ -349,6 +356,41 @@ def create_pay_remind_list(sender_id):
 
     post_request(pay_remind_list)
 
+
+# ----------------- Alternate Support List ---------------------- #
+def create_alternate_support_list(sender_id):
+    alternate_support_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        }, "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements":[
+           {
+            "title":"What do you want to do ? ",
+            "subtitle":"Select your option",
+            "buttons":[
+              {
+                "type":"phone_number",
+                "title":"Call Helpline",
+                "payload":"+15105551234"
+              },{
+                "type":"postback",
+                "title":"Nearest HDFC Centre",
+                "payload":"hdfc_location"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+})
+
+    post_request(alternate_support_list)
+
 def signup_from_web_button(sender_id):
     signup_button = json.dumps({
     "recipient":{
@@ -373,7 +415,6 @@ def signup_from_web_button(sender_id):
     })
 
     post_request(signup_button)
-
 
 
 # ---------------------- Generic Template ----------------------------------- #
@@ -442,6 +483,7 @@ def create_yes_no_button(sender_id):
             }
         })
     post_request(button_message)
+
 
 def post_request(body):
     params = {
