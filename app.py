@@ -428,6 +428,21 @@ def create_image_message(sender_id, image_url, from_system=False):
 })
     tp.post_request(image_message)
 
+def getTranslation(job_id):
+    apikey="625b9864-f2be-42e9-89ce-4aab222a3860"
+    url = "https://api.havenondemand.com/1/job/result/"
+
+    url = url+job_id+"?apikey="+apikey
+
+    r=requests.post(url)
+
+    d = r.json()
+
+    # Response Text
+    caller_resp = d['actions'][0]['result']['document'][0]['content']
+
+    return caller_resp
+
 
 # ------------------- Run App ---------------------- #
 
