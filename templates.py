@@ -191,9 +191,9 @@ def important(sender_id):
                     "template_type": "list",
                     "elements": [
                         {
-                            "title": "Things to keep in mind",
+                            "title": "Click2Protect Plan",
                             "image_url": "http://blogs.studyinsweden.se/wp-content/uploads/2015/09/Screen-shot-2012-09-05-at-2.23.34-PM.png",
-                            "subtitle": "Important points to remember",
+                            "subtitle": "Things to keep in mind",
                         },
                         {
                             "title": "Premiums",
