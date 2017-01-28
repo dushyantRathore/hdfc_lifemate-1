@@ -31,6 +31,29 @@ def quickreplies_getstarted(sender_id):
 
     post_request(getstarted)
 
+def quickreplies_satisfied(sender_id):
+    getstarted = json.dumps({
+        "recipient":{
+                        "id": sender_id
+                    },
+                    "message":{
+        "text": "Are you satisfied?",
+        "quick_replies": [
+            {
+                "content_type": "text",
+                "title": "Yes",
+                "payload": "yes"
+            },
+            {
+                "content_type": "text",
+                "title": "No",
+                "payload": "no"
+            }
+        ]
+       }
+    })
+
+    post_request(getstarted)
 
 # ------------------------ Insurance Plans List ------------------------- #
 
@@ -91,6 +114,63 @@ def create_view_insurance_list(sender_id):
 
     post_request(insurance_list_template)
 
+
+def create_alternate_support_list(sender_id):
+    insurance_list_template = json.dumps({
+        "recipient": {"id": sender_id
+                      }, "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": [
+                        {
+                            "title": "Contact Us",
+                            "subtitle": "Please choose an option",
+                        },
+                        {
+                            "title": "Call",
+                            "subtitle": "24x7 Customer Support",
+                            "buttons": [
+                                {
+                                    "type":"phone_number",
+                                    "title":"Call",
+                                    "payload":"+19898164061"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Register Complaint",
+                            "subtitle": "Our smart customer support system will resolve your complaints asap",
+                            "buttons": [
+                                {
+                                    "title": "Complaint Description",
+                                    "type": "postback",
+                                    "payload": "complaint_description"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "HDFC Life Centers",
+                            "subtitle": "Find Nearest HDFC Life centers",
+                            "message":{
+                            "text":"Please share your location:",
+                            "quick_replies":[
+                              {
+                                "content_type":"location",
+                              }
+                            ]
+                          }
+                        }
+                    ],
+                }
+            }
+        }
+
+    })
+
+    post_request(insurance_list_template)
 
 # ------------------------ Claim Options List ---------------- #
 
@@ -278,6 +358,31 @@ def create_pay_remind_list(sender_id):
     })
 
     post_request(pay_remind_list)
+
+def signup_from_web_button(sender_id):
+    signup_button = json.dumps({
+    "recipient":{
+                    "id": sender_id
+                },
+    "message":{
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "button",
+                "text": "Thanks! Your details have been recorded.",
+                "buttons": [
+                    {
+                        "type": "web_url",
+                        "url": "http://www.hdfclife.com/customer-service/pay-premium",
+                        "title": "Finish"
+                    }
+                ]
+            }
+        }
+    }
+    })
+
+    post_request(signup_button)
 
 
 def post_request(body):

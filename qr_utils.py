@@ -1,7 +1,10 @@
 import qrtools
 import pyqrcode
+import os
 from bs4 import BeautifulSoup
 import json
+
+QR_CODE_DIRECTORY = os.path.join('images', 'qr')
 
 def decode_qr(image_path):
 	qr = qrtools.QR()
@@ -11,7 +14,9 @@ def decode_qr(image_path):
 
 def create_qr(data, image_name, scale=6):
 	qr = pyqrcode.create(str(data))
-	qr.png(image_name, scale=scale)
+	image_path = os.path.join(QR_CODE_DIRECTORY, image_name)
+	qr.png(image_path, scale=scale)
+	return image_path
 
 def parse_aadhar(xml_data, json_reqd=False):
 	soup = BeautifulSoup(xml_data)
