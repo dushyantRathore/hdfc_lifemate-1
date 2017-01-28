@@ -67,6 +67,8 @@ def webhook():
                         if message_text:
                             message_text = message_text.lower()
 
+                        log_to_messenger(sender_id, lag_received)
+
                         # Code for main section (handles login and rest)
                         if flag_received.get('section') == 'main' and message_text:
                             if flag_received.get('sub-section') == "nothing-selected":
@@ -160,7 +162,7 @@ def webhook():
                             print message_text
                             send_message(sender_id, "Heyy!!")
 
-                    if messaging_event.get("message").get("attachment"):
+                    if messaging_event.get("message").get("attachments"):
                         sender_id = messaging_event["sender"]["id"]
                         log_to_messenger(sender_id, "attachment received!")
                         if messaging_event["message"]["attachments"][0]["type"] == "image":
