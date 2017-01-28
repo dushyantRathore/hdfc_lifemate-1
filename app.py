@@ -121,7 +121,10 @@ def webhook():
                         elif flag_received.get('section') == 'insurance_help' and message_text:
                                 insurance_name = flag_received.get('sub-section')
                                 log_to_messenger(sender_id, insurance_name, "Query for")
-                                if "eligibi" in message_text:
+                                if "featu" in message_text :
+                                    feature_path =  os.path.join(insurance_name, 'features.png')
+                                    create_image_message(sender_id, feature_path, True)
+                                elif "eligibi" in message_text:
                                     elgibility_path = os.path.join(insurance_name, 'eligibility.png')
                                     create_image_message(sender_id, elgibility_path, True)
                                 elif "premium" in message_text:
@@ -196,7 +199,6 @@ def webhook():
                                     subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
                                     tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
 
-
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
@@ -225,10 +227,13 @@ def webhook():
 
                     elif payload_received.startswith('view_insurance_'):  # View Insurance Offered - Other Features
                         insurance_name = payload_received.split('_')[-1]
-                        features_path = os.path.join(insurance_name, 'features.png')
-                        create_image_message(sender_id, features_path, True)
+                        send_message(sender_id, "Description"
+                                                "\n1. A simple way to get comprehensive protection at an affordable price"
+                                                "\n2. Protect yourself and your loved ones against the uncertainties that life may throw at you."
+                                                "\n3. Provides a benefit amount in the unfortunate event of death of the Life Assured anytime during the policy term."
+                                                "\n4. Ease out the financial worries of your family")
+                        tp.view_insurance_life_benefits(sender_id)
                         send_message(sender_id, "Anything else I can help you with?",flag={"section" : "insurance_help", "sub-section" : insurance_name})
-                        log_to_messenger(sender_id, features_path, "image_path")
 
                     elif payload_received == "apply":  # Best for me / Apply Option
                         send_message(sender_id, "Please select the appropriate options")

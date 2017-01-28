@@ -134,6 +134,49 @@ def create_view_insurance_list(sender_id):
     post_request(insurance_list_template)
 
 
+# ----------------------- View Insurance Life -> Benefits ------------------ #
+
+
+def view_insurance_life_benefits(sender_id):
+    benefits_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        }, "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "elements": [
+                        {
+                            "title": "Click2Protect Plan",
+                            "image_url": "http://www.mydailylifetips.com/wp-content/uploads/2014/08/hdfc-click-2-protect-plus-online-term-plan-review.png",
+                            "subtitle": "Explore Benefits",
+                        },
+                        {
+                            "title": "Coverage",
+                            "subtitle": "Comprehensive coverage at affordable cost"
+                                        "\nProvide financial protection for you and your family"
+                        },
+                        {
+                            "title": "Customize your plan ",
+                            "subtitle": "Choice of cover options"
+                                        "\nLife Option"
+                                        "\nExtra Life Option"
+                        },
+                        {
+                            "title": "Load of other Benefits",
+                            "subtitle": "Death Benefit"
+                                        "\nMaturity Benefit and Life Stage Protection",
+                        }
+                    ]
+                }
+            }
+        }
+    })
+
+    post_request(benefits_list)
+
+
 # ------------------------ Best for me - Age option ----------- #
 
 
