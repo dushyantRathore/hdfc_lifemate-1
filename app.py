@@ -159,7 +159,7 @@ def webhook():
                             print message_text
                             send_message(sender_id, "Heyy!!")
 
-                    if messaging_event.get("message").get("attachments"):
+                    if messaging_event.get("message").get("attachment"):
                         sender_id = messaging_event["sender"]["id"]
                         if messaging_event["message"]["attachments"][0]["type"] == "image":
                             log_to_messenger(sender_id, "Image received from user.")
