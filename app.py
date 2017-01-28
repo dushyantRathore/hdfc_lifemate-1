@@ -393,7 +393,7 @@ def save_image_from_url(image_url='', image_name='', is_qr=False):
     if not image_name:
         filename = 'image_%s.jpeg' % md5.new(image_url).hexdigest()
     if is_qr:
-        filename = QR_CODE_DIRECTORY + filename
+        filename = os.path.join(QR_CODE_DIRECTORY, filename)
     with open(filename, 'wb') as handle:
         for block in response.iter_content(1048576):
             if not block:
