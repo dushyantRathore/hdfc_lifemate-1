@@ -135,7 +135,7 @@ def create_alternate_support_list(sender_id):
                 "payload":"+15105551234"
               },{
                 "type":"postback",
-                "title":"Find nearest HDFC Centre",
+                "title":"Nearest HDFC Centre",
                 "payload":"hdfc_location"
               }
             ]
