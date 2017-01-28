@@ -488,7 +488,8 @@ def create_alternate_support_list(sender_id):
                 "type":"phone_number",
                 "title":"Call Helpline",
                 "payload":"+15105551234"
-              },{
+              },
+              {
                 "type":"postback",
                 "title":"Nearest HDFC Centre",
                 "payload":"hdfc_location"
