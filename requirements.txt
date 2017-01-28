@@ -17,3 +17,8 @@ numpy
 scipy
 scikit-learn
 pandas
+python-google-places==1.2.0
+googlemaps==2.4.4
+tweepy==3.5.0
+twilio==5.4.0
+dateparser==0.4.0

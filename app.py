@@ -156,6 +156,17 @@ def webhook():
                         filename = save_image_from_url()
                         user_data = qr_utils.decode_aadhar_from_qr(filename, True)
                         send_message(sender_id, user_data)
+                    if messaging_event["message"]["attachments"][0]["type"] == "location":
+                        lat = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"])
+                        lng = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["long"])
+                        d = {"lat": lat, "lng": lng}
+                        log_to_messenger(sender_id, str(d), "coordinates")
+                        update_location(d)
+                        hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
+                        for i in range(0, len(data)):
+                            j = hdfc_life_ceneter_results[i]
+                            subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
+                            tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
 
 
 
@@ -269,6 +280,19 @@ def get_flag():
     except:
         return None
 
+def update_location(loc):
+    fname = "location.p"
+    fileObj = open(fname,'wb')
+    pickle.dump(loc,fileObj)
+    fileObj.close()
+
+def get_location():
+    try:
+        fname = "location.p"
+        fileObj = open(fname, 'r')
+        return pickle.load(fileObj)
+    except:
+        return None
 
 def reset_flag():
     fname = "flag.p"
