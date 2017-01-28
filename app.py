@@ -170,9 +170,8 @@ def webhook():
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
-                    log_to_messenger(sender_id, payload_received, "payload")
-
                     sender_id = messaging_event["sender"]["id"]
+                    log_to_messenger(sender_id, payload_received, "payload")
 
                     if payload_received == "getstarted":  # Get Started
                         reset_flag()
