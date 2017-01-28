@@ -221,7 +221,6 @@ def webhook():
                         log_to_messenger(sender_id, features_path, "image_path")
 
                     elif payload_received == "apply":  # Best for me / Apply Option
-                        send_message(sender_id, "Please choose the appropriate Options : ")
                         tp.create_apply_age_list(sender_id)
 
                     elif payload_received == "claim":  # Claim Option

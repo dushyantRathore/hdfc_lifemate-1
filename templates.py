@@ -157,7 +157,7 @@ def create_apply_age_list(sender_id):
           },
             {
                 "type": "postback",
-                "title": ">45 years",
+                "title": "> 45 years",
                 "payload": "age_>45"
             }
         ]

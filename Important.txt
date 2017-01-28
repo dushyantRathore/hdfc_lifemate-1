@@ -12,7 +12,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
     {
       "type":"postback",
       "title":"Best For Me",
-      "payload":"apheply"
+      "payload":"apply"
     },
     {
       "type":"postback",
