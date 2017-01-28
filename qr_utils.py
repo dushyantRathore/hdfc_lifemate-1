@@ -39,7 +39,7 @@ def parse_aadhar(xml_data, json_reqd=False):
 		return json.dumps
 	return obj
 
-def decode_aadhar_from_qr(imagepath, is_json=False):
+def decode_aadhar_from_qr(image_path, is_json=False):
 	out_xml = decode_qr(image_path)
 	out = parse_aadhar(out_xml, is_json)
 	return out

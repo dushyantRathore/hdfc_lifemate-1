@@ -405,7 +405,6 @@ def save_image_from_url(image_url='', image_name=''):
     else:
         # filename = sys.argv[1]
         log("Shouldn't be here.")
-    result = ic.find_type(filename)
     return filename
 
 
