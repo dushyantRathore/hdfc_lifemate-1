@@ -31,6 +31,7 @@ def quickreplies_getstarted(sender_id):
 
     post_request(getstarted)
 
+
 def quickreplies_satisfied(sender_id):
     getstarted = json.dumps({
         "recipient":{
@@ -55,6 +56,7 @@ def quickreplies_satisfied(sender_id):
 
     post_request(getstarted)
 
+
 def ask_for_location(sender_id):
     quick_reply_template = json.dumps({
                               "recipient":{
@@ -70,6 +72,8 @@ def ask_for_location(sender_id):
                               }
                             })
     post_request(quick_reply_template)
+
+
 # ------------------------ Insurance Plans List ------------------------- #
 
 
@@ -136,7 +140,7 @@ def create_view_insurance_list(sender_id):
 def create_apply_age_list(sender_id):
     age_list = json.dumps({
         "recipient":{
-    "id":"sender_id"
+    "id": sender_id
   },
   "message":{
     "attachment":{
