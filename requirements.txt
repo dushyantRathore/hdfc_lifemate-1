@@ -14,5 +14,6 @@ beautifulsoup4
 python-magic
 Pillow
 numpy
+scipy
 scikit-learn
 pandas
