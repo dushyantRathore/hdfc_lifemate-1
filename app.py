@@ -22,6 +22,7 @@ app = Flask(__name__)
 
 INSURANCE_IMAGES_DIRECTORY = "images"
 QR_CODE_DIRECTORY = os.path.join('images', 'qr')
+WEB_URL = 'http://hdfc-support.mybluemix.net/submitFeedback'
 
 
 @app.route('/', methods=['GET'])
@@ -40,6 +41,11 @@ def verify():
 def return_image(filename):
     print(filename)
     return send_from_directory(INSURANCE_IMAGES_DIRECTORY, filename, mimetype='image/png')
+
+@app.route('/send_message', methods=['POST'])
+def send_message_via_api():
+    
+
 
 
 @app.route('/', methods=['POST'])
@@ -403,14 +409,21 @@ def save_image_from_url(image_url='', image_name='', is_qr=False):
     mimetype = magic.from_file(filename, mime=True)
     if not mimetype.startswith('image/'):
         raise Exception('Not an image: ' + mimetype)
-    if os.stat(filename).st_size > 3072 * 1024:  # 3MB? unsure
+    if os.stat(filename).st_size > 4096 * 1024:  # 3MB? unsure
         raise Exception('Bigger than 3MB')
     else:
-        # filename = sys.argv[1]
         log("Shouldn't be here.")
-    if is_qr:
-        return 
     return filename
+
+def send_feedback_to_web(username="satwik", text="I didn't like the ux"):
+    data = {}
+    data['user'] = user
+    data['feedback'] = text
+    json_data = json.dumps(data)
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    req_post = requests.post(URL, data=json_data, headers=headers)
+    print(req_post.json())
+    
 
 
 # -------------------- Image Creation ----------------------- #
