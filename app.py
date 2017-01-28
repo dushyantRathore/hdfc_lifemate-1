@@ -181,7 +181,6 @@ def webhook():
                                 log_to_messenger(sender_id, str(d), "coordinates")
                                 update_location(d)
                                 hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
-                                log_to_messenger(sender_id, str(hdfc_life_ceneter_results))
                                 for i in range(0, len(data)):
                                     j = json.loads(hdfc_life_ceneter_results[i])
                                     subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
