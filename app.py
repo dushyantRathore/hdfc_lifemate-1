@@ -183,7 +183,7 @@ def webhook():
                                 hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
                                 log_to_messenger(sender_id, str(hdfc_life_ceneter_results))
                                 for i in range(0, len(data)):
-                                    j = hdfc_life_ceneter_results[i]
+                                    j = json.loads(hdfc_life_ceneter_results[i])
                                     subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
                                     tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
 
