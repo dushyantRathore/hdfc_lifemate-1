@@ -162,9 +162,8 @@ def webhook():
 
                     if messaging_event.get("message").get("attachments"):
                         sender_id = messaging_event["sender"]["id"]
-                        log_to_messenger(sender_id, "attachment received!")
                         if messaging_event["message"]["attachments"][0]["type"] == "image":
-                            log("Image received from user.")
+                            log_to_messenger(sender_id, "Image received from user.")
                             image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
                             log(image_url)
                             update_image_url(image_url)
@@ -172,6 +171,7 @@ def webhook():
                             user_data = qr_utils.decode_aadhar_from_qr(filename, True)
                             send_message(sender_id, user_data)
                         if messaging_event["message"]["attachments"][0]["type"] == "location":
+                            log_to_messenger(sender_id, "Location received from user.")
                             lat = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"])
                             lng = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["long"])
                             d = {"lat": lat, "lng": lng}
