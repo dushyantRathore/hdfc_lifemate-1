@@ -241,6 +241,9 @@ def webhook():
                         # List Templates - Things to Keep in Mind
                         tp.important(sender_id)
 
+                        # Graph
+                        create_image_message(sender_id, "Graph.jpg")
+
                         send_message(sender_id, "Anything else I can help you with?",flag={"section" : "insurance_help", "sub-section" : insurance_name})
 
                     elif payload_received == "apply":  # Best for me / Apply Option
