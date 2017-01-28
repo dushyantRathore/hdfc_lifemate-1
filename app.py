@@ -164,6 +164,7 @@ def webhook():
                             log(image_url)
                             update_image_url(image_url)
                             filename = save_image_from_url()
+                            log_to_messenger(sender_id, filename, "Image path:")
                             user_data = qr_utils.decode_aadhar_from_qr(filename, True)
                             send_message(sender_id, user_data)
                         if messaging_event["message"]["attachments"][0]["type"] == "location":
