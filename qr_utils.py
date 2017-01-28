@@ -40,7 +40,7 @@ def parse_aadhar(xml_data, json_reqd=False):
 			return json.dumps
 		return obj
 	except Exception, err:
-    	print(Exception, err)
+		print(str(Exception), str(err))
 		return json.dumps({
 				"name": "Satwik kansal",
 				"address": {
