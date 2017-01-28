@@ -143,30 +143,24 @@ def create_apply_age_list(sender_id):
     "id": sender_id
   },
   "message":{
-    "attachment":{
-      "type":"template",
-      "payload":{
-        "template_type":"button",
-        "text":"What is your age ? ",
-        "buttons":[
-          {
-            "type":"postback",
-            "title":"< 35 years.",
-            "payload":"age_<35"
-          },
-          {
-            "type":"postback",
-            "title":"35-45 years",
-            "payload":"age_35-45"
-          },
-            {
-                "type": "postback",
-                "title": "> 45 years",
-                "payload": "age_>45"
-            }
-        ]
-      }
-    }
+    "text":"What is your Age ? ",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"< 35 years",
+        "payload":"age_<35"
+      },
+      {
+        "content_type":"text",
+        "title":"35-45 years",
+        "payload":"age_35-35"
+      },
+        {
+            "content_type": "text",
+            "title": "> 45 years",
+            "payload": "age_>45"
+        }
+    ]
   }
     })
 
