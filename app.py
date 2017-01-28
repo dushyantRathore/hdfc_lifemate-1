@@ -4,6 +4,7 @@ import pickle
 import sys
 import md5
 import magic
+import random
 
 import requests
 
@@ -69,25 +70,39 @@ def webhook():
 
                         # Code for main section (handles login and rest)
                         if flag_received.get('section') == 'main' and message_text:
-                            if message_text == "login":
-                                send_message(sender_id, "Enter your Login ID : ")
-                                flag_received = {
-                                    'section' : 'main',
-                                    'sub-section' : 'username'
-                                }
-                                update_flag(flag_received)
+                            if flag_received.get('sub-section') == "nothing-selected":
+                                if message_text == "login":
+                                    send_message(sender_id, "Enter your Login ID : ")
+                                    flag_received = {
+                                        'section' : 'main',
+                                        'sub-section' : 'username'
+                                    }
+                                    update_flag(flag_received)
 
-                            elif message_text and flag_received.get('sub-section') == "username":
+                                elif message_text == "sign up":
+                                    send_message(sender_id, "For quick registration just send your AADHAAR QR")
+                                    flag_received = {
+                                        'section' : 'main',
+                                        'sub-section' : 'aadhar'
+                                    }
+                                    update_flag(flag_received)
+                                    tp.signup_from_web_button(sender_id)
+
+                            elif flag_received.get('sub-section') == "username":
                                 send_message(sender_id, "Enter your Password : ")
                                 flag_received = {
                                     'section' : 'main',
                                     'sub-section' : 'password'
                                 }
                                 update_flag(flag_received)
+                            elif flag_received.get('sub-section') == "aadhar":
+                                tp.create_yes_no_button(sender_id)
+                                flag_received = {
+                                    'section' : 'main',
+                                    'sub-section' : 'aadhar-entered'
+                                }
+                                update_flag(flag_received)
 
-                            elif message_text == "sign up":
-                                send_message(sender_id, "For quick registration just send your AADHAAR QR")
-                                tp.signup_from_web_button(sender_id)
 
                             # elif flag_received.get('sub-section') == "password":
                             #     send_message(sender_id, "You have successfully Logged In")
@@ -145,11 +160,10 @@ def webhook():
                             print message_text
                             send_message(sender_id, "Heyy!!")
 
-                    if messaging_event.get("message").get("attachment"):
+                    if messaging_event.get("message").get("attachments"):
                         sender_id = messaging_event["sender"]["id"]
-                        log_to_messenger(sender_id, "attachment received!")
                         if messaging_event["message"]["attachments"][0]["type"] == "image":
-                            log("Image received from user.")
+                            log_to_messenger(sender_id, "Image received from user.")
                             image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
                             log(image_url)
                             update_image_url(image_url)
@@ -157,12 +171,14 @@ def webhook():
                             user_data = qr_utils.decode_aadhar_from_qr(filename, True)
                             send_message(sender_id, user_data)
                         if messaging_event["message"]["attachments"][0]["type"] == "location":
+                            log_to_messenger(sender_id, "Location received from user.")
                             lat = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"])
                             lng = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["long"])
                             d = {"lat": lat, "lng": lng}
                             log_to_messenger(sender_id, str(d), "coordinates")
                             update_location(d)
                             hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
+                            log_to_messenger(sender_id, str(hdfc_life_ceneter_results))
                             for i in range(0, len(data)):
                                 j = hdfc_life_ceneter_results[i]
                                 subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
@@ -180,7 +196,7 @@ def webhook():
                         tp.quickreplies_getstarted(sender_id)
                         flag_to_update = {
                             'section':'main',
-                            'sub-section': ''
+                            'sub-section': 'nothing-selected'
                         }
                         update_flag(flag_to_update)
 
@@ -210,16 +226,20 @@ def webhook():
                         tp.create_claim_type_list(sender_id)
 
                     elif payload_received == "natural_death":  # Claim -> Natural Death
-                        send_message(sender_id, "Please upload the following documents (PDF/Scan) : "
+                        send_message(sender_id, "Please keep the following documents ready : "
                                                 "\n1. Death Certificate"
                                                 "\n2. Original Policy Documents"
-                                                "\n3. Medical Records")
-
+                                                "\n3. Medical Records"
+                                                "\n4. Claim Form - http://www.hdfclife.com/iwov-resources/pdf/customerservice/HDSL%20Statement%20of%20Death%20Claim.pdf")
+                        send_message(sender_id, "Your Request has been registered and our executive shall get in touch with you within the next 24 hrs. ")
+                        send_message(sender_id, "Thank You")
                     elif payload_received == "critical_illness":  # Claim -> Critical Illness
-                        send_message(sender_id, "Please upload the following documents (PDF/Scan) : "
+                        send_message(sender_id, "Please keep the following documents ready : "
                                                 "\n1. Medical Records"
-                                                "\n2. Original Policy Documents")
-
+                                                "\n2. Original Policy Documents"
+                                                "\n3. Claim Form - https://www.hdfclife.com/iwov-resources/pdf/customerservice/health/criticare/CriticalIllness.pdf")
+                        send_message(sender_id, "Your request has been registered and our executive shall get in touch with you within the next 24 hrs.")
+                        send_message(sender_id, "Thank You")
                     elif payload_received == "account":  # My Account
                         tp.create_account_list(sender_id)
 

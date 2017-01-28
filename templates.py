@@ -147,8 +147,6 @@ def create_alternate_support_list(sender_id):
 })
 
     post_request(alternate_support_list)
-
-
 # ------------------------ Claim Options List ---------------- #
 
 def create_claim_type_list(sender_id):
@@ -320,7 +318,7 @@ def create_pay_remind_list(sender_id):
                 "buttons": [
                     {
                         "type": "web_url",
-                        "url": "https://cp.hdfclife.com/payment/customerservices/onlinepremium_confirm.aspx",
+                        "url": "http://www.hdfclife.com/customer-service/pay-premium",
                         "title": "Pay"
                     },
                     {
