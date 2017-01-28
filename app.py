@@ -231,14 +231,14 @@ def webhook():
                                                 "\n2. Original Policy Documents"
                                                 "\n3. Medical Records"
                                                 "\n4. Claim Form - http://www.hdfclife.com/iwov-resources/pdf/customerservice/HDSL%20Statement%20of%20Death%20Claim.pdf")
-                        send_message(sender_id, "Your Request has been registered and our executive shall get in touch with you within the next 24 hrs. ")
+                        send_message(sender_id, "Your Request has been registered and our executive shall get in touch with you within the next 48 hrs. ")
                         send_message(sender_id, "Thank You")
                     elif payload_received == "critical_illness":  # Claim -> Critical Illness
                         send_message(sender_id, "Please keep the following documents ready : "
                                                 "\n1. Medical Records"
                                                 "\n2. Original Policy Documents"
                                                 "\n3. Claim Form - https://www.hdfclife.com/iwov-resources/pdf/customerservice/health/criticare/CriticalIllness.pdf")
-                        send_message(sender_id, "Your request has been registered and our executive shall get in touch with you within the next 24 hrs.")
+                        send_message(sender_id, "Your request has been registered and our executive shall get in touch with you within the next 48 hrs.")
                         send_message(sender_id, "Thank You")
                     elif payload_received == "account":  # My Account
                         tp.create_account_list(sender_id)
