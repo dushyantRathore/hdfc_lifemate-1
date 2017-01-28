@@ -53,12 +53,12 @@ def webhook():
         for entry in data["entry"]:
             for messaging_event in entry["messaging"]:
 
-                sender_id = messaging_event["sender"]["id"]
-
                 # Someone sent us a message
                 if messaging_event.get("message"):
-                    
+                    sender_id = messaging_event["sender"]["id"]
+
                     message_text = messaging_event["message"].get("text")
+
                     flag_received = get_flag()
                     log_to_messenger(sender_id, flag_received, 'flag')
                     if not flag_received:
@@ -152,6 +152,8 @@ def webhook():
 
                 # optin confirmation
                 if messaging_event.get("attachments"):
+                    sender_id = messaging_event["sender"]["id"]
+
                     log_to_messenger(sender_id, "attachment received!")
                     if messaging_event["message"]["attachments"][0]["type"] == "image":
                         log("Image received from user.")
@@ -169,6 +171,8 @@ def webhook():
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
                     log_to_messenger(sender_id, payload_received, "payload")
+
+                    sender_id = messaging_event["sender"]["id"]
 
                     if payload_received == "getstarted":  # Get Started
                         reset_flag()
