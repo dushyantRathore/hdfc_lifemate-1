@@ -174,6 +174,10 @@ def webhook():
                                 tp.create_apply_gender_list(sender_id)
                             elif message_text == "male" or message_text == "female":
                                 tp.create_apply_marital_status_list(sender_id)
+                            elif message_text == "married" or message_text == "unmarried" or message_text == "divorced":
+                                tp.create_occupation_list(sender_id)
+                            elif message_text == "self employed" or message_text == "government job" or message_text == "private job" :
+                                tp.create_income_list(sender_id)
 
                         else:
                             print message_text

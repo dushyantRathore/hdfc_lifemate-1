@@ -317,7 +317,71 @@ def create_apply_marital_status_list(sender_id): # Apply -> Gender List
     post_request(status_list)
 
 
+# --------------- Best for me - Occupation ----------- #
+def create_occupation_list(sender_id):
+    occupation_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "text": "What is your occupation ? ",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Self Employed",
+                    "payload": "self employed"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Government Job",
+                    "payload": "government job"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Private Job",
+                    "payload": "private job"
+                }
+            ]
+        }
+    })
+
+    post_request(occupation_list)
+
+
+# ----------------------- Best for Me - Income List ----------- #
+
+
+def create_income_list(sender_id):
+    income_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "text": "What is your annual income ? ",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Below 5 Lakhs",
+                    "payload": "below"
+                },
+                {
+                    "content_type": "text",
+                    "title": "5 to 10 Lakhs",
+                    "payload": "between"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Above 10 Lakhs",
+                    "payload": "above"
+                }
+            ]
+        }
+    })
+
+    post_request(income_list)
+
 # ------------------------ Claim Options List ---------------- #
+
 
 def create_claim_type_list(sender_id):
     claim_list = json.dumps({
