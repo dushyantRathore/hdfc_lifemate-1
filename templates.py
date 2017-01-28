@@ -137,7 +137,7 @@ def create_view_insurance_list(sender_id):
 # ------------------------ Best for me - Age option ----------- #
 
 
-def create_apply_age_list(sender_id):
+def create_apply_age_list(sender_id): # Apply -> Age List
     age_list = json.dumps({
         "recipient":{
     "id": sender_id
@@ -165,6 +165,31 @@ def create_apply_age_list(sender_id):
     })
 
     post_request(age_list)
+
+
+def create_apply_gender_list(sender_id): # Apply -> Gender List
+    gender_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "text": "What is your gender ? ",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Male",
+                    "payload": "gender_male"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Female",
+                    "payload": "gender_female"
+                }
+            ]
+        }
+    })
+
+    post_request(gender_list)
 
 
 # ------------------------ Claim Options List ---------------- #

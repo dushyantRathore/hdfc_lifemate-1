@@ -149,6 +149,9 @@ def webhook():
                                 send_message(sender_id, "Here's your reference number"+ref_no)
                                 create_image_message(sender_id, qr_image_path, True)
 
+                        elif message_text == "< 35 years" or message_text == "35-45 years" or message_text == "> 45 years":
+                            tp.create_gender_list(sender_id)
+
                         else:
                             print message_text
                             send_message(sender_id, "Heyy!!")
