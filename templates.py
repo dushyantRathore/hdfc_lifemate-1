@@ -257,6 +257,8 @@ def create_apply_age_list(sender_id): # Apply -> Age List
     post_request(age_list)
 
 
+# ------------------- Best for me - Gender Option ------------- #
+
 def create_apply_gender_list(sender_id): # Apply -> Gender List
     gender_list = json.dumps({
         "recipient": {
@@ -280,6 +282,39 @@ def create_apply_gender_list(sender_id): # Apply -> Gender List
     })
 
     post_request(gender_list)
+
+
+# --------------------- Best for me - Marital Status --------------- #
+
+
+def create_apply_marital_status_list(sender_id): # Apply -> Gender List
+    status_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "text": "What is your marital status ? ",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Married",
+                    "payload": "married"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Unmarried",
+                    "payload": "unmarried"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Divorced",
+                    "payload": "divorced"
+                }
+            ]
+        }
+    })
+
+    post_request(status_list)
 
 
 # ------------------------ Claim Options List ---------------- #

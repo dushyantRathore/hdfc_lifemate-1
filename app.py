@@ -172,7 +172,8 @@ def webhook():
                         elif flag_received.get('section') == 'bestforme' and message_text:
                             if message_text == "less than 35" or message_text == "35-45" or message_text == "greater than 45":
                                 tp.create_apply_gender_list(sender_id)
-
+                            elif message_text == "male" or message_text == "female":
+                                tp.create_apply_marital_status_list(sender_id)
 
                         else:
                             print message_text
