@@ -17,6 +17,7 @@ import templates as tp
 import qr_utils
 import templates
 import faq
+import location
 
 app = Flask(__name__)
 
