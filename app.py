@@ -53,127 +53,126 @@ def webhook():
         for entry in data["entry"]:
             for messaging_event in entry["messaging"]:
 
-                sender_id = messaging_event["sender"]["id"]
-
                 # Someone sent us a message
                 if messaging_event.get("message"):
-                    
-                    message_text = messaging_event["message"].get("text")
-                    flag_received = get_flag()
-                    log_to_messenger(sender_id, flag_received, 'flag')
-                    if not flag_received:
-                        flag_received = {}
 
-                    if message_text:
-                        message_text = message_text.lower()
+                    if messaging_event.get("message").get("text"):
+                        sender_id = messaging_event["sender"]["id"]
+                        message_text =  messaging_event.get("message").get("text")
 
-                    #code for main section (handles login and rest)
-                    if flag_received.get('section') == 'main' and message_text: 
-                        if message_text == "login":
-                            send_message(sender_id, "Enter your Login ID : ")
-                            flag_received = {
-                                'section' : 'main',
-                                'sub-section' : 'username'
-                            }
-                            update_flag(flag_received)
-                        elif message_text == "sign up":
-                            send_message(sender_id, "For quick registartion just send your Aadhar QR")
-                            tp.signup_from_web_button(sender_id)
-                        elif message_text and flag_received.get('sub-section') == "username":
-                            send_message(sender_id, "Enter your Password : ")
-                            flag_received = {
-                                'section' : 'main',
-                                'sub-section' : 'password'
-                            }
-                            update_flag(flag_received)
+                        flag_received = get_flag()
+                        if not flag_received:
+                            flag_received = {}
 
-                        elif flag_received.get('sub-section') == "password":
-                            send_message(sender_id, "You have successfully Logged In")
-                            flag_received = flag = {
-                            'section' : 'main', 
-                            'sub-section' : ''
-                            }
-                    # Code to handle insurance product queries of the users
-                    elif flag_received.get('section') == 'insurance_help' and message_text:
-                            insurance_name = flag_received.get('sub-section')
-                            log_to_messenger(sender_id, insurance_name, "Query for")
-                            if "eligibi" in message_text:
-                                elgibility_path = os.path.join(insurance_name, 'eligibility.png')
-                                create_image_message(sender_id, elgibility_path, True)
-                            elif "premium" in message_text:
-                                premium_path = os.path.join(insurance_name, 'premium.png')
-                                create_image_message(sender_id, premium_path, True)
-                            elif "option" in message_text:
-                                options_path = os.path.join(insurance_name, 'options.png')
-                                create_image_message(sender_id, options_path, True)
-                            else:
-                                send_message(sender_id, "For more details, please refer : \n" + constants.brochure_links.get(insurance_name))
-                    
-                    elif flag_received.get('section') == 'support':
-                        if message_text == "yes":
-                            send_message(sender_id, "I'm glad :)")
-                        if message_text == "no":
-                            tp.create_alternate_support_list(sender_id)
-                            update_flag(
-                                {
-                                    "section": "support",
-                                    "sub-section": "alternate-support"
-                                })
-                        if flag_received.get('sub-section') == "auto-answer":
-                            ans = faq.closest_matching_answer(message_text)
-                            send_message(sender_id, ans)
-                            tp.quickreplies_satisfied(sender_id)
-                        elif flag_received.get('sub-section') == "complaint-received":
-                            ref_no = "1254984"
-                            data = json.dumps({
-                                "description" :message_text,
-                                "complaint_number": ref_no
-                                })
-                            qr_image_path = qr_utils.create_qr(data)
-                            send_message(sender_id, "Here's your reference number"+ref_no)
-                            create_image_message(sender_id, qr_image_path, True)
+                        if message_text:
+                            message_text = message_text.lower()
 
-                    else:
-                        print message_text
-                        send_message(sender_id, "Heyy!!")
+                        # Code for main section (handles login and rest)
+                        if flag_received.get('section') == 'main' and message_text:
+                            if message_text == "login":
+                                send_message(sender_id, "Enter your Login ID : ")
+                                flag_received = {
+                                    'section' : 'main',
+                                    'sub-section' : 'username'
+                                }
+                                update_flag(flag_received)
 
-                # delivery confirmation
-                if messaging_event.get("delivery"):
-                    pass
+                            elif message_text and flag_received.get('sub-section') == "username":
+                                send_message(sender_id, "Enter your Password : ")
+                                flag_received = {
+                                    'section' : 'main',
+                                    'sub-section' : 'password'
+                                }
+                                update_flag(flag_received)
 
-                # optin confirmation
-                if messaging_event.get("optin"):
-                    pass
+                            elif message_text == "sign up":
+                                send_message(sender_id, "For quick registration just send your AADHAAR QR")
+                                tp.signup_from_web_button(sender_id)
 
-                # optin confirmation
-                if messaging_event.get("attachments"):
-                    log_to_messenger(sender_id, "attachment received!")
-                    if messaging_event["message"]["attachments"][0]["type"] == "image":
-                        log("Image received from user.")
-                        image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
-                        log(image_url)
-                        update_image_url(image_url)
-                        filename = save_image_from_url()
-                        user_data = qr_utils.decode_aadhar_from_qr(filename, True)
-                        send_message(sender_id, user_data)
-                    if messaging_event["message"]["attachments"][0]["type"] == "location":
-                        lat = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"])
-                        lng = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["long"])
-                        d = {"lat": lat, "lng": lng}
-                        log_to_messenger(sender_id, str(d), "coordinates")
-                        update_location(d)
-                        hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
-                        for i in range(0, len(data)):
-                            j = hdfc_life_ceneter_results[i]
-                            subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
-                            tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
+                            # elif flag_received.get('sub-section') == "password":
+                            #     send_message(sender_id, "You have successfully Logged In")
+                            #     flag_received = {
+                            #         'section' : 'main',
+                            #         'sub-section' : ''
+                            #     }
 
+                        # Code to handle insurance product queries of the users
+                        elif flag_received.get('section') == 'insurance_help' and message_text:
+                                insurance_name = flag_received.get('sub-section')
+                                log_to_messenger(sender_id, insurance_name, "Query for")
+                                if "eligibi" in message_text:
+                                    elgibility_path = os.path.join(insurance_name, 'eligibility.png')
+                                    create_image_message(sender_id, elgibility_path, True)
+                                elif "premium" in message_text:
+                                    premium_path = os.path.join(insurance_name, 'premium.png')
+                                    create_image_message(sender_id, premium_path, True)
+                                elif "option" in message_text:
+                                    options_path = os.path.join(insurance_name, 'options.png')
+                                    create_image_message(sender_id, options_path, True)
+                                else:
+                                    send_message(sender_id, "For more details, please refer : \n" + constants.brochure_links.get(insurance_name))
 
+                        elif flag_received.get('section') == 'support':
+                            if message_text == "yes":
+                                send_message(sender_id, "I'm glad :)")
+                                update_flag(
+                                    {
+                                        "section": "support",
+                                        "sub-section":"satisfied"
+                                    })
+                            elif message_text == "no":
+                                tp.create_alternate_support_list(sender_id)
+                                update_flag(
+                                    {
+                                        "section": "support",
+                                        "sub-section": "alternate-support"
+                                    })
+                            elif flag_received.get('sub-section') == "auto-answer":
+                                ans = faq.closest_matching_answer(message_text)
+                                send_message(sender_id, ans)
+                                tp.quickreplies_satisfied(sender_id)
+                            elif flag_received.get('sub-section') == "complaint-provided":
+                                ref_no = "1254984"
+                                data = json.dumps({
+                                    "description" :message_text,
+                                    "complaint_number": ref_no
+                                    })
+                                qr_image_path = qr_utils.create_qr(data)
+                                send_message(sender_id, "Here's your reference number"+ref_no)
+                                create_image_message(sender_id, qr_image_path, True)
+
+                        else:
+                            print message_text
+                            send_message(sender_id, "Heyy!!")
+
+                    if messaging_event.get("message").get("attachment"):
+                        sender_id = messaging_event["sender"]["id"]
+                        log_to_messenger(sender_id, "attachment received!")
+                        if messaging_event["message"]["attachments"][0]["type"] == "image":
+                            log("Image received from user.")
+                            image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
+                            log(image_url)
+                            update_image_url(image_url)
+                            filename = save_image_from_url()
+                            user_data = qr_utils.decode_aadhar_from_qr(filename, True)
+                            send_message(sender_id, user_data)
+                        if messaging_event["message"]["attachments"][0]["type"] == "location":
+                            lat = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"])
+                            lng = float(messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["long"])
+                            d = {"lat": lat, "lng": lng}
+                            log_to_messenger(sender_id, str(d), "coordinates")
+                            update_location(d)
+                            hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
+                            for i in range(0, len(data)):
+                                j = hdfc_life_ceneter_results[i]
+                                subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
+                                tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
 
 
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
+                    sender_id = messaging_event["sender"]["id"]
                     log_to_messenger(sender_id, payload_received, "payload")
 
                     if payload_received == "getstarted":  # Get Started
@@ -244,7 +243,12 @@ def webhook():
                         send_message(sender_id, "Your account history is as follows : ")
                         image_url = "history/User1.png"
                         create_image_message(sender_id, image_url, True)
-
+                    elif payload_received == "support":  # Support
+                        send_message(sender_id, "Please tell me how can I assist you?")
+                        update_flag({
+                            "section":"support",
+                            "sub-section":"auto-answer"
+                            })
                     elif payload_received == "complaint_description":
                         send_message(sender_id, "We're sorry for you :(")
                         send_message(sender_id, "Can you please describe your issue")
@@ -252,12 +256,7 @@ def webhook():
                             "section":"support",
                             "sub-section":"complaint-provided"
                             })
-                    elif payload_received == "support":  # Support
-                        send_message(sender_id, "Please tell me how can I assist you?")
-                        update_flag({
-                            "section":"support",
-                            "sub-section":"auto-answer"
-                            })
+
 
 
 
@@ -319,6 +318,7 @@ def get_image_url():
 
 def send_message(recipient_id, message_text, flag={}):
 
+    # recipient_id = "1311151252277587"
     log("sending message to {recipient}: {text}".format(
         recipient=recipient_id, text=message_text))
 
