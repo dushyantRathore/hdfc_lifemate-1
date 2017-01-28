@@ -116,7 +116,7 @@ def create_view_insurance_list(sender_id):
 
 
 def create_alternate_support_list(sender_id):
-    insurance_list_template = json.dumps({
+    alternate_support_list= json.dumps({
         "recipient": {"id": sender_id
                       }, "message": {
             "attachment": {
@@ -170,7 +170,7 @@ def create_alternate_support_list(sender_id):
 
     })
 
-    post_request(insurance_list_template)
+    post_request(alternate_support_list)
 
 # ------------------------ Claim Options List ---------------- #
 
