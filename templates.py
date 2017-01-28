@@ -147,8 +147,6 @@ def create_alternate_support_list(sender_id):
 })
 
     post_request(alternate_support_list)
-
-
 # ------------------------ Claim Options List ---------------- #
 
 def create_claim_type_list(sender_id):

@@ -69,15 +69,25 @@ def webhook():
 
                         # Code for main section (handles login and rest)
                         if flag_received.get('section') == 'main' and message_text:
-                            if message_text == "login":
-                                send_message(sender_id, "Enter your Login ID : ")
-                                flag_received = {
-                                    'section' : 'main',
-                                    'sub-section' : 'username'
-                                }
-                                update_flag(flag_received)
+                            if flag_received.get('sub-section') == "nothing-selected":
+                                if message_text == "login":
+                                    send_message(sender_id, "Enter your Login ID : ")
+                                    flag_received = {
+                                        'section' : 'main',
+                                        'sub-section' : 'username'
+                                    }
+                                    update_flag(flag_received)
 
-                            elif message_text and flag_received.get('sub-section') == "username":
+                                elif message_text == "sign up":
+                                    send_message(sender_id, "For quick registration just send your AADHAAR QR")
+                                    flag_received = {
+                                        'section' : 'main',
+                                        'sub-section' : 'aadhar'
+                                    }
+                                    update_flag(flag_received)
+                                    tp.signup_from_web_button(sender_id)
+
+                            elif flag_received.get('sub-section') == "username":
                                 send_message(sender_id, "Enter your Password : ")
                                 flag_received = {
                                     'section' : 'main',
@@ -85,9 +95,14 @@ def webhook():
                                 }
                                 update_flag(flag_received)
 
-                            elif message_text == "sign up":
-                                send_message(sender_id, "For quick registration just send your AADHAAR QR")
-                                tp.signup_from_web_button(sender_id)
+                            elif flag_received.get('sub-section') == "aadhar":
+                                tp.create_yes_no_button(sender_id)
+                                flag_received = {
+                                    'section' : 'main',
+                                    'sub-section' : 'aadhar-entered'
+                                }
+                                update_flag(flag_received)
+
 
                             # elif flag_received.get('sub-section') == "password":
                             #     send_message(sender_id, "You have successfully Logged In")
@@ -180,7 +195,7 @@ def webhook():
                         tp.quickreplies_getstarted(sender_id)
                         flag_to_update = {
                             'section':'main',
-                            'sub-section': ''
+                            'sub-section': 'nothing-selected'
                         }
                         update_flag(flag_to_update)
 
