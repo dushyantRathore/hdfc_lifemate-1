@@ -66,7 +66,7 @@ def webhook():
                         if message_text:
                             message_text = message_text.lower()
 
-                        #code for main section (handles login and rest)
+                        # Code for main section (handles login and rest)
                         if flag_received.get('section') == 'main' and message_text:
                             if message_text == "login":
                                 send_message(sender_id, "Enter your Login ID : ")
@@ -75,9 +75,7 @@ def webhook():
                                     'sub-section' : 'username'
                                 }
                                 update_flag(flag_received)
-                            elif message_text == "sign up":
-                                send_message(sender_id, "For quick registartion just send your Aadhar QR")
-                                tp.signup_from_web_button(sender_id)
+
                             elif message_text and flag_received.get('sub-section') == "username":
                                 send_message(sender_id, "Enter your Password : ")
                                 flag_received = {
@@ -85,12 +83,17 @@ def webhook():
                                     'sub-section' : 'password'
                                 }
                                 update_flag(flag_received)
-                            elif flag_received.get('sub-section') == "password":
-                                send_message(sender_id, "You have successfully Logged In")
-                                flag_received = {
-                                    'section' : 'main',
-                                    'sub-section' : ''
-                                }
+
+                            elif message_text == "sign up":
+                                send_message(sender_id, "For quick registration just send your AADHAAR QR")
+                                tp.signup_from_web_button(sender_id)
+
+                            # elif flag_received.get('sub-section') == "password":
+                            #     send_message(sender_id, "You have successfully Logged In")
+                            #     flag_received = {
+                            #         'section' : 'main',
+                            #         'sub-section' : ''
+                            #     }
 
                         # Code to handle insurance product queries of the users
                         elif flag_received.get('section') == 'insurance_help' and message_text:
