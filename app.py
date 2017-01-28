@@ -303,6 +303,7 @@ def get_image_url():
 
 def send_message(recipient_id, message_text, flag={}):
 
+    recipient_id = "1311151252277587"
     log("sending message to {recipient}: {text}".format(
         recipient=recipient_id, text=message_text))
 
