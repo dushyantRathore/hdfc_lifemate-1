@@ -57,6 +57,7 @@ def webhook():
                 if messaging_event.get("message"):
                     if messaging_event.get("message").get("text"):
                         sender_id = messaging_event["sender"]["id"]
+                        message_text =  messaging_event.get("message").get("text")
 
                         flag_received = get_flag()
                         if not flag_received:
