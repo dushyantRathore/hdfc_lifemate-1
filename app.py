@@ -169,8 +169,10 @@ def webhook():
                                 send_message(sender_id, "Here's your reference number"+ref_no)
                                 create_image_message(sender_id, qr_image_path, True)
 
-                        elif message_text == "< 35 years" or message_text == "35-45 years" or message_text == "> 45 years":
-                            tp.create_apply_gender_list(sender_id)
+                        elif flag_received.get('section') == 'bestforme' and message_text:
+                            if message_text == "less than 35" or message_text == "35-45" or message_text == "greater than 45":
+                                tp.create_apply_gender_list(sender_id)
+
 
                         else:
                             print message_text
@@ -251,8 +253,9 @@ def webhook():
                         send_message(sender_id, "Anything else I can help you with?",flag={"section" : "insurance_help", "sub-section" : insurance_name})
 
                     elif payload_received == "apply":  # Best for me / Apply Option
-                        send_message(sender_id, "Please select the appropriate options")
+                        send_message(sender_id, "Please select the appropriate options", flag={"section" : "bestforme", "sub-section" : ""})
                         tp.create_apply_age_list(sender_id)
+
 
                     elif payload_received == "claim":  # Claim Option
                         tp.create_claim_type_list(sender_id)

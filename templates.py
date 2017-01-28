@@ -236,22 +236,23 @@ def create_apply_age_list(sender_id): # Apply -> Age List
     "quick_replies":[
       {
         "content_type":"text",
-        "title":"< 35 years",
+        "title":"less than 35",
         "payload":"age_<35"
       },
       {
         "content_type":"text",
-        "title":"35-45 years",
+        "title":"35-45",
         "payload":"age_35-35"
       },
         {
             "content_type": "text",
-            "title": "> 45 years",
+            "title": "greater than 45",
             "payload": "age_>45"
         }
     ]
   }
-    })
+
+})
 
     post_request(age_list)
 
