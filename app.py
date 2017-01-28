@@ -219,8 +219,8 @@ def webhook():
                         log_to_messenger(sender_id, features_path, "image_path")
 
                     elif payload_received == "apply":  # Best for me / Apply Option
-                        send_message(sender_id, "Woohoo")
-                        tp.create_alternate_support_list(sender_id)
+                        send_message(sender_id, "Please choose the appropriate Options : ")
+                        tp.create_apply_age_list(sender_id)
 
                     elif payload_received == "claim":  # Claim Option
                         tp.create_claim_type_list(sender_id)
@@ -232,12 +232,14 @@ def webhook():
                                                 "\n3. Medical Records"
                                                 "\n4. Claim Form - http://www.hdfclife.com/iwov-resources/pdf/customerservice/HDSL%20Statement%20of%20Death%20Claim.pdf")
                         send_message(sender_id, "Thank You, our executive shall get in touch with you within the next 48 hours.")
+
                     elif payload_received == "critical_illness":  # Claim -> Critical Illness
                         send_message(sender_id, "Your request has been registered, please keep the following documents ready : "
                                                 "\n1. Medical Records"
                                                 "\n2. Original Policy Documents"
                                                 "\n3. Claim Form - https://www.hdfclife.com/iwov-resources/pdf/customerservice/health/criticare/CriticalIllness.pdf")
                         send_message(sender_id, "Thank You, our executive shall get in touch with you within the next 48 hours.")
+
                     elif payload_received == "account":  # My Account
                         tp.create_account_list(sender_id)
 
