@@ -408,6 +408,8 @@ def save_image_from_url(image_url='', image_name='', is_qr=False):
     else:
         # filename = sys.argv[1]
         log("Shouldn't be here.")
+    if is_qr:
+        return 
     return filename
 
 
