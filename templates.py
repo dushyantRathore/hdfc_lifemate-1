@@ -362,25 +362,6 @@ def signup_from_web_button(sender_id):
     post_request(signup_button)
 
 
-def post_request(body):
-    params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers,
-                      data=body)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
-
-
-def log(message):  # simple wrapper for logging to stdout on heroku
-    print (str(message))
-    sys.stdout.flush()
-
 
 # ---------------------- Generic Template ----------------------------------- #
 
@@ -415,6 +396,7 @@ def create_generic_template(sender_id, name, subtitle, image_url, phone, navigat
              }
          }
          })
+    post_request(response_msg)
 
 
 # ------------------------- Yes/No Button ------------------------ #
@@ -446,3 +428,24 @@ def create_yes_no_button(sender_id):
                 }
             }
         })
+    post_request(button_message)
+
+def post_request(body):
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers,
+                      data=body)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
+
+def log(message):  # simple wrapper for logging to stdout on heroku
+    print (str(message))
+    sys.stdout.flush()
+
