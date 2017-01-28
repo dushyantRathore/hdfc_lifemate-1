@@ -135,6 +135,8 @@ def create_view_insurance_list(sender_id):
 
 
 # ----------------------- View Insurance Life -> Benefits ------------------ #
+
+
 def view_insurance_life_benefits(sender_id):
     benefits_list = json.dumps({
         "recipient": {
@@ -162,7 +164,7 @@ def view_insurance_life_benefits(sender_id):
                                         "\nExtra Life Option"
                         },
                         {
-                            "title": "Load of other benefits",
+                            "title": "Load of other Benefits",
                             "subtitle": "Death Benefit"
                                         "\nMaturity Benefit and Life Stage Protection",
                         }

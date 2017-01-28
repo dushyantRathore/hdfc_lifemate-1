@@ -5,7 +5,6 @@ import sys
 import md5
 import magic
 import random
-
 import requests
 
 from flask import Flask, request, send_file, send_from_directory
@@ -22,6 +21,7 @@ import location
 app = Flask(__name__)
 
 INSURANCE_IMAGES_DIRECTORY = "images"
+QR_CODE_DIRECTORY = os.path.join('images', 'qr')
 
 
 @app.route('/', methods=['GET'])
@@ -166,7 +166,8 @@ def webhook():
                             image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
                             log(image_url)
                             update_image_url(image_url)
-                            filename = save_image_from_url()
+                            filename = save_image_from_url(is_qr=True)
+                            log_to_messenger(sender_id, filename, "Image path:")
                             user_data = qr_utils.decode_aadhar_from_qr(filename, True)
                             send_message(sender_id, user_data)
                         if messaging_event["message"]["attachments"][0]["type"] == "location":
@@ -388,7 +389,7 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 
-def save_image_from_url(image_url='', image_name=''):
+def save_image_from_url(image_url='', image_name='', is_qr=False):
     if not image_url:
         image_url = get_image_url()
     session = requests.session()
@@ -396,6 +397,8 @@ def save_image_from_url(image_url='', image_name=''):
     filename = image_name
     if not image_name:
         filename = 'image_%s.jpeg' % md5.new(image_url).hexdigest()
+    if is_qr:
+        filename = os.path.join(QR_CODE_DIRECTORY, filename)
     with open(filename, 'wb') as handle:
         for block in response.iter_content(1048576):
             if not block:
@@ -410,6 +413,8 @@ def save_image_from_url(image_url='', image_name=''):
     else:
         # filename = sys.argv[1]
         log("Shouldn't be here.")
+    if is_qr:
+        return 
     return filename
 
 
@@ -435,6 +440,21 @@ def create_image_message(sender_id, image_url, from_system=False):
         }
 })
     tp.post_request(image_message)
+
+def getTranslation(job_id):
+    apikey="625b9864-f2be-42e9-89ce-4aab222a3860"
+    url = "https://api.havenondemand.com/1/job/result/"
+
+    url = url+job_id+"?apikey="+apikey
+
+    r=requests.post(url)
+
+    d = r.json()
+
+    # Response Text
+    caller_resp = d['actions'][0]['result']['document'][0]['content']
+
+    return caller_resp
 
 
 # ------------------- Run App ---------------------- #
