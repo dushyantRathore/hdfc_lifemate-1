@@ -60,7 +60,6 @@ def webhook():
                     message_text = messaging_event["message"].get("text")
 
                     flag_received = get_flag()
-                    log_to_messenger(sender_id, flag_received, 'flag')
                     if not flag_received:
                         flag_received = {}
 
@@ -68,7 +67,8 @@ def webhook():
                         message_text = message_text.lower()
 
                     #code for main section (handles login and rest)
-                    if flag_received.get('section') == 'main' and message_text: 
+                    if flag_received.get('section') == 'main' and message_text:
+                        log_to_messenger(sender_id, flag_received, 'flag')
                         if message_text == "login":
                             send_message(sender_id, "Enter your Login ID : ")
                             flag_received = {
