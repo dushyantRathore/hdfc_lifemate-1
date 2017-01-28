@@ -126,10 +126,6 @@ def create_alternate_support_list(sender_id):
                     "top_element_style": "compact",
                     "elements": [
                         {
-                            "title": "Contact Us",
-                            "subtitle": "Please choose an option",
-                        },
-                        {
                             "title": "Call",
                             "subtitle": "24x7 Customer Support",
                             "buttons": [
@@ -141,11 +137,11 @@ def create_alternate_support_list(sender_id):
                             ]
                         },
                         {
-                            "title": "Register Complaint",
+                            "title": "Complaint",
                             "subtitle": "Our smart customer support system will resolve your complaints asap",
                             "buttons": [
                                 {
-                                    "title": "Complaint Description",
+                                    "title": "Register Complaint",
                                     "type": "postback",
                                     "payload": "complaint_description"
                                 }
