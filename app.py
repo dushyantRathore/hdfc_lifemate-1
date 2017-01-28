@@ -24,7 +24,8 @@ INSURANCE_IMAGES_DIRECTORY = "images"
 QR_CODE_DIRECTORY = os.path.join('images', 'qr')
 WEB_URL = 'http://hdfc-support.mybluemix.net/submitFeedback'
 USER_MAP = {
-    "satwik": "1150846678361142"
+    "satwik": "1150846678361142",
+    "dushyant": "1311151252277587"
 }
 INVERSE_USER_MAP = {v: k for k, v in USER_MAP.iteritems()}
 
@@ -85,6 +86,16 @@ def webhook():
 
                         # Code for main section (handles login and rest)
                         if flag_received.get('section') == 'main' and message_text:
+                            if message_text == "hi" or message_text == "hello" or message_text == "hey" or message_text == "start" or message_text == "begin" or message_text == "yo" :
+
+                                token = os.environ["PAGE_ACCESS_TOKEN"]
+                                user_details_url = "https://graph.facebook.com/v2.6/%s" % sender_id
+                                user_details_params = {'fields': 'first_name,last_name,profile_pic',
+                                                       'access_token': token}
+
+                                user_details = requests.get(user_details_url, user_details_params).json()
+                                send_message(sender_id, "Hello " + user_details['first_name'] + " " + user_details['last_name'] + ". Welcome to HDFC Lifemate!")
+
                             if flag_received.get('sub-section') == "nothing-selected":
                                 if message_text == "login":
                                     send_message(sender_id, "Enter your Login ID : ")
@@ -162,7 +173,8 @@ def webhook():
                                     "description" :message_text,
                                     "complaint_number": ref_no
                                     })
-                                send_feedback_to_web(INVERSE_USER_MAP[sender_id], message_text)
+
+                                send_feedback_to_web(, message_text)
                                 qr_image_path = qr_utils.create_qr(data)
                                 send_message(sender_id, "Here's your reference number"+ref_no)
                                 create_image_message(sender_id, qr_image_path, True)
@@ -437,13 +449,14 @@ def save_image_from_url(image_url='', image_name='', is_qr=False):
     return filename
 
 def send_feedback_to_web(username="satwik", text="I love the ux"):
+    URL = 'http://hdfc-support.mybluemix.net/submitFeedback'
     data = {}
-    data['user'] = user
+    data['user'] = username
     data['feedback'] = text
     json_data = json.dumps(data)
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
     req_post = requests.post(URL, data=json_data, headers=headers)
-    return (req_post.json())
+    return req_post.content
     
 
 
