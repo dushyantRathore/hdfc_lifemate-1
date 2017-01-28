@@ -23,7 +23,9 @@ app = Flask(__name__)
 INSURANCE_IMAGES_DIRECTORY = "images"
 QR_CODE_DIRECTORY = os.path.join('images', 'qr')
 WEB_URL = 'http://hdfc-support.mybluemix.net/submitFeedback'
-
+USER_MAP = {
+    "satwik": "1150846678361142"
+}
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -44,9 +46,14 @@ def return_image(filename):
 
 @app.route('/send_message', methods=['POST'])
 def send_message_via_api():
-    
-
-
+    data = request.get_json()
+    username = data.get("username")
+    text = data.get("alert")
+    try:
+        send_message(USER_MAP[username], text)
+        return "Success"
+    except Exception, err:
+        return "Failed! Error: "+ str(err)
 
 @app.route('/', methods=['POST'])
 def webhook():
@@ -415,14 +422,14 @@ def save_image_from_url(image_url='', image_name='', is_qr=False):
         log("Shouldn't be here.")
     return filename
 
-def send_feedback_to_web(username="satwik", text="I didn't like the ux"):
+def send_feedback_to_web(username="satwik", text="I love the ux"):
     data = {}
     data['user'] = user
     data['feedback'] = text
     json_data = json.dumps(data)
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
     req_post = requests.post(URL, data=json_data, headers=headers)
-    print(req_post.json())
+    return (req_post.json())
     
 
 
