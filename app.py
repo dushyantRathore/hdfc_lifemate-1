@@ -156,7 +156,7 @@ def webhook():
                     if messaging_event.get("message").get("attachments"):
                         sender_id = messaging_event["sender"]["id"]
                         if messaging_event["message"]["attachments"][0]["type"] == "image":
-                            log_to_messenger(sender_idfi, "Image received from user.")
+                            log_to_messenger(sender_id, "Image received from user.")
                             image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
                             log(image_url)
                             update_image_url(image_url)
