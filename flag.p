@@ -1,10 +1,10 @@
 (dp0
 S'section'
 p1
-S'support'
+S'main'
 p2
 sS'sub-section'
 p3
-S'alternate-support'
+S'password'
 p4
 s.

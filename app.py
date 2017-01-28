@@ -79,7 +79,7 @@ def webhook():
                         elif message_text == "sign up":
                             send_message(sender_id, "For quick registartion just send your Aadhar QR")
                             tp.signup_from_web_button(sender_id)
-                        elif flag_received.get('sub-section') == "username":
+                        elif message_text and flag_received.get('sub-section') == "username":
                             send_message(sender_id, "Enter your Password : ")
                             flag_received = {
                                 'section' : 'main',

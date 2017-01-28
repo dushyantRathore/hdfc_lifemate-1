@@ -13,4 +13,6 @@ pyqrcode
 beautifulsoup4
 python-magic
 Pillow
+numpy
+scikit-learn
 pandas
