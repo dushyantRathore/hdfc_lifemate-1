@@ -67,7 +67,7 @@ def webhook():
                         if message_text:
                             message_text = message_text.lower()
 
-                        log_to_messenger(sender_id, lag_received)
+                        log_to_messenger(sender_id, flag_received)
 
                         # Code for main section (handles login and rest)
                         if flag_received.get('section') == 'main' and message_text:
