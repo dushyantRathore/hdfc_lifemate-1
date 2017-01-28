@@ -236,25 +236,28 @@ def create_apply_age_list(sender_id): # Apply -> Age List
     "quick_replies":[
       {
         "content_type":"text",
-        "title":"< 35 years",
+        "title":"less than 35",
         "payload":"age_<35"
       },
       {
         "content_type":"text",
-        "title":"35-45 years",
+        "title":"35-45",
         "payload":"age_35-35"
       },
         {
             "content_type": "text",
-            "title": "> 45 years",
+            "title": "greater than 45",
             "payload": "age_>45"
         }
     ]
   }
-    })
+
+})
 
     post_request(age_list)
 
+
+# ------------------- Best for me - Gender Option ------------- #
 
 def create_apply_gender_list(sender_id): # Apply -> Gender List
     gender_list = json.dumps({
@@ -281,7 +284,104 @@ def create_apply_gender_list(sender_id): # Apply -> Gender List
     post_request(gender_list)
 
 
+# --------------------- Best for me - Marital Status --------------- #
+
+
+def create_apply_marital_status_list(sender_id): # Apply -> Gender List
+    status_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "text": "What is your marital status ? ",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Married",
+                    "payload": "married"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Unmarried",
+                    "payload": "unmarried"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Divorced",
+                    "payload": "divorced"
+                }
+            ]
+        }
+    })
+
+    post_request(status_list)
+
+
+# --------------- Best for me - Occupation ----------- #
+def create_occupation_list(sender_id):
+    occupation_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "text": "What is your occupation ? ",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Self Employed",
+                    "payload": "self employed"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Government Job",
+                    "payload": "government job"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Private Job",
+                    "payload": "private job"
+                }
+            ]
+        }
+    })
+
+    post_request(occupation_list)
+
+
+# ----------------------- Best for Me - Income List ----------- #
+
+
+def create_income_list(sender_id):
+    income_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "text": "What is your annual income ? ",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Below 5 Lakhs",
+                    "payload": "below"
+                },
+                {
+                    "content_type": "text",
+                    "title": "5 to 10 Lakhs",
+                    "payload": "between"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Above 10 Lakhs",
+                    "payload": "above"
+                }
+            ]
+        }
+    })
+
+    post_request(income_list)
+
 # ------------------------ Claim Options List ---------------- #
+
 
 def create_claim_type_list(sender_id):
     claim_list = json.dumps({
