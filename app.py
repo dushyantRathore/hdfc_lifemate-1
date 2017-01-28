@@ -181,8 +181,9 @@ def webhook():
                                 log_to_messenger(sender_id, str(d), "coordinates")
                                 update_location(d)
                                 hdfc_life_ceneter_results = location.find_contacts(get_location(), "insurance")
+                                data = json.loads(hdfc_life_ceneter_results)
                                 for i in range(0, len(data)):
-                                    j = json.loads(hdfc_life_ceneter_results[i])
+                                    j = data[i]
                                     subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
                                     tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
 
