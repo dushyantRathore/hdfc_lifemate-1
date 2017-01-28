@@ -4,7 +4,7 @@ import os
 from bs4 import BeautifulSoup
 import json
 
-QR_CODE_DIRECTORY = os.path.join('images', 'qr')
+
 
 def decode_qr(image_path):
 	qr = qrtools.QR()
@@ -12,9 +12,8 @@ def decode_qr(image_path):
 		return qr.data
 	return "Failed to decode"
 
-def create_qr(data, image_name, scale=6):
+def create_qr(data, image_path, scale=6):
 	qr = pyqrcode.create(str(data))
-	image_path = os.path.join(QR_CODE_DIRECTORY, image_name)
 	qr.png(image_path, scale=scale)
 	return image_path
 

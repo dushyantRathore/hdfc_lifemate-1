@@ -5,7 +5,6 @@ import sys
 import md5
 import magic
 import random
-
 import requests
 
 from flask import Flask, request, send_file, send_from_directory
@@ -22,6 +21,7 @@ import location
 app = Flask(__name__)
 
 INSURANCE_IMAGES_DIRECTORY = "images"
+QR_CODE_DIRECTORY = os.path.join('images', 'qr')
 
 
 @app.route('/', methods=['GET'])
@@ -163,7 +163,7 @@ def webhook():
                             image_url = messaging_event["message"]["attachments"][0]["payload"]["url"]
                             log(image_url)
                             update_image_url(image_url)
-                            filename = save_image_from_url()
+                            filename = save_image_from_url(is_qr=True)
                             log_to_messenger(sender_id, filename, "Image path:")
                             user_data = qr_utils.decode_aadhar_from_qr(filename, True)
                             send_message(sender_id, user_data)
@@ -384,12 +384,14 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 
-def save_image_from_url(image_url='', image_name=''):
+def save_image_from_url(image_url='', image_name='', is_qr=False):
     if not image_url:
         image_url = get_image_url()
     session = requests.session()
     response = session.get(image_url)
     filename = image_name
+    if is_qr:
+        filename = QR_CODE_DIRECTORY + filename
     if not image_name:
         filename = 'image_%s.jpeg' % md5.new(image_url).hexdigest()
     with open(filename, 'wb') as handle:
