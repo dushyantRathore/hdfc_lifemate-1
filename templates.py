@@ -150,7 +150,7 @@ def view_insurance_life_benefits(sender_id):
                         {
                             "title": "Click2Protect Plan",
                             "image_url": "http://www.mydailylifetips.com/wp-content/uploads/2014/08/hdfc-click-2-protect-plus-online-term-plan-review.png",
-                            "subtitle": "Explore Benefits",
+                            "subtitle": "Benefits offered",
                         },
                         {
                             "title": "Coverage",
@@ -162,6 +162,7 @@ def view_insurance_life_benefits(sender_id):
                             "subtitle": "Choice of cover options"
                                         "\nLife Option"
                                         "\nExtra Life Option"
+                                        "\n Income Option"
                         },
                         {
                             "title": "Load of other Benefits",
