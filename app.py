@@ -4,10 +4,9 @@ import pickle
 import sys
 import md5
 import magic
+import time
 import random
 import requests
-import thread
-import time
 
 from flask import Flask, request, send_file, send_from_directory
 
@@ -58,9 +57,9 @@ def post_to_dashboard(jobID):
     time.sleep(15)
     translation = getTranslation(jobID)
     if translation:
-        send_feedback_to_web(text=str(translation))
+        return send_feedback_to_web(text=str(translation))
     else:
-        print("couldn't decode")
+        return "couldn't decode"
 
 
 @app.route('/send_message', methods=['POST'])
@@ -474,7 +473,7 @@ def send_feedback_to_web(username="satwik", text="I love the ux"):
 def create_image_message(sender_id, image_url, from_system=False):
 
     if from_system:
-        image_url = "https://sheltered-falls-53215.herokuapp.com/images/" + image_url
+        image_url = "https://localhost:5000/images/" + image_url
 
     image_message = json.dumps({
         "recipient": {

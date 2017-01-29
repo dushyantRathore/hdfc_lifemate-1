@@ -61,6 +61,7 @@ def decode_aadhar_from_qr(image_path, is_json=False):
 	if os.path.exists(image_path):
 		out_xml = decode_qr(image_path)
 		out = parse_aadhar(out_xml, is_json)
+		print("XML output: "+out)
 		return out
 	elif os.access(os.path.dirname(filePath), os.W_OK):
 		print("No write permissions!")
