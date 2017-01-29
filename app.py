@@ -28,6 +28,9 @@ USER_MAP = {
 }
 INVERSE_USER_MAP = {v: k for k, v in USER_MAP.iteritems()}
 
+password = ["abc", "xyz", "uvw"]
+
+
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back
@@ -87,38 +90,15 @@ def webhook():
 
                         # Code for main section (handles login and rest)
                         if flag_received.get('section') == 'main' and message_text:
-                            if flag_received.get('sub-section') == "nothing-selected":
-                                if message_text == "login":
-                                    send_message(sender_id, "Enter your Login ID : ")
-                                    flag_received = {
-                                        'section' : 'main',
-                                        'sub-section' : 'username'
-                                    }
-                                    update_flag(flag_received)
-
-                                elif message_text == "sign up":
-                                    send_message(sender_id, "For quick registration just send your AADHAAR QR")
-                                    flag_received = {
-                                        'section' : 'main',
-                                        'sub-section' : 'aadhar'
-                                    }
-                                    update_flag(flag_received)
-                                    tp.signup_from_web_button(sender_id)
-
-                            elif flag_received.get('sub-section') == "username":
-                                send_message(sender_id, "Enter your Password : ")
-                                flag_received = {
-                                    'section' : 'main',
-                                    'sub-section' : 'password'
-                                }
-                                update_flag(flag_received)
-                            elif flag_received.get('sub-section') == "aadhar":
-                                tp.create_yes_no_button(sender_id)
-                                flag_received = {
-                                    'section' : 'main',
-                                    'sub-section' : 'aadhar-entered'
-                                }
-                                update_flag(flag_received)
+                            if message_text == "login":
+                                send_message(sender_id, "Enter your Login ID")
+                            elif message_text >= '0' and message_text <= 100000:
+                                send_message(sender_id, "Enter your password")
+                            elif message_text in password:
+                                send_message(sender_id, "You hav successfully logged in")
+                                send_message(sender_id, "Use the persistent menu to explore the features of the bot")
+                            elif message_text == "sign up":
+                                send_message(sender_id, "Please share your AADHAAR Card QR")
 
                         # Code to handle insurance product queries of the users
                         elif flag_received.get('section') == 'insurance_help' and message_text:
@@ -210,6 +190,7 @@ def webhook():
                                     subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
                                     tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
 
+
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
                     payload_received = messaging_event["postback"].get("payload")
@@ -221,15 +202,9 @@ def webhook():
                         tp.quickreplies_getstarted(sender_id)
                         flag_to_update = {
                             'section':'main',
-                            'sub-section': 'nothing-selected'
+                            'sub-section': ''
                         }
                         update_flag(flag_to_update)
-
-                    elif payload_received == "member_yes":  # A Registered Member
-                        send_message(sender_id, "Kindly enter your userID : ")
-
-                    elif payload_received == "member_no":  # Not a Registered Member
-                        send_message(sender_id, "Please send your AADHAAR card Image/Scan")
 
                     elif payload_received == "view_insurance":  # View Insurance Offered
                         sender_id = messaging_event["sender"]["id"]
