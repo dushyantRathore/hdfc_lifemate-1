@@ -6,8 +6,6 @@ import md5
 import magic
 import random
 import requests
-import thread
-import time
 
 from flask import Flask, request, send_file, send_from_directory
 
@@ -58,9 +56,9 @@ def post_to_dashboard(jobID):
     time.sleep(15)
     translation = getTranslation(jobID)
     if translation:
-        send_feedback_to_web(text=str(translation))
+        return send_feedback_to_web(text=str(translation))
     else:
-        print("couldn't decode")
+        return "couldn't decode"
 
 
 @app.route('/send_message', methods=['POST'])
