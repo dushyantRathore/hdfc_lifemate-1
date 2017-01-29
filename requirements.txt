@@ -22,3 +22,4 @@ googlemaps==2.4.4
 tweepy==3.5.0
 twilio==5.4.0
 dateparser==0.4.0
+pypng

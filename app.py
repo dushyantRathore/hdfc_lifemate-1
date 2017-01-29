@@ -174,9 +174,9 @@ def webhook():
                                     pass
                                 else:
                                     send_feedback_to_web("dushyant", message_text)
-                                qr_image_path = qr_utils.create_qr(data)
-                                send_message(sender_id, "Here's your reference number"+ref_no)
+                                qr_image_path = qr_utils.create_qr(data, 'images/qr/xyz.png')
                                 create_image_message(sender_id, qr_image_path, True)
+                                tp.send_qr_code_template(sender_id, 'https://sheltered-falls-53215.herokuapp.com/images/qr/xyz.png')
 
                         elif flag_received.get('section') == 'bestforme' and message_text:
                             if message_text == "less than 35" or message_text == "35-45" or message_text == "greater than 45":
@@ -442,11 +442,12 @@ def send_message(recipient_id, message_text, flag={}):
 
 
 def log_to_messenger(sender_id, data):
-    send_message(sender_id, str(data))
-
+    #send_message(sender_id, str(data))
+    pass
 
 def log_to_messenger(sender_id, data, context=""):
-    send_message(sender_id, context + ": " + str(data))
+    #send_message(sender_id, context + ": " + str(data))
+    pass
 
 
 def log(message):  # simple wrapper for logging to stdout on heroku
