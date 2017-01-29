@@ -471,7 +471,7 @@ def send_feedback_to_web(username="satwik", text="I love the ux"):
 def create_image_message(sender_id, image_url, from_system=False):
 
     if from_system:
-        image_url = "https://sheltered-falls-53215.herokuapp.com/images/" + image_url
+        image_url = "https://localhost:5000/images/" + image_url
 
     image_message = json.dumps({
         "recipient": {
