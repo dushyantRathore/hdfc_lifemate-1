@@ -107,7 +107,7 @@ def webhook():
 
                             if message_text == "login":
                                 send_message(sender_id, "Enter your Login ID")
-                            elif len(message_text) == 6 and type(message_text) is int:
+                            elif len(message_text) == 6:
                                 send_message(sender_id, "Enter your password")
                             elif message_text in password:
                                 send_message(sender_id, "You have successfully logged in")
@@ -215,7 +215,6 @@ def webhook():
                                     j = data[i]
                                     subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
                                     tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
-
 
                 # user clicked/tapped "postback" button in earlier message
                 if messaging_event.get("postback"):
