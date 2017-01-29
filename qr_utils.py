@@ -67,3 +67,4 @@ def decode_aadhar_from_qr(image_path, is_json=False):
 		print("No write permissions!")
 	else:
 		print("Path not valid")
+

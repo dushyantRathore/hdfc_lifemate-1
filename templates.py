@@ -283,6 +283,35 @@ def create_apply_gender_list(sender_id): # Apply -> Gender List
 
     post_request(gender_list)
 
+def send_qr_code_template(sender_id, image_url):
+    temp = json.dumps(
+        {
+  "recipient":{
+    "id":sender_id
+  },
+  "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements":[
+          {
+            "title":"Breaking News: Record Thunderstorms",
+            "subtitle":"The local area is due for record thunderstorms over the weekend.",
+            "image_url":image_url,
+            "buttons":[
+              {
+                "type":"element_share"
+              }              
+            ]
+          }
+        ]
+      }
+      }}}
+      )
+    post_request(temp)
+
+
 
 # --------------------- Best for me - Marital Status --------------- #
 
