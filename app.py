@@ -122,7 +122,9 @@ def webhook():
                                                        'access_token': token}
 
                                 user_details = requests.get(user_details_url, user_details_params).json()
-                                send_message(sender_id, "Hello " + user_details['first_name'] + " " + user_details['last_name'] + ". Welcome to HDFC Lifemate!")
+                                send_message(sender_id, "Hello " + user_details['first_name'] + " " + user_details['last_name'] + ":). Welcome to HDFC Lifemate!")
+                            elif flag_received.get('sub-section')=="remind":
+                                send_message(sender_id, "Allright! I'll remind you :)")
 
                         # Code to handle insurance product queries of the users
                         elif flag_received.get('section') == 'insurance_help' and message_text:
@@ -279,7 +281,7 @@ def webhook():
                         tp.create_claim_type_list(sender_id)
 
                     elif payload_received == "aadhar_yes":  # View Insurance Offered
-                        send_message(sender_id, "Thankyou! Your details have been recorded")
+                        send_message(sender_id, "Thankyou! Your details have been recorded :)")
 
                     elif payload_received == "aadhar_no":  # View Insurance Offered
                         send_message(sender_id, "Please scan the QR code again")
@@ -309,7 +311,13 @@ def webhook():
                         tp.create_pay_remind_list(sender_id)
 
                     elif payload_received == "remind":  # My Account -> View Policies -> Remind Option
-                        send_message(sender_id, "Your Reminder has been set")
+                        update_flag({
+                            "section":"main",
+                            "sub-section":"remind"
+                            })
+                        send_message(sender_id, "When do you want me to remind me?")
+                        time.sleep(6)
+                        send_message(sender_id, "Allright I'll remind you :)")
 
                     elif payload_received == "view_account_funds":  # My Account -> View Funds
                         send_message(sender_id, "Your account funds are as follows : ")
