@@ -208,7 +208,12 @@ def webhook():
                             filename = save_image_from_url(is_qr=True)
                             log_to_messenger(sender_id, filename, "Image path:")
                             user_data = qr_utils.decode_aadhar_from_qr(filename, True)
-                            send_message(sender_id, user_data)
+                            string_to_send = "Test string"
+                            if user_data:
+                                user_data = json.loads(user_data)
+                                string_to_send = '\n'.join([str(k)+ "\t:" + str(v) for k,v in user_data.iteritems()])
+                            send_message(sender_id, string_to_send)
+                            tp.create_yes_no_button(sender_id, "Confirm Details?", "aadhar")
                         if messaging_event["message"]["attachments"][0]["type"] == "location":
                             flag_received = get_flag()
                             if flag_received == {'section':'support','sub-section':'location-asked'}:
@@ -222,7 +227,7 @@ def webhook():
                                 data = json.loads(hdfc_life_ceneter_results)
                                 for i in range(0, len(data)):
                                     j = data[i]
-                                    subtitle =  "Distance : " + j["distance"] + "\t Time : " + j["time"] + " /n" + j["address"]
+                                    subtitle =  "Distance : " + j["distance"] + "\t Time : \t" + j["time"] + " /n" + j["address"]
                                     tp.create_generic_template(sender_id, j["name"], subtitle, j["image_url"], j["phone"], j["url"] )
 
                 # user clicked/tapped "postback" button in earlier message
@@ -272,6 +277,12 @@ def webhook():
 
                     elif payload_received == "claim":  # Claim Option
                         tp.create_claim_type_list(sender_id)
+
+                    elif payload_received == "aadhar_yes":  # View Insurance Offered
+                        send_message(sender_id, "Thankyou! Your details have been recorded")
+
+                    elif payload_received == "aadhar_no":  # View Insurance Offered
+                        send_message(sender_id, "Please scan the QR code again")
 
                     elif payload_received == "natural_death":  # Claim -> Natural Death
                         send_message(sender_id, "Your request has been registered, please keep the following documents ready : "

@@ -710,7 +710,7 @@ def create_generic_template(sender_id, name, subtitle, image_url, phone, navigat
 
 # ------------------------- Yes/No Button ------------------------ #
 
-def create_yes_no_button(sender_id):
+def create_yes_no_button(sender_id, question, context):
     button_message = json.dumps({
         "recipient":{
                         "id": sender_id
@@ -720,17 +720,17 @@ def create_yes_no_button(sender_id):
                 "type": "template",
                 "payload": {
                     "template_type": "button",
-                    "text": "HDFC Life currently offers following products, please select one of them",
+                    "text": question,
                     "buttons": [
                               {
                                 "type":"postback",
                                 "title":"Yes",
-                                "payload":"_yes"
+                                "payload":context+"_yes"
                               },
                               {
                                 "type":"postback",
                                 "title":"No",
-                                "payload":"_no"
+                                "payload":context+"_no"
                               }
                         ]
                     }
