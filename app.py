@@ -170,7 +170,9 @@ def webhook():
                                     "complaint_number": ref_no
                                     })
                                 if sender_id=="407924042881094":
-                                    send_feedback_to_web(USER_MAP["dushyant"], message_text)
+                                    pass
+                                else:
+                                    send_feedback_to_web("dushyant", message_text)
                                 qr_image_path = qr_utils.create_qr(data)
                                 send_message(sender_id, "Here's your reference number"+ref_no)
                                 create_image_message(sender_id, qr_image_path, True)
