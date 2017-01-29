@@ -148,11 +148,6 @@ def webhook():
                         elif flag_received.get('section') == 'support':
                             if message_text == "yes":
                                 send_message(sender_id, "I'm glad :)")
-                                update_flag(
-                                    {
-                                        "section": "support",
-                                        "sub-section":"satisfied"
-                                    })
                             elif message_text == "no":
                                 tp.create_alternate_support_list(sender_id)
                                 update_flag(
