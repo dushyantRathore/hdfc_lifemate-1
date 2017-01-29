@@ -186,6 +186,14 @@ def webhook():
                                 tp.create_occupation_list(sender_id)
                             elif message_text == "self employed" or message_text == "government job" or message_text == "private job" :
                                 tp.create_income_list(sender_id)
+                            if message_text == "below 5 Lakhs" or message_text == "5 to 10 lakhs" or message_text == "greater than 10 lakhs":
+                                send_message(sender_id, "HDFC Life recommends the following top 3 plans : "
+                                                        "\n1. Click2Protect Plus Plan"
+                                                        "\nApply - https://onlineinsurance.hdfclife.com/buy-online-term-insurance-plans/click-2-protect-plus/Life?source=W-TEBT_PP_CPP_BodyBO1_2015&agentcode=00399206"
+                                                        "\n2. HDFC Life ProGrowth Plus"
+                                                        "\nApply - https://onlineinsurance.hdfclife.com/buy-online-investment-plans/progrowth-plus-ulip-plan?source=W_TEBT_PP_UPS_BodyBO_UPS&agentcode=00399206"
+                                                        "\n3.HDFC Super Income Plan"
+                                                        "\nApply - https://onlineinsurance.hdfclife.com/buy-online-savings-plans/super-income-plan?source=W_TEBT_PP_MBU_BodyBO1_2015&agentcode=00399206")
 
                         else:
                             print message_text
@@ -262,7 +270,6 @@ def webhook():
                     elif payload_received == "apply":  # Best for me / Apply Option
                         send_message(sender_id, "Please select the appropriate options", flag={"section" : "bestforme", "sub-section" : ""})
                         tp.create_apply_age_list(sender_id)
-
 
                     elif payload_received == "claim":  # Claim Option
                         tp.create_claim_type_list(sender_id)
