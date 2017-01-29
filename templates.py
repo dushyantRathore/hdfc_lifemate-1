@@ -570,6 +570,8 @@ def create_pay_remind_list(sender_id):
 
 
 # ----------------- Alternate Support List ---------------------- #
+
+
 def create_alternate_support_list(sender_id):
     alternate_support_list = json.dumps({
         "recipient": {
@@ -586,8 +588,8 @@ def create_alternate_support_list(sender_id):
             "buttons":[
               {
                 "type":"phone_number",
-                "title":"Call Helpline",
-                "payload":"+15105551234"
+                "title":"Tele/Video Chat",
+                "payload":"chat"
               },
               {
                 "type":"postback",
@@ -608,6 +610,41 @@ def create_alternate_support_list(sender_id):
 })
 
     post_request(alternate_support_list)
+
+# ------------------------ Chat options list ----------------- #
+
+
+def create_chat_list(sender_id):
+    chat_list = json.dumps({
+        "recipient": {
+            "id": sender_id
+        },
+        "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": "Choose your option",
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "IVR Helpline",
+                            "payload": "+15105551234"
+                        },
+                        {
+                            "type": "web_url",
+                            "url": "https://www.skype.com/en/",
+                            "title": "Video Call",
+                            "webview_height_ratio": "compact"
+                        }
+                    ]
+                }
+            }
+        }
+    })
+
+    post_request(chat_list)
+
 
 def signup_from_web_button(sender_id):
     signup_button = json.dumps({

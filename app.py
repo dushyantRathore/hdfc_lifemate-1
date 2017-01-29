@@ -317,6 +317,8 @@ def webhook():
                             "section":"support",
                             "sub-section":"auto-answer"
                             })
+                    elif payload_received == "chat":
+                        tp.create_chat_list(sender_id)
                     elif payload_received == "hdfc_location":  # Support
                         tp.ask_for_location(sender_id)
                         update_flag({
