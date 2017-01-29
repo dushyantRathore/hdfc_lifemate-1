@@ -316,8 +316,7 @@ def webhook():
                             "sub-section":"location-asked"
                             })
                     elif payload_received == "complaint_description":
-                        send_message(sender_id, "We're sorry for you :(")
-                        send_message(sender_id, "Can you please describe your issue")
+                        send_message(sender_id, "We're sorry for you :(, can you please describe your issue ")
                         update_flag({
                             "section":"support",
                             "sub-section":"complaint-provided"
