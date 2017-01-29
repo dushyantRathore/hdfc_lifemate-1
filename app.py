@@ -6,6 +6,8 @@ import md5
 import magic
 import random
 import requests
+import thread
+import time
 
 from flask import Flask, request, send_file, send_from_directory
 
