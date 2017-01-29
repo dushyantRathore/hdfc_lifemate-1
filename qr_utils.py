@@ -36,24 +36,25 @@ def parse_aadhar(xml_data, json_reqd=False):
 				"care_of": soup["co"]
 			}
 		if json_reqd:
-			return json.dumps
+			return json.dumps(obj)
 		return obj
 	except Exception, err:
 		print(str(Exception), str(err))
-		return json.dumps({
-				"name": "Satwik kansal",
-				"address": {
-					"local":"Gurgaon",
-					"town": "Gurgaon",
-					"district":"Gurgaon",
-					"state": "Haryana",
-					"pin_code": "122101"
-				},
-				"gender": "M",
-				"yob": "1997",
-				"uid": "516948145321",
-				"care_of": "S/O Mukul Kansal"
-			})
+		# return json.dumps({
+		# 		"name": "Satwik kansal",
+		# 		"address": {
+		# 			"local":"Gurgaon",
+		# 			"town": "Gurgaon",
+		# 			"district":"Gurgaon",
+		# 			"state": "Haryana",
+		# 			"pin_code": "122101"
+		# 		},
+		# 		"gender": "M",
+		# 		"yob": "1997",
+		# 		"uid": "516948145321",
+		# 		"care_of": "S/O Mukul Kansal"
+		# 	})
+		return("OK")
 		
 
 def decode_aadhar_from_qr(image_path, is_json=False):
