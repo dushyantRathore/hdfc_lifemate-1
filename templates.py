@@ -633,7 +633,7 @@ def create_chat_list(sender_id):
                         },
                         {
                             "type": "web_url",
-                            "url": "skype:nikhil.tiwari.97?call",
+                            "url": "https://www.skype.com/en/",
                             "title": "Video Call",
                             "webview_height_ratio": "compact"
                         }
