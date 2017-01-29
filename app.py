@@ -282,6 +282,7 @@ def webhook():
 
                     elif payload_received == "aadhar_yes":  # View Insurance Offered
                         send_message(sender_id, "Thankyou! Your details have been recorded :)")
+                        send_message(sender_id, "Now you can login with your Aadhar Number!")
 
                     elif payload_received == "aadhar_no":  # View Insurance Offered
                         send_message(sender_id, "Please scan the QR code again")
@@ -492,7 +493,7 @@ def send_feedback_to_web(username="satwik", text="I love the ux"):
 def create_image_message(sender_id, image_url, from_system=False):
 
     if from_system:
-        image_url = "https://localhost:5000/images/" + image_url
+        image_url = "https://sheltered-falls-53215.herokuapp.com/images/" + image_url
 
     image_message = json.dumps({
         "recipient": {
