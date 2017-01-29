@@ -587,7 +587,7 @@ def create_alternate_support_list(sender_id):
             "subtitle":"Select your option",
             "buttons":[
               {
-                "type":"phone_number",
+                "type":"postback",
                 "title":"Tele/Video Chat",
                 "payload":"chat"
               },
@@ -627,7 +627,7 @@ def create_chat_list(sender_id):
                     "text": "Choose your option",
                     "buttons": [
                         {
-                            "type": "postback",
+                            "type": "phone_number",
                             "title": "IVR Helpline",
                             "payload": "+15105551234"
                         },
