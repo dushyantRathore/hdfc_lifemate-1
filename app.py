@@ -447,7 +447,8 @@ def log_to_messenger(sender_id, data):
     pass
 
 def log_to_messenger(sender_id, data, context=""):
-    send_message(sender_id, context + ": " + str(data))
+    #send_message(sender_id, context + ": " + str(data))
+    pass
 
 
 def log(message):  # simple wrapper for logging to stdout on heroku
