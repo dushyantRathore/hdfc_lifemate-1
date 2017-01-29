@@ -443,8 +443,8 @@ def send_message(recipient_id, message_text, flag={}):
 
 
 def log_to_messenger(sender_id, data):
-    send_message(sender_id, str(data))
-
+    #send_message(sender_id, str(data))
+    pass
 
 def log_to_messenger(sender_id, data, context=""):
     send_message(sender_id, context + ": " + str(data))
