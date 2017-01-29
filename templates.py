@@ -296,8 +296,8 @@ def send_qr_code_template(sender_id, image_url):
         "template_type":"generic",
         "elements":[
           {
-            "title":"Breaking News: Record Thunderstorms",
-            "subtitle":"The local area is due for record thunderstorms over the weekend.",
+            "title":"Your Reference Number is",
+            "subtitle":"1254984",
             "image_url":image_url,
             "buttons":[
               {

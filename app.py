@@ -175,7 +175,6 @@ def webhook():
                                 else:
                                     send_feedback_to_web("dushyant", message_text)
                                 qr_image_path = qr_utils.create_qr(data, 'images/qr/xyz.png')
-                                send_message(sender_id, "Here's your reference number"+ref_no)
                                 create_image_message(sender_id, qr_image_path, True)
                                 tp.send_qr_code_template(sender_id, 'https://sheltered-falls-53215.herokuapp.com/images/qr/xyz.png')
 
