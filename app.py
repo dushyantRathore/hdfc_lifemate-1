@@ -48,6 +48,15 @@ def return_image(filename):
     print(filename)
     return send_from_directory(INSURANCE_IMAGES_DIRECTORY, filename, mimetype='image/png')
 
+@app.route('/update-dashboard/<jobID>', methods=['GET'])
+def post_to_dashboard(jobID):
+    print(jobID)
+    time.sleep(15)
+    translation = getTranslation(jobID)
+    if translation:
+        send_feedback_to_web(text=str(translation))
+    else:
+        print("couldn't decode")
 
 @app.route('/send_message', methods=['POST'])
 def send_message_via_api():
@@ -177,8 +186,8 @@ def webhook():
                                     "description" :message_text,
                                     "complaint_number": ref_no
                                     })
-
-                                send_feedback_to_web(INVERSE_USER_MAP[sender_id], message_text)
+                                if sender_id=="407924042881094":
+                                    send_feedback_to_web(USER_MAP["dushyant"], message_text)
                                 qr_image_path = qr_utils.create_qr(data)
                                 send_message(sender_id, "Here's your reference number"+ref_no)
                                 create_image_message(sender_id, qr_image_path, True)
