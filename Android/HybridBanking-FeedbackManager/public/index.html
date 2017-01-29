@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.png">
 
-    <title>PMJDY Admin</title>
+    <title>HDFC Life Saver Admin</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -51,28 +51,28 @@
             <h4 class="modal-title">Make the customer happy!</h4>
           </div>
           <div class="modal-body">
-            <textarea class="form-control" rows="5" id="comment">Sorry for your troubles! We awarded you 10,000 free points.</textarea>
+            <textarea class="form-control" rows="5" id="comment">Sorry for your troubles!</textarea>
             <div>
                 
                 <div class = "inlineDivs">
                     <table>
                         <tr>
-                            <td>Customer Since</td>
-                            <td>June 2003</td>
+                            <td>Problem Severity</td>
+                            <td id = "reward">0</td>
                         </tr>
                         <tr>
                             <td>Customer Rank</td>
-                            <td>743</td>
+                            <td id = "rank">743</td>
                         </tr>
                         <tr>
                             <td>Net Worth</td>
-                            <td>$32,028</td>
+                            <td id = "worth">$32,028</td>
                         </tr>
                     </table>
                 </div>
                 
                 <div class = "inlineDivs">
-                    <b>Recommended Award: <span style = "color:blue">10,000</span></b>
+                    <b>Priority: <span style = "color:blue" id= "finalPriority">10,000</span></b>
                 </div>
                 
             </div>
@@ -118,6 +118,7 @@
                 <th class="nameth" data-field="user" data-sortable="false">USER</th>
                 <th class="statusth" data-field="status" data-sortable="false">STATUS</th>
                 <th class="worthth" data-field="worth" data-sortable="false">WORTH</th>
+                <!-- <th class="feedbackth" data-field="feedback" data-formatter="feedbackFormatter" data-sortable="false">TYPE</th> -->
                 <th class="feedbackth" data-field="feedback" data-formatter="feedbackFormatter" data-sortable="false">FEEDBACK</th>
                 <th class="graphth" data-field="summary" data-formatter="graphFormatter">
                     
@@ -127,7 +128,7 @@
                     </div>
                     <div class="box2">
                         <img class="img-responsive center-block" src="images/Negative.svg" />
-                        SADNESS
+                            SADNESS
                     </div>
                     <div class="box2">
                         <img class="img-responsive center-block" src="images/Angry.svg" />
@@ -163,6 +164,7 @@
 </html>
 
 <script>
+var tempScale = new Array();
 function graphFormatter(value, row, index){
     console.log("row", row.id);
     return [
@@ -187,9 +189,10 @@ function feedbackFormatter(value, row, index){
 }
 
 function operateFormatter(value, row, index) {
-
+    console.log("This is row:"+ row.id);
+    console.log("This is worth:" + row.worth);
     return [
-    '<button type="button" class="btn btn-default btn-default" data-toggle="modal" data-target="#myModal">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Award</button>&nbsp;',
+    '<button type="button" class="btn btn-default btn-default" data-toggle="modal" data-target="#myModal" onClick="changeAward('+ row.id +', '+parseInt(row.worth)+')"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Reply</button>&nbsp;',
     '<button type="button" class="btn btn-default btn-default" onClick = "resetData()">  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'
     ].join('');
 }
@@ -199,6 +202,35 @@ function valueFormatter(value, row, index) {
     ].join('');
 }
 
+function changeAward(rowID, rowWorth){
+    document.getElementById("reward").textContent = tempScale[parseInt(rowID)];
+    console.log("This is worth2:" + rowWorth);
+    document.getElementById("rank").innerHTML = calculateRank(parseInt(rowWorth));
+    document.getElementById("worth").innerHTML = parseInt(rowWorth);
+    document.getElementById("finalPriority").innerHTML = calculateFinalPriority(tempScale[parseInt(rowID)], rowWorth);
+}
+
+function calculateFinalPriority(probSeverity, rowWorth){
+    console.log("the final problem");
+    var val = probSeverity * calculateRank(parseInt(rowWorth));
+    val = val/7;
+    return parseInt(val);
+}
+
+function calculateRank(rowWorth){
+    console.log("This is worth3:" + rowWorth);
+    if(rowWorth<=20){
+        return 1;
+    } else if(rowWorth<=40){
+        return 3;
+    }
+    else if(rowWorth<=60){
+        return 5;
+    }
+    else{
+        return 7;
+    }
+}
 
 function awardCustomer(){
     console.log ("awardCustomer!");
@@ -253,6 +285,10 @@ function drawGraphs(){
                 strokeColor = "#F7464A";
             }
             
+            var scale = (-4)*value[0] + (2)*value[1] + (4)*value[2];
+            scale = Math.ceil((scale+400)/100);
+            console.log("scale "+scale);
+            tempScale.push(scale);
             var data = {
                 labels: ["Joy", "Sadness", "Anger"],
                 datasets: [
@@ -300,11 +336,8 @@ function drawPolarGraph(graphData){
         }
 
     ];
-    
-
-
+    // console.log("I'm doing this" + graphData[0] + " "+ graphData[2]);
     var myNewChart = new Chart(ctx).PolarArea(data, {scaleShowLabelBackdrop: false, showScale: true, scaleShowLine : true});
-
 };
 
 function drawTotalsGraph(){

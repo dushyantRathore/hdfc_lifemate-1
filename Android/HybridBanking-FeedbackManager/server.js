@@ -1,7 +1,7 @@
 // read cf-env from local file VCAP_SERVICES.json or from CF Environment in Bluemix
 // http://blog.ibmjstart.net/2015/08/31/abstracting-out-environment-variables-for-bluemix/
 var vcapServices = require('./vcapservices.js');
-
+var request = require("request");
 var express = require('express'),
     cors = require('cors'),
     bodyParser = require("body-parser"),
@@ -63,7 +63,7 @@ app.post('/submitFeedback',function(req,res){
   var user_name=utils.cleanUserName(req.body.user);
   var feedback=req.body.feedback;
   console.log("User name = "+user_name+", feedback is "+feedback);
-  var data = {"id": db.length, user:user_name, "feedback":feedback, status: "Platinum", worth: "$32k"};
+  var data = {"id": db.length, user:user_name, "feedback":feedback, status: "Platinum", worth: "65k"};
   translateFeedback(data, function(dataJSON){toneAnalyze(dataJSON)});
   res.end("OK");
 });
@@ -80,6 +80,7 @@ app.get('/init', function(req, res){
 
 //Send Push notification to users by calling Mobile Backend Push Notificaiton API
 app.post('/award', function(req, res){
+    console.log("req: "+req + " "+ res);
     console.log("awarding customer");
     console.log(IBMPushNotifications_url);
     console.log(IBMPushNotifications_appSecret);
@@ -101,6 +102,22 @@ app.post('/award', function(req, res){
         }
     };
 
+    var options = { method: 'POST',
+    url: 'https://f1eff1f4.ngrok.io/send_message',
+    headers: 
+    { 'postman-token': 'ddf5a694-16a9-b6fa-e550-f533d2de0cc0',
+     'cache-control': 'no-cache',
+     'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' },
+    formData: { username: 'dushyant', alert: notificationMessage } };
+
+    request(options, function (error, response, body) {
+      console.log("Response: ", response);
+      if (error) throw new Error(error);
+        console.log("Error: "+body);
+        console.log('uncaught Exception', error.stack);
+    });
+
+  
     client.post(IBMPushNotifications_url + "/messages", args, function (data, response) {
         console.log("notification sent!");
     });

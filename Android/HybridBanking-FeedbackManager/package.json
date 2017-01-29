@@ -4,7 +4,8 @@
   "description": "Bluemix Hybrid Banking demo",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Ram Vennam",
   "license": "MIT",
@@ -15,7 +16,17 @@
     "express": "^4.13.3",
     "node-env-file": "*",
     "node-rest-client": "*",
+    "request": "^2.79.0",
     "socket.io": "^1.3.7",
     "watson-developer-cloud": "2.4.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IBM-Bluemix/HybridBanking-FeedbackManager.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/IBM-Bluemix/HybridBanking-FeedbackManager/issues"
+  },
+  "homepage": "https://github.com/IBM-Bluemix/HybridBanking-FeedbackManager#readme"
 }
